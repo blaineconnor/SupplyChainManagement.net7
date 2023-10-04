@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using SCM.Application.Behaviors;
 using SCM.Application.Exceptions;
 using SCM.Application.Models.DTOs.Products;
@@ -9,7 +10,6 @@ using SCM.Application.Validators.Products;
 using SCM.Application.Wrapper;
 using SCM.Domain.Entities;
 using SCM.Domain.UnitofWork;
-using System.Data.Entity;
 
 namespace SCM.Application.Services.Implementations
 {

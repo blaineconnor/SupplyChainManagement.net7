@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using SCM.Application.Behaviors;
 using SCM.Application.Exceptions;
-using SCM.Application.Models.DTOs.Account;
+using SCM.Application.Models.DTOs.Accounts;
 using SCM.Application.Models.RequestModels.Accounts;
 using SCM.Application.Services.Abstractions;
 using SCM.Application.Validators.Accounts;
@@ -69,11 +69,18 @@ namespace SCM.Application.Services.Implementations
             if (usernameExists)
             {
                 throw new AlreadyExistsException($"{registerVM.UserName} kullanıcı adı daha önce seçilmiştir. Lütfen farklı bir kullanıcı adı belirleyiniz.");
-            }            
-            
+            }
+
+            var emailExists = await _uWork.GetGenericRepository<User>().AnyAsync(x => x.Email.Trim().ToUpper() == registerVM.Email);
+            if (emailExists)
+            {
+                throw new AlreadyExistsException($"{registerVM.Email} eposta adresi kullanılmaktadır. Lütfen farklı bir kullanıcı adı belirleyiniz.");
+            }
+
+            var userEntity = _mapper.Map<User>(registerVM);
+
             var accountEntity = _mapper.Map<Account>(registerVM);
 
-            //Kullanıcının parolasını şifreleyerek kaydedelim.
             accountEntity.Password = CipherUtil
                 .EncryptString(_configuration["AppSettings:SecretKey"], accountEntity.Password);
 

@@ -5,7 +5,7 @@ namespace SCM.Application.Validators.RequestDetails
 {
     public class DeleteRequestDetailValidator : AbstractValidator<DeleteRequestDetailVM>
     {
-        public DeleteRequestDetailValidator() 
+        public DeleteRequestDetailValidator()
         {
             RuleFor(x => x.RequestDetailId)
                .NotEmpty().WithMessage("Talep detay numarası boş olamaz.")

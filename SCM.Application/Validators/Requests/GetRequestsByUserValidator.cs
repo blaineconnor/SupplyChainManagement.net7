@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using SCM.Application.Models.RequestModels.Requests;
-using System.Security.Cryptography.X509Certificates;
 
 namespace SCM.Application.Validators.Requests
 {

@@ -10,7 +10,7 @@ namespace SCM.Application.AutoMappings
 {
     public class VMtoDomain : Profile
     {
-        public VMtoDomain() 
+        public VMtoDomain()
         {
             #region Category
             CreateMap<CreateCategoryVM, Categories>()

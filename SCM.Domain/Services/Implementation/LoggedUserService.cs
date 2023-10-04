@@ -15,7 +15,7 @@ namespace SCM.Domain.Services.Implementation
 
         public int? UserId => GetClaim(ClaimTypes.PrimarySid) != null ? int.Parse(GetClaim(ClaimTypes.PrimarySid)) : null;
 
-        public Roles? Roles => GetClaim(ClaimTypes.Role) != null ? (Roles)Enum.Parse(typeof(Roles), GetClaim(ClaimTypes.Role)) : null;
+        public Role? Roles => GetClaim(ClaimTypes.Role) != null ? (Role)Enum.Parse(typeof(Role), GetClaim(ClaimTypes.Role)) : null;
 
         public string UserName => GetClaim(ClaimTypes.Name) != null ? GetClaim(ClaimTypes.Name) : null;
 

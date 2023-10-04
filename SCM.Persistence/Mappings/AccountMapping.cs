@@ -9,7 +9,7 @@ namespace SCM.Persistence.Mappings
         public override void ConfigureDerivedEntityMapping(EntityTypeBuilder<Account> builder)
         {
             builder.Property(x => x.UserId)
-                .HasColumnName("CUSTOMER_ID")
+                .HasColumnName("USER_ID")
                 .HasColumnOrder(2);
 
             builder.Property(x => x.UserName)

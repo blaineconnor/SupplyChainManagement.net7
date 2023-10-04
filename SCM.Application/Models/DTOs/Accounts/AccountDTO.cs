@@ -1,6 +1,6 @@
 ﻿using SCM.Domain.Entities;
 
-namespace SCM.Application.Models.DTOs.Account
+namespace SCM.Application.Models.DTOs.Accounts
 {
     public class AccountDTO
     {
@@ -11,6 +11,6 @@ namespace SCM.Application.Models.DTOs.Account
         public string Surname { get; set; }
         public DateTime? LastUserLogin { get; set; }
         public DateTime? LastUserIP { get; set; }
-        public Roles Roles { get; set; }
+        public Role Roles { get; set; }
     }
 }

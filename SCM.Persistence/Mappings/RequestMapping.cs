@@ -23,7 +23,7 @@ namespace SCM.Persistence.Mappings
 
             builder.Property(x => x.RequestedBy)
                 .HasColumnName("REQUEST_BY")
-                .HasColumnOrder(5);               
+                .HasColumnOrder(5);
 
             builder.ToTable("REQUESTS");
         }

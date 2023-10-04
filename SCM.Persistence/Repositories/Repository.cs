@@ -1,8 +1,8 @@
-﻿using SCM.Domain.Common;
+﻿using Microsoft.EntityFrameworkCore;
+using SCM.Domain.Common;
 using SCM.Domain.Repositories;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 using SCM.Persistence.Context;
+using System.Linq.Expressions;
 
 namespace SCM.Persistence.Repositories
 {

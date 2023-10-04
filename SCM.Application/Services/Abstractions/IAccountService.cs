@@ -1,4 +1,4 @@
-﻿using SCM.Application.Models.DTOs.Account;
+﻿using SCM.Application.Models.DTOs.Accounts;
 using SCM.Application.Models.RequestModels.Accounts;
 using SCM.Application.Wrapper;
 

@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SCM.Domain.Common;
 using SCM.Domain.Entities;
 using SCM.Domain.Services.Abstractions;
 using SCM.Persistence.Mappings;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace SCM.Persistence.Context
 {
@@ -11,7 +13,7 @@ namespace SCM.Persistence.Context
     {
         private readonly ILoggedUserService _loggedUserService;
 
-        public SCM_Context(DbContextOptions<SCM_Context> options, ILoggedUserService loggedUserService) : base(options)
+        public SCM_Context(DbContextOptions<Context.SCM_Context> options, ILoggedUserService loggedUserService) : base(options)
         {
             _loggedUserService = loggedUserService;
         }
@@ -26,6 +28,7 @@ namespace SCM.Persistence.Context
 
         #endregion
 
+      
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AccountMapping());

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using SCM.Application.Behaviors;
 using SCM.Application.Exceptions;
 using SCM.Application.Models.DTOs.Categories;
@@ -9,7 +10,6 @@ using SCM.Application.Validators.Categories;
 using SCM.Application.Wrapper;
 using SCM.Domain.Entities;
 using SCM.Domain.UnitofWork;
-using System.Data.Entity;
 
 namespace SCM.Application.Services.Implementations
 {
@@ -65,7 +65,7 @@ namespace SCM.Application.Services.Implementations
         [ValidationBehavior(typeof(CreateCategoryValidator))]
         public async Task<Result<int>> CreateCategory(CreateCategoryVM createCategoryVM)
         {
-           var result = new Result<int>();
+            var result = new Result<int>();
 
             var categoryExistsSameName = await _db.GetRepository<Categories>().AnyAsync(x => x.Name == createCategoryVM.CategoryName);
             if (categoryExistsSameName)

@@ -1,5 +1,4 @@
-﻿using SCM.Application.Models.DTOs.RequestDetails;
-using SCM.Application.Models.RequestModels.RequestDetails;
+﻿using SCM.Application.Models.RequestModels.RequestDetails;
 using SCM.Application.Wrapper;
 
 namespace SCM.Application.Services.Abstractions

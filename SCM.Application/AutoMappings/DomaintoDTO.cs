@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using SCM.Application.Models.DTOs.Account;
+using SCM.Application.Models.DTOs.Accounts;
 using SCM.Application.Models.DTOs.Categories;
 using SCM.Application.Models.DTOs.Products;
 using SCM.Application.Models.DTOs.RequestDetails;

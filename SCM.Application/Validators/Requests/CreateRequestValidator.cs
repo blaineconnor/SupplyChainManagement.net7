@@ -5,7 +5,7 @@ namespace SCM.Application.Validators.Requests
 {
     public class CreateRequestValidator : AbstractValidator<CreateRequestVM>
     {
-        public CreateRequestValidator() 
+        public CreateRequestValidator()
         {
             RuleFor(x => x.UserId)
                .NotEmpty().WithMessage("Kullanıcı numarası boş olamaz.")

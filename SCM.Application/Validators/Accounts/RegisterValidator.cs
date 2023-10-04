@@ -14,6 +14,9 @@ namespace SCM.Application.Validators.Accounts
             RuleFor(x => x.Surname)
                 .NotEmpty().WithMessage("Soyad bilgisi boş olamaz.")
                 .MaximumLength(30).WithMessage("Soyad bilgisi 30 karakterden büyük olamaz.");
+            RuleFor(x => x.Email)
+                .NotEmpty().WithMessage("Eposta bilgisi boş olamaz.");
+                
             RuleFor(x => x.UserName)
                .NotEmpty().WithMessage("Kullanıcı adı boş olamaz.")
                .MaximumLength(10).WithMessage("Kullanıcı adı en fazla 10 karakter olabilir.");

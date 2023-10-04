@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using SCM.Application.Behaviors;
 using SCM.Application.Exceptions;
 using SCM.Application.Models.DTOs.Requests;
@@ -9,7 +10,6 @@ using SCM.Application.Validators.Requests;
 using SCM.Application.Wrapper;
 using SCM.Domain.Entities;
 using SCM.Domain.UnitofWork;
-using System.Data.Entity;
 
 namespace SCM.Application.Services.Implementations
 {
@@ -24,6 +24,7 @@ namespace SCM.Application.Services.Implementations
             _mapper = mapper;
         }
 
+        [ValidationBehavior(typeof(CreateRequestValidator))]
         public async Task<Result<int>> CreateRequest(CreateRequestVM createRequestVM)
         {
             var result = new Result<int>();
@@ -99,6 +100,6 @@ namespace SCM.Application.Services.Implementations
 
             result.Data = requestDtos;
             return result;
-        }    
+        }
     }
 }

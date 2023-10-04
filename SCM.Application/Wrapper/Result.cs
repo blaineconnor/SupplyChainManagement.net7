@@ -1,6 +1,6 @@
 ﻿namespace SCM.Application.Wrapper
 {
-    public class Result<T> where T:new()
+    public class Result<T> where T : new()
     {
         public T Data { get; set; }
         public bool Success { get; set; } = true;

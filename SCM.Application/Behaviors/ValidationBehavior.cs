@@ -18,7 +18,7 @@ namespace SCM.Application.Behaviors
 
             if (context.Arguments.Any())
             {
-                var requestModel = context.Arguments[0]; 
+                var requestModel = context.Arguments[0];
 
                 var validateMethod = _validatorType.GetMethod("Validate", new Type[] { requestModel.GetType() });
                 var validatorInstance = Activator.CreateInstance(_validatorType); // new CreateCategoryValidator()
@@ -32,7 +32,7 @@ namespace SCM.Application.Behaviors
                 }
             }
 
-            context.Proceed(); 
+            context.Proceed();
         }
 
     }

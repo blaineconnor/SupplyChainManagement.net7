@@ -49,6 +49,17 @@ namespace SCM.Persistence.UnitofWork
             return repository;
         }
 
+        public IGenericRepository<T> GetGenericRepository<T>() where T : class
+        {
+            if (_repositories.ContainsKey(typeof(IGenericRepository<T>)))
+            {
+                return (IGenericRepository<T>)_repositories[typeof(IGenericRepository<T>)];
+            }
+            var repository = new GenericRepository<T>(_context);
+            _repositories.Add(typeof(IGenericRepository<T>), repository);
+            return repository;
+        }
+
 
         #region Dispose
 
@@ -75,6 +86,8 @@ namespace SCM.Persistence.UnitofWork
 
             _disposed = true;
         }
+
+        
 
         #endregion
 
