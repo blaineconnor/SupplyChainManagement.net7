@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SCM.Domain.Common;
 using SCM.Domain.Entities;
@@ -13,7 +11,7 @@ namespace SCM.Persistence.Context
     {
         private readonly ILoggedUserService _loggedUserService;
 
-        public SCM_Context(DbContextOptions<Context.SCM_Context> options, ILoggedUserService loggedUserService) : base(options)
+        public SCM_Context(DbContextOptions<SCM_Context> options, ILoggedUserService loggedUserService) : base(options)
         {
             _loggedUserService = loggedUserService;
         }
@@ -21,14 +19,16 @@ namespace SCM.Persistence.Context
         #region DbSet
 
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Categories> Categories { get; set; }
         public DbSet<Requests> Requests { get; set; }
         public DbSet<RequestDetail> RequestDetails { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Approves> Approves { get; set; }
 
         #endregion
 
-      
+        #region Model Builder
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AccountMapping());
@@ -36,13 +36,21 @@ namespace SCM.Persistence.Context
             modelBuilder.ApplyConfiguration(new RequestMapping());
             modelBuilder.ApplyConfiguration(new RequestDetailMapping());
             modelBuilder.ApplyConfiguration(new ProductMapping());
+            modelBuilder.ApplyConfiguration(new ApproveMapping());
+            modelBuilder.ApplyConfiguration(new UserMapping());
 
             modelBuilder.Entity<Account>().HasQueryFilter(x => x.IsDeleted == null || !(!x.IsDeleted.HasValue || x.IsDeleted.Value));
+            modelBuilder.Entity<User>().HasQueryFilter(x => x.IsDeleted == null || !(!x.IsDeleted.HasValue || x.IsDeleted.Value));
             modelBuilder.Entity<Categories>().HasQueryFilter(x => x.IsDeleted == null || (x.IsDeleted.HasValue && !x.IsDeleted.Value));
             modelBuilder.Entity<Requests>().HasQueryFilter(x => x.IsDeleted == null || (x.IsDeleted.HasValue && !x.IsDeleted.Value));
             modelBuilder.Entity<RequestDetail>().HasQueryFilter(x => x.IsDeleted == null || (x.IsDeleted.HasValue && !x.IsDeleted.Value));
+            modelBuilder.Entity<Approves>().HasQueryFilter(x => x.IsDeleted == null || (x.IsDeleted.HasValue && !x.IsDeleted.Value));
             modelBuilder.Entity<Product>().HasQueryFilter(x => x.IsDeleted == null || (x.IsDeleted.HasValue && !x.IsDeleted.Value));
         }
+
+        #endregion
+
+
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
 
@@ -62,18 +70,18 @@ namespace SCM.Persistence.Context
                     {
                         //update
                         case EntityState.Modified:
-                            auditableEntity.RequestTime = DateTime.Now;
-                            auditableEntity.RequestedBy = _loggedUserService.UserName ?? "admin";
+                            auditableEntity.DateTime = DateTime.Now;
+                            auditableEntity.By = _loggedUserService.UserName ?? "admin";
                             break;
                         //insert
                         case EntityState.Added:
-                            auditableEntity.RequestTime = DateTime.Now;
-                            auditableEntity.RequestedBy = _loggedUserService.UserName ?? "admin";
+                            auditableEntity.DateTime = DateTime.Now;
+                            auditableEntity.By = _loggedUserService.UserName ?? "admin";
                             break;
                         //delete
                         case EntityState.Deleted:
-                            auditableEntity.RequestTime = DateTime.Now;
-                            auditableEntity.RequestedBy = _loggedUserService.UserName ?? "admin";
+                            auditableEntity.DateTime = DateTime.Now;
+                            auditableEntity.By = _loggedUserService.UserName ?? "admin";
                             break;
                         default:
                             break;

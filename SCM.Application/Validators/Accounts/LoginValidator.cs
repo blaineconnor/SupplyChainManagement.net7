@@ -9,7 +9,7 @@ namespace SCM.Application.Validators.Accounts
         {
             RuleFor(x => x.UserName)
                .NotEmpty().WithMessage("Kullanıcı adı bilgisi boş olamaz.")
-               .MaximumLength(16).WithMessage("Kullanıcı adı en fazla 16 karakter olabilir.");
+               .MaximumLength(20).WithMessage("Kullanıcı adı en fazla 20 karakter olabilir.");
 
             RuleFor(x => x.Password)
                 .NotEmpty().WithMessage("Parola bilgisi boş olamaz.")

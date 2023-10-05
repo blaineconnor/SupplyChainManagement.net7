@@ -6,7 +6,6 @@ using SCM.API.Filters;
 using SCM.Application.AutoMappings;
 using SCM.Application.Services.Abstractions;
 using SCM.Application.Services.Implementations;
-using SCM.Application.Validators.Categories;
 using SCM.Domain.Repositories;
 using SCM.Domain.Services.Abstractions;
 using SCM.Domain.Services.Implementation;
@@ -40,7 +39,7 @@ builder.Services.AddControllers(opt =>
 
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "JwtTokenWithIdentity", Version = "v1", Description = "JwtTokenWithIdentity test app" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "SupplyChainManagement", Version = "v1", Description = "test app" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         Name = "Authorization",
@@ -61,7 +60,7 @@ builder.Services.AddSwaggerGen(c =>
                                     Type = ReferenceType.SecurityScheme,
                                     Id = "Bearer"
                                 }
-                        },
+                            },
                             new string[] {}
                     }
                 });
@@ -88,13 +87,13 @@ builder.Services.AddScoped<ILoggedUserService, LoggedUserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IRequestService, RequestService>();
 builder.Services.AddScoped<IRequestDetailService, RequestDetailService>();
+builder.Services.AddScoped<IApproveService, ApproveService>();
 
 //Automapper
 builder.Services.AddAutoMapper(typeof(DomaintoDTO), typeof(VMtoDomain));
 
 
 
-// JWT kimlik doðrulama servisini ekleme
 builder.Services.AddAuthentication(opt =>
 {
     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -109,16 +108,16 @@ builder.Services.AddAuthentication(opt =>
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"], // Tokený oluþturan tarafýn adresi
-            ValidAudience = builder.Configuration["Jwt:Audiance"], // Tokenýn kullanýlacaðý hedef adres
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SigningKey"])) // Gizli anahtar
+            ValidIssuer = builder.Configuration["Jwt:Issuer"], 
+            ValidAudience = builder.Configuration["Jwt:Audiance"], 
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SigningKey"])) 
         };
     });
 
 
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -133,7 +132,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-//Kalýcý olarak saklanacak dosyalar için kayýt yeri ayarlanýyor.
 app.UseStaticFiles();
 
 app.Run();

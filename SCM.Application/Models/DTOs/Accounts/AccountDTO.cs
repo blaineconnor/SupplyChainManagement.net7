@@ -1,4 +1,5 @@
-﻿using SCM.Domain.Entities;
+﻿using SCM.Application.Models.DTOs.Users;
+using SCM.Domain.Entities;
 
 namespace SCM.Application.Models.DTOs.Accounts
 {
@@ -7,10 +8,10 @@ namespace SCM.Application.Models.DTOs.Accounts
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
         public DateTime? LastUserLogin { get; set; }
-        public DateTime? LastUserIP { get; set; }
+        public string LastUserIP { get; set; }
         public Role Roles { get; set; }
+
+        public UserDTO User { get; set; }
     }
 }

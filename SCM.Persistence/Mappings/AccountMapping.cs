@@ -29,15 +29,24 @@ namespace SCM.Persistence.Mappings
                 .IsRequired(false)
                 .HasColumnOrder(5);
 
-            builder.Property(x => x.LastUserId)
+            builder.Property(x => x.LastUserIP)
                 .HasColumnType("nvarchar(50)")
                 .HasColumnName("LAST_LOGIN_IP")
                 .IsRequired(false)
                 .HasColumnOrder(6);
 
+            builder.Property(x => x.IsDeleted)
+                .HasColumnType("bit")
+                .HasColumnName("IS_DELETED")
+                .IsRequired(false);
+
             builder.Property(x => x.Roles)
-                .HasColumnName("ROLE_ID")
+                .HasColumnName("ROLE")
                 .HasColumnOrder(7);
+
+            builder.HasOne(x => x.User)
+                .WithOne(x => x.Account)
+                .HasForeignKey<Account>(x => x.UserId);
 
             builder.ToTable("ACCOUNTS");
         }

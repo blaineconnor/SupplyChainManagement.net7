@@ -9,6 +9,7 @@ namespace SCM.Domain.Entities
         public RequestStatus Status { get; set; }
 
         public ICollection<RequestDetail> RequestDetails { get; set; }
+        public ICollection<Approves> Approves { get; set; }
 
     }
 

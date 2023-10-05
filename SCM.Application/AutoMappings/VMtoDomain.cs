@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SCM.Application.Models.RequestModels.Accounts;
+using SCM.Application.Models.RequestModels.Approves;
 using SCM.Application.Models.RequestModels.Categories;
 using SCM.Application.Models.RequestModels.Products;
 using SCM.Application.Models.RequestModels.RequestDetails;
@@ -21,7 +22,10 @@ namespace SCM.Application.AutoMappings
             #endregion
 
             #region Account
-            CreateMap<RegisterVM, Account>();
+            CreateMap<RegisterVM, User>();
+            CreateMap<RegisterVM, Account>()
+                .ForMember(x => x.Roles, y =>y.MapFrom(e => Role.User));
+            CreateMap<UpdateUserVM, User>();
             #endregion
 
             #region Product
@@ -35,6 +39,10 @@ namespace SCM.Application.AutoMappings
             CreateMap<CreateRequestVM, Requests>();
             CreateMap<UpdateRequestVM, Requests>();
             CreateMap<CreateRequestDetailVM, RequestDetail>();
+            #endregion
+
+            #region Approve
+            CreateMap<ApproveVM, Approves>();
             #endregion
         }
     }

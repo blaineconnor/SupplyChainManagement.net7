@@ -37,7 +37,7 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<TokenDTO>();
             var hashedPassword = CipherUtil.EncryptString(_configuration["AppSettings:SecretKey"], loginVM.Password);
-            var existsAccount = await _uWork.GetRepository<Account>().GetSingleByFilterAsync(x => x.UserName == loginVM.UserName && x.Password == hashedPassword);
+            var existsAccount = await _uWork.GetRepository<Account>().GetSingleByFilterAsync(x => x.UserName == loginVM.UserName && x.Password == hashedPassword, "User");
             if (existsAccount is null)
             {
                 throw new NotFoundException($"{loginVM.UserName} kullanıcı adına sahip kullanıcı bulunamadı ye da parola hatalıdır.");
@@ -52,7 +52,7 @@ namespace SCM.Application.Services.Implementations
             {
                 Token = tokenString,
                 ExpireDate = expireDate,
-                Role = existsAccount.Roles
+                Roles = existsAccount.Roles
             };
 
             return result;
@@ -71,24 +71,44 @@ namespace SCM.Application.Services.Implementations
                 throw new AlreadyExistsException($"{registerVM.UserName} kullanıcı adı daha önce seçilmiştir. Lütfen farklı bir kullanıcı adı belirleyiniz.");
             }
 
-            var emailExists = await _uWork.GetGenericRepository<User>().AnyAsync(x => x.Email.Trim().ToUpper() == registerVM.Email);
+            var emailExists = await _uWork.GetRepository<User>().AnyAsync(x => x.Email.Trim().ToUpper() == registerVM.Email.Trim().ToUpper());
             if (emailExists)
             {
                 throw new AlreadyExistsException($"{registerVM.Email} eposta adresi kullanılmaktadır. Lütfen farklı bir kullanıcı adı belirleyiniz.");
             }
 
             var userEntity = _mapper.Map<User>(registerVM);
-
             var accountEntity = _mapper.Map<Account>(registerVM);
-
             accountEntity.Password = CipherUtil
                 .EncryptString(_configuration["AppSettings:SecretKey"], accountEntity.Password);
 
+            accountEntity.User = userEntity;
+
+            _uWork.GetRepository<User>().Add(userEntity);
             _uWork.GetRepository<Account>().Add(accountEntity);
             result.Data = await _uWork.CommitAsync();
 
             return result;
         }
+        #endregion
+
+        #region Update
+
+        [ValidationBehavior(typeof(UpdateUserValidator))]
+        public async Task<Result<bool>> UpdateUser(UpdateUserVM updateUserVM)
+        {
+            var result = new Result<bool>();
+
+            var existsUser = await _uWork.GetRepository<User>().GetById(updateUserVM.Roles);
+
+            _mapper.Map(updateUserVM, existsUser);
+
+            _uWork.GetRepository<User>().Update(existsUser);
+            result.Data = await _uWork.CommitAsync();
+
+            return result;
+        }
+
         #endregion
 
         #region JWT Token
@@ -101,17 +121,19 @@ namespace SCM.Application.Services.Implementations
             var claims = new Claim[]
             {
                 new Claim(ClaimTypes.Role,account.Roles.ToString()),
-                new Claim(ClaimTypes.Name,account.UserName)
+                new Claim(ClaimTypes.Name,account.UserName),
+                new Claim(ClaimTypes.Email,account.User.Email), //Account entity'sini Customer'a bağlayannavigation property
+                new Claim(ClaimTypes.Sid,account.UserId.ToString())
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(secretKey);
+            var key = Encoding.UTF32.GetBytes(secretKey);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Audience = audiance,
                 Issuer = issuer,
                 Subject = new ClaimsIdentity(claims),
-                Expires = expireDate,
+                Expires = expireDate, // Token süresi (örn: 20 dakika)
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 

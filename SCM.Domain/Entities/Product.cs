@@ -12,5 +12,6 @@ namespace SCM.Domain.Entities
 
         public Categories Categories { get; set; }
         public ICollection<RequestDetail> Details { get; set; }
+        public ICollection<Approves> Approves { get; set; }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using SCM.Application.Models.DTOs.Accounts;
+using SCM.Application.Models.DTOs.Approves;
 using SCM.Application.Models.DTOs.Categories;
 using SCM.Application.Models.DTOs.Products;
 using SCM.Application.Models.DTOs.RequestDetails;
 using SCM.Application.Models.DTOs.Requests;
+using SCM.Application.Models.DTOs.Users;
 using SCM.Domain.Entities;
 
 namespace SCM.Application.AutoMappings
@@ -14,6 +16,8 @@ namespace SCM.Application.AutoMappings
         {
             CreateMap<Categories, CategoryDTO>();
 
+            CreateMap<User, UserDTO>();
+
             CreateMap<Account, AccountDTO>();
 
             CreateMap<Product, ProductDTO>();
@@ -21,6 +25,8 @@ namespace SCM.Application.AutoMappings
             CreateMap<Requests, RequestDTO>();
 
             CreateMap<RequestDetail, RequestDetailDTO>();
+
+            CreateMap<Approves, ApproveDTO>();
         }
     }
 }

@@ -4,6 +4,7 @@ using SCM.Application.Models.DTOs.Accounts;
 using SCM.Application.Models.RequestModels.Accounts;
 using SCM.Application.Services.Abstractions;
 using SCM.Application.Wrapper;
+using SCM.Domain.Entities;
 
 namespace SCM.API.Controllers
 {
@@ -37,6 +38,17 @@ namespace SCM.API.Controllers
             return Ok(result);
         }
 
+        [HttpPut("update")]
+        
+        public async Task<ActionResult<Result<Role>>> UpdateUser(Role? role, UpdateUserVM updateUserVM)
+        {
+            if (role != updateUserVM.Roles)
+            {
+                return BadRequest();
+            }
+            var result = await _accountService.UpdateUser(updateUserVM);
+            return Ok(result);
+        }
     }
 }
 

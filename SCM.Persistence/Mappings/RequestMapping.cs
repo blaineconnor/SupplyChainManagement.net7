@@ -21,7 +21,7 @@ namespace SCM.Persistence.Mappings
                 .HasColumnName("REQUEST_STATUS")
                 .HasColumnOrder(5);
 
-            builder.Property(x => x.RequestedBy)
+            builder.Property(x => x.By)
                 .HasColumnName("REQUEST_BY")
                 .HasColumnOrder(5);
 

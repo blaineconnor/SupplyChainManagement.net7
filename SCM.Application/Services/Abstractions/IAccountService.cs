@@ -6,9 +6,11 @@ namespace SCM.Application.Services.Abstractions
 {
     public interface IAccountService
     {
-        Task<Result<bool>> Register(RegisterVM createUserVM);
+        Task<Result<bool>> Register(RegisterVM registerVM);
 
         Task<Result<TokenDTO>> Login(LoginVM loginVM);
+
+        Task<Result<bool>> UpdateUser(UpdateUserVM updateUserVM);
 
     }
 }

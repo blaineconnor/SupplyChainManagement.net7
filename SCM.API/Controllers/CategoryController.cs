@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SCM.Application.Models.DTOs.Categories;
 using SCM.Application.Models.RequestModels.Categories;
 using SCM.Application.Services.Abstractions;
 using SCM.Application.Wrapper;
+using SCM.Domain.Entities;
 
 namespace SCM.API.Controllers
 {
@@ -36,6 +38,7 @@ namespace SCM.API.Controllers
         }
 
         [HttpPost("create")]
+        
         public async Task<ActionResult<Result<int>>> CreateCategory(CreateCategoryVM createCategoryVM)
         {
             var categoryId = await _categoryService.CreateCategory(createCategoryVM);

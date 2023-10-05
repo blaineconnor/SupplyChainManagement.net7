@@ -1,6 +1,4 @@
-﻿using SCM.Domain.Entities;
-
-namespace SCM.Application.Models.DTOs.Users
+﻿namespace SCM.Application.Models.DTOs.Users
 {
     public class UserDTO
     {
@@ -9,6 +7,6 @@ namespace SCM.Application.Models.DTOs.Users
         public string Surname { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public DateTime Birtdate { get; set; }
+        public DateTime BirthDate { get; set; }
     }
 }

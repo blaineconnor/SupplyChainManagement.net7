@@ -17,21 +17,31 @@ namespace SCM.Persistence.Mappings
 
             ConfigureDerivedEntityMapping(builder);
 
-            builder.Property(x => x.RequestTime)
-                .HasColumnName("REQUEST_DATE")
+            builder.Property(x => x.By)
+                .HasColumnName("UPDATED_BY")
+                .HasColumnOrder(27)
+                .HasColumnType("NVARCHAR(10)")
+                .IsRequired(false);
+
+            builder.Property(x => x.DateTime)
+                .HasColumnName("UPDATED_TIME")
                 .HasColumnOrder(26);
 
-            builder.Property(x => x.RequestedBy)
+            builder.Property(x => x.DateTime)
+                .HasColumnName("REQUEST_TIME")
+                .HasColumnOrder(26);
+
+            builder.Property(x => x.By)
                 .HasColumnName("REQUESTED_BY")
                 .HasColumnType("nvarchar(10)")
                 .IsRequired(false)
                 .HasColumnOrder(27);
 
-            builder.Property(x => x.BoughtTime)
+            builder.Property(x => x.DateTime)
                 .HasColumnName("BOUGHT_DATE")
                 .HasColumnOrder(28);
 
-            builder.Property(x => x.BoughtBy)
+            builder.Property(x => x.By)
                 .HasColumnName("BOUGHT_BY")
                 .HasColumnType("nvarchar(10)")
                 .IsRequired(false)

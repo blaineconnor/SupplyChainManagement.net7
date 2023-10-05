@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using SCM.Domain.Entities;
 using SCM.Domain.Services.Abstractions;
+using System.Data;
 using System.Security.Claims;
 
 namespace SCM.Domain.Services.Implementation
@@ -14,10 +15,9 @@ namespace SCM.Domain.Services.Implementation
         }
 
         public int? UserId => GetClaim(ClaimTypes.PrimarySid) != null ? int.Parse(GetClaim(ClaimTypes.PrimarySid)) : null;
-
         public Role? Roles => GetClaim(ClaimTypes.Role) != null ? (Role)Enum.Parse(typeof(Role), GetClaim(ClaimTypes.Role)) : null;
-
         public string UserName => GetClaim(ClaimTypes.Name) != null ? GetClaim(ClaimTypes.Name) : null;
+        public string Email => GetClaim(ClaimTypes.Email) != null ? GetClaim(ClaimTypes.Email) : null;
 
 
 

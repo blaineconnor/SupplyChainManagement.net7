@@ -33,6 +33,7 @@ namespace SCM.Utils
 
             return Convert.ToBase64String(array);
         }
+
         public static string DecryptString(string key, string cipherText)
         {
             byte[] iv = new byte[16];

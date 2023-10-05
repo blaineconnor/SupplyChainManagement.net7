@@ -7,5 +7,6 @@ namespace SCM.Domain.Services.Abstractions
         int? UserId { get; }
         Role? Roles { get; }
         string UserName { get; }
+        string Email { get; }
     }
 }
