@@ -122,7 +122,7 @@ namespace SCM.Application.Services.Implementations
             {
                 new Claim(ClaimTypes.Role,account.Roles.ToString()),
                 new Claim(ClaimTypes.Name,account.UserName),
-                new Claim(ClaimTypes.Email,account.User.Email), //Account entity'sini Customer'a bağlayannavigation property
+                new Claim(ClaimTypes.Email,account.User.Email), 
                 new Claim(ClaimTypes.Sid,account.UserId.ToString())
             };
 
