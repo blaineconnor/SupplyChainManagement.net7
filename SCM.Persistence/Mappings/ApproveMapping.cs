@@ -12,15 +12,19 @@ namespace SCM.Persistence.Mappings
                 .HasColumnName("REQUEST_ID")
                 .HasColumnOrder(3);
 
-            builder.Property(x => x.IsApproved)
-                .HasColumnName("IS_APPROVED")
-                .HasDefaultValueSql("getdate()")
-                .HasColumnOrder(1);
+            builder.Property(x => x.DateTime)
+                .HasColumnName("APPROVE_TIME")
+                .HasColumnOrder(4)
+                .HasColumnType("date");
 
-            builder.Property(x => x.IsDeleted)
-                .HasColumnType("bit")
-                .HasColumnName("IS_DELETED")
-                .IsRequired(false);
+            //builder.Property(x => x.IsApproved)
+            //    .HasColumnName("IS_APPROVED")
+            //    .HasColumnOrder(1);
+
+            //builder.Property(x => x.IsDeleted)
+            //    .HasColumnType("bit")
+            //    .HasColumnName("IS_DELETED")
+            //    .IsRequired(false);
 
             builder.ToTable("APPROVES");
         }

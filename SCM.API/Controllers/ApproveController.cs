@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SCM.Application.Models.RequestModels.Approves;
-using SCM.Application.Models.RequestModels.Categories;
 using SCM.Application.Services.Abstractions;
 using SCM.Application.Wrapper;
 
@@ -9,6 +8,7 @@ namespace SCM.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "AdminPolicy")]
     public class ApproveController : ControllerBase
     {
         private readonly IApproveService _approveService;
@@ -25,7 +25,7 @@ namespace SCM.API.Controllers
             {
                 return BadRequest();
             }
-            var requestId = await _approveService.IsApproved(approveVM);
+            var requestId = await _approveService.IsApproved(approveVM.RequestI));
             return Ok(requestId);
         }
     }

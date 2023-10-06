@@ -9,8 +9,8 @@ namespace SCM.API.Controllers
 {
     [ApiController]
     [Route("product")]
-    [Authorize(Roles = "Admin")]
-    [Authorize(Roles = "Purchasing")]
+    [Authorize(Policy = "PurchasingPolicy")]
+
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;

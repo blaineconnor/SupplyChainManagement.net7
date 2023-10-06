@@ -7,5 +7,6 @@ namespace SCM.Domain.UnitofWork
     {
         public IRepository<T> GetRepository<T>() where T : BaseEntity;
         public Task<bool> CommitAsync();
+        Task SaveChangesAsync();
     }
 }

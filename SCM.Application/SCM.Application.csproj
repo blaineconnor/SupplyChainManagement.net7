@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SCM.Domain\SCM.Domain.csproj" />
+    <ProjectReference Include="..\SCM.Persistence\SCM.Persistence.csproj" />
     <ProjectReference Include="..\SCM.Utils\SCM.Utils.csproj" />
   </ItemGroup>
 

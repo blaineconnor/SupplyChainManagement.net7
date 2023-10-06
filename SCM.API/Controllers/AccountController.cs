@@ -4,15 +4,13 @@ using SCM.Application.Models.DTOs.Accounts;
 using SCM.Application.Models.RequestModels.Accounts;
 using SCM.Application.Services.Abstractions;
 using SCM.Application.Wrapper;
-using SCM.Domain.Entities;
 
 namespace SCM.API.Controllers
 {
 
     [ApiController]
     [Route("account")]
-    [Authorize (Roles = "Admin")]
-    [Authorize(Roles = "SuperAdmin")]
+    [Authorize(Policy = "AdminPolicy")]
 
     public class AccountController : ControllerBase
     {
@@ -25,7 +23,7 @@ namespace SCM.API.Controllers
 
 
         [HttpPost("register")]
-
+        [AllowAnonymous]
         public async Task<ActionResult<Result<int>>> Register(RegisterVM registerVM)
         {
             var result = await _accountService.Register(registerVM);

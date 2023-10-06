@@ -9,7 +9,7 @@ namespace SCM.API.Controllers
 {
     [ApiController]
     [Route("category")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Policy = "PurchasingPolicy")]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;

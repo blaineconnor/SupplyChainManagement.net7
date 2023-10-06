@@ -20,6 +20,10 @@ namespace SCM.Application.Validators.Approves
                 .NotEmpty()
                 .When(x => x.IsApproved == false)
                 .WithMessage("Talep Reddedilmiştir.");
+
+            RuleFor(x => x.RequestId)
+                .NotEmpty()
+                .WithMessage("Talep numarası boş olamaz.");
         }
     }
 }

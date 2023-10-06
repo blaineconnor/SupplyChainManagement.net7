@@ -18,7 +18,7 @@ namespace SCM.API.Controllers
             _requestService = requestService;
         }
 
-        [HttpGet("getByCustomer/{id:int?}")]
+        [HttpGet("getByrequester/{id:int?}")]
         [AllowAnonymous]
         public async Task<ActionResult<Result<List<RequestDTO>>>> GetRequestsByUser(int userId)
         {
