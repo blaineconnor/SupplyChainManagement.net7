@@ -306,6 +306,11 @@ namespace SCM.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("Amount")
+                        .HasColumnType("int")
+                        .HasColumnName("AMOUNT")
+                        .HasColumnOrder(8);
+
                     b.Property<string>("By")
                         .HasColumnType("NVARCHAR(10)")
                         .HasColumnName("BY")
@@ -315,6 +320,10 @@ namespace SCM.Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("DATE_TIME")
                         .HasColumnOrder(26);
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit")
+                        .HasColumnName("IS_APPROVED");
 
                     b.Property<bool?>("IsDeleted")
                         .ValueGeneratedOnAdd()

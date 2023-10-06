@@ -12,8 +12,8 @@ using SCM.Persistence.Context;
 namespace SCM.Persistence.Migrations
 {
     [DbContext(typeof(SCM_Context))]
-    [Migration("20231006111047_scm2")]
-    partial class scm2
+    [Migration("20231006142456_SCM")]
+    partial class SCM
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -309,6 +309,11 @@ namespace SCM.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("Amount")
+                        .HasColumnType("int")
+                        .HasColumnName("AMOUNT")
+                        .HasColumnOrder(8);
+
                     b.Property<string>("By")
                         .HasColumnType("NVARCHAR(10)")
                         .HasColumnName("BY")
@@ -318,6 +323,10 @@ namespace SCM.Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("DATE_TIME")
                         .HasColumnOrder(26);
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit")
+                        .HasColumnName("IS_APPROVED");
 
                     b.Property<bool?>("IsDeleted")
                         .ValueGeneratedOnAdd()

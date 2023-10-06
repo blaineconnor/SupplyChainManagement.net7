@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using Microsoft.AspNetCore.Http;
 using SCM.Application.Models.RequestModels.Approves;
 using SCM.Application.Services.Abstractions;
@@ -23,6 +22,7 @@ namespace SCM.Application.Services.Implementations
             _httpContextAccessor = httpContextAccessor;
         }
 
+        #region Approve
         public async Task<Result<bool>> ApproveRequest(ApproveVM approveVM)
         {
             var user = _httpContextAccessor.HttpContext.User;
@@ -71,6 +71,10 @@ namespace SCM.Application.Services.Implementations
 
             return result;
         }
+
+        #endregion
+
+        #region Reject
 
         public async Task<Result<bool>> RejectRequest(ApproveVM approveVM)
         {
@@ -121,6 +125,10 @@ namespace SCM.Application.Services.Implementations
             return result;
         }
 
+        #endregion
+
+        #region Process
+
         public async Task<Result<bool>> ProcessRequest(ApproveVM approveVM, bool isApproved)
         {
             // Veritabanından talebi al
@@ -144,5 +152,7 @@ namespace SCM.Application.Services.Implementations
 
             return new Result<bool> { Success = true, Data = isApproved };
         }
+
+        #endregion
     }
 }

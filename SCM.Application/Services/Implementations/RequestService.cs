@@ -24,6 +24,8 @@ namespace SCM.Application.Services.Implementations
             _mapper = mapper;
         }
 
+        #region Create
+        
         [ValidationBehavior(typeof(CreateRequestValidator))]
         public async Task<Result<int>> CreateRequest(CreateRequestVM createRequestVM)
         {
@@ -32,7 +34,7 @@ namespace SCM.Application.Services.Implementations
             var userExists = await _uWork.GetRepository<Account>().AnyAsync(x => x.UserName == createRequestVM.UserName);
             if (!userExists)
             {
-                throw new NotFoundException($"{createRequestVM.UserName} numaralı müşteri bulunamadı.");
+                throw new NotFoundException($"{createRequestVM.UserName} numaralı talep bulunamadı.");
             }
 
             var requestEntity = _mapper.Map<Requests>(createRequestVM);
@@ -43,6 +45,10 @@ namespace SCM.Application.Services.Implementations
             return result;
         }
 
+        #endregion
+
+        #region Delete
+
         [ValidationBehavior(typeof(DeleteRequestValidator))]
         public async Task<Result<int>> DeleteRequest(DeleteRequestVM deleteRequestVM)
         {
@@ -51,7 +57,7 @@ namespace SCM.Application.Services.Implementations
             var requestEntity = await _uWork.GetRepository<Requests>().GetById(deleteRequestVM.RequestId);
             if (requestEntity is null)
             {
-                throw new NotFoundException($"{deleteRequestVM.RequestId} numaralı sipariş bulunamadı.");
+                throw new NotFoundException($"{deleteRequestVM.RequestId} numaralı talep bulunamadı.");
             }
 
             var requestDetailByOrder = await _uWork.GetRepository<RequestDetail>().GetByFilterAsync(x => x.RequestId == deleteRequestVM.RequestId);
@@ -69,6 +75,10 @@ namespace SCM.Application.Services.Implementations
             return result;
         }
 
+        #endregion
+
+        #region Update
+
         [ValidationBehavior(typeof(UpdateRequestValidator))]
         public async Task<Result<int>> UpdateRequest(UpdateRequestVM updateRequestVM)
         {
@@ -77,7 +87,7 @@ namespace SCM.Application.Services.Implementations
             var requestExists = await _uWork.GetRepository<Requests>().AnyAsync(x => x.Id == updateRequestVM.RequestId);
             if (!requestExists)
             {
-                throw new NotFoundException($"{updateRequestVM.RequestId} numaralı sipariş bulunamadı.");
+                throw new NotFoundException($"{updateRequestVM.RequestId} numaralı talep bulunamadı.");
             }
 
             var requestEntity = await _uWork.GetRepository<Requests>().GetById(updateRequestVM.RequestId.Value);
@@ -90,6 +100,10 @@ namespace SCM.Application.Services.Implementations
             return result;
         }
 
+        #endregion
+
+        #region Get
+
         [ValidationBehavior(typeof(GetRequestsByUserValidator))]
         public async Task<Result<List<RequestDTO>>> GetRequestsByUser(GetRequestsByUserVM getRequestsByUserVM)
         {
@@ -101,5 +115,7 @@ namespace SCM.Application.Services.Implementations
             result.Data = requestDtos;
             return result;
         }
+
+        #endregion
     }
 }

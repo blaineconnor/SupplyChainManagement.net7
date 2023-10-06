@@ -108,9 +108,11 @@ namespace SCM.Persistence.Migrations
                     USER_ID = table.Column<int>(type: "int", nullable: false),
                     REQUEST_DATE = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
                     REQUEST_STATUS = table.Column<int>(type: "int", nullable: false),
+                    AMOUNT = table.Column<int>(type: "int", nullable: false),
                     DATE_TIME = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BY = table.Column<string>(type: "NVARCHAR(10)", nullable: true),
-                    IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0")
+                    IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0"),
+                    IS_APPROVED = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

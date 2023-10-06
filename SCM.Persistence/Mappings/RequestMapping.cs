@@ -25,6 +25,13 @@ namespace SCM.Persistence.Mappings
                 .HasColumnName("REQUEST_BY")
                 .HasColumnOrder(5);
 
+            builder.Property(x => x.Amount)
+                .HasColumnName("AMOUNT")
+                .HasColumnOrder(8);
+
+            builder.Property(x => x.IsApproved)
+                .HasColumnName("IS_APPROVED");
+
             builder.ToTable("REQUESTS");
         }
     }

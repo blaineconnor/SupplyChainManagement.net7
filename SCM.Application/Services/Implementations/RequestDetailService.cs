@@ -20,6 +20,8 @@ namespace SCM.Application.Services.Implementations
             _unitWork = unitWork;
             _mapper = mapper;
         }
+       
+        #region Create
 
         [ValidationBehavior(typeof(CreateRequestDetailValidator))]
         public async Task<Result<int>> CreateRequestDetail(CreateRequestDetailVM createRequestDetailVM)
@@ -47,6 +49,9 @@ namespace SCM.Application.Services.Implementations
             return result;
         }
 
+        #endregion
+
+        #region Delete
         [ValidationBehavior(typeof(DeleteRequestDetailValidator))]
         public async Task<Result<int>> DeleteRequestDetail(DeleteRequestDetailVM deleteRequestDetailVM)
         {
@@ -64,5 +69,7 @@ namespace SCM.Application.Services.Implementations
             result.Data = existsRequestDetail.Id;
             return result;
         }
+
+        #endregion
     }
 }
