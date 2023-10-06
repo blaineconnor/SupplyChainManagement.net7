@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SCM.Application.Models.RequestModels.Approves;
 using SCM.Application.Services.Abstractions;
-using SCM.Application.Wrapper;
 
 namespace SCM.API.Controllers
 {
@@ -18,15 +17,25 @@ namespace SCM.API.Controllers
             _approveService = approveService;
         }
 
-        [HttpPut("Approve/Deny")]
-        public async Task<ActionResult<Result<bool>>> Approve(int id, ApproveVM approveVM)
+        [HttpPost("process")]
+        public async Task<IActionResult> ProcessRequest([FromBody] ApproveVM approveVM)
         {
-            if (id != approveVM.RequestId)
+            if (approveVM == null)
             {
-                return BadRequest();
+                return BadRequest("Geçersiz istek verisi.");
             }
-            var requestId = await _approveService.IsApproved(approveVM.RequestI));
-            return Ok(requestId);
+
+            var isApproved = approveVM.IsApproved;
+            var result = await _approveService.ProcessRequest(approveVM, isApproved);
+
+            if (result.Success)
+            {
+                return Ok(new { success = true, message = isApproved ? "Talep başarıyla onaylandı." : "Talep başarıyla reddedildi." });
+            }
+            else
+            {
+                return BadRequest(new { success = false, errors = result.Errors });
+            }
         }
     }
 }

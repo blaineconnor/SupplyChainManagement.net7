@@ -75,9 +75,7 @@ namespace SCM.Persistence.UnitofWork
             _disposed = true;
         }
 
-        
-
-        #endregion
+       #endregion
 
     }
 }

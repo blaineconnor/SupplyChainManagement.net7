@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Microsoft.AspNetCore.Http;
 using SCM.Application.Models.RequestModels.Approves;
 using SCM.Application.Services.Abstractions;
@@ -120,28 +121,28 @@ namespace SCM.Application.Services.Implementations
             return result;
         }
 
-        private async Task<Result<bool>> ProcessRequest(ApproveVM approveVM, bool isApproved)
+        public async Task<Result<bool>> ProcessRequest(ApproveVM approveVM, bool isApproved)
         {
-            var result = new Result<bool>();
+            // Veritabanından talebi al
+            var request = await _uWork.GetRepository<Requests>().GetById(approveVM.RequestId);
 
-            var request = _mapper.Map<ApproveVM, Requests>(approveVM);
-
-            if (request != null)
+            if (request == null)
             {
-                request.IsApproved = isApproved;
-
-                _uWork.GetRepository<Requests>().Update(request);
-                await _uWork.SaveChangesAsync();
-
-                result.Data = true;
-            }
-            else
-            {
-                result.Success = false;
-                result.Errors.Add("Talep bulunamadı veya geçersiz.");
+                return new Result<bool>
+                {
+                    Success = false,
+                    Errors = new List<string> { "Talep bulunamadı." }
+                };
             }
 
-            return result;
+            // Talebi onayla veya reddet
+            request.IsApproved = isApproved;
+
+            // Talebi güncelle
+            _uWork.GetRepository<Requests>().Update(request);
+            await _uWork.CommitAsync();
+
+            return new Result<bool> { Success = true, Data = isApproved };
         }
     }
 }
