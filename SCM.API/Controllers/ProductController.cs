@@ -4,13 +4,13 @@ using SCM.Application.Models.DTOs.Products;
 using SCM.Application.Models.RequestModels.Products;
 using SCM.Application.Services.Abstractions;
 using SCM.Application.Wrapper;
-using SCM.Domain.Entities;
 
 namespace SCM.API.Controllers
 {
     [ApiController]
     [Route("product")]
     [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Purchasing")]
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -37,7 +37,7 @@ namespace SCM.API.Controllers
         }
 
         [HttpPost("create")]
-        [Authorize(Roles = Role.]
+        
         public async Task<ActionResult<Result<int>>> CreateProduct(CreateProductVM createProductVM)
         {
             var categoryId = await _productService.CreateProduct(createProductVM);

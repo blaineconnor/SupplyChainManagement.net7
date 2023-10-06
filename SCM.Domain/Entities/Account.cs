@@ -16,7 +16,6 @@ namespace SCM.Domain.Entities
 
     public enum Role
     {
-        SuperAdmin = 5,
         Admin = 1,
         Purchasing = 2,
         Accounting = 3,
