@@ -18,7 +18,6 @@ namespace SCM.API.Controllers
             _requestService = requestService;
         }
 
-
         [HttpGet("getByCustomer/{id:int?}")]
         [AllowAnonymous]
         public async Task<ActionResult<Result<List<RequestDTO>>>> GetRequestsByUser(int userId)
@@ -26,7 +25,6 @@ namespace SCM.API.Controllers
             var categories = await _requestService.GetRequestsByUser(new GetRequestsByUserVM { UserId = userId });
             return Ok(categories);
         }
-
 
         [HttpPost("create")]
         public async Task<ActionResult<Result<int>>> CreateRequest(CreateRequestVM createRequestVM)
@@ -52,6 +50,5 @@ namespace SCM.API.Controllers
             var requestId = await _requestService.DeleteRequest(new DeleteRequestVM { RequestId = id });
             return Ok(requestId);
         }
-
     }
 }

@@ -2,6 +2,8 @@
 {
     public class CreateRequestVM
     {
-        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public string TheRequest { get; set; }
+
     }
 }

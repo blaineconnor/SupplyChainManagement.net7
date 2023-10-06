@@ -29,10 +29,10 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<int>();
 
-            var userExists = await _uWork.GetRepository<Account>().AnyAsync(x => x.Id == createRequestVM.UserId);
+            var userExists = await _uWork.GetRepository<Account>().AnyAsync(x => x.UserName == createRequestVM.UserName);
             if (!userExists)
             {
-                throw new NotFoundException($"{createRequestVM.UserId} numaralı müşteri bulunamadı.");
+                throw new NotFoundException($"{createRequestVM.UserName} numaralı müşteri bulunamadı.");
             }
 
             var requestEntity = _mapper.Map<Requests>(createRequestVM);

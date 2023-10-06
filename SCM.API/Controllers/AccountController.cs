@@ -11,7 +11,9 @@ namespace SCM.API.Controllers
 
     [ApiController]
     [Route("account")]
-    [Authorize]
+    [Authorize (Roles = "Admin")]
+    [Authorize(Roles = "SuperAdmin")]
+
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
@@ -23,7 +25,7 @@ namespace SCM.API.Controllers
 
 
         [HttpPost("register")]
-        [AllowAnonymous]
+
         public async Task<ActionResult<Result<int>>> Register(RegisterVM registerVM)
         {
             var result = await _accountService.Register(registerVM);
@@ -40,9 +42,9 @@ namespace SCM.API.Controllers
 
         [HttpPut("update")]
         
-        public async Task<ActionResult<Result<Role>>> UpdateUser(Role? role, UpdateUserVM updateUserVM)
+        public async Task<ActionResult<Result<int>>> UpdateUser(string userName, UpdateUserVM updateUserVM)
         {
-            if (role != updateUserVM.Roles)
+            if (userName != updateUserVM.UserName)
             {
                 return BadRequest();
             }

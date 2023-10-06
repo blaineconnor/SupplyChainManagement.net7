@@ -7,9 +7,10 @@ namespace SCM.Application.Validators.Requests
     {
         public CreateRequestValidator()
         {
-            RuleFor(x => x.UserId)
-               .NotEmpty().WithMessage("Kullanıcı numarası boş olamaz.")
-               .GreaterThan(0).WithMessage("Kullanıcı numarası sıfırdan büyük bir sayı olmalıdır.");
+            RuleFor(x => x.UserName)
+               .NotEmpty().WithMessage("Kullanıcı adı boş olamaz.");
+            RuleFor(x => x.TheRequest)
+                .NotEmpty().WithMessage("Talep boş olamaz.");
         }
     }
 }

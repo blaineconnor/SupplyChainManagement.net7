@@ -20,5 +20,6 @@ namespace SCM.Domain.Entities
         Purchasing = 2,
         Accounting = 3,
         User = 4,
+        SuperAdmin = 5,
     }
 }
