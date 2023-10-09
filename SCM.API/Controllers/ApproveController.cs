@@ -18,49 +18,104 @@ namespace SCM.API.Controllers
             _approveService = approveService;
         }
 
-        [HttpPost("process")]
-        public async Task<IActionResult> ProcessRequest([FromBody] ApproveVM approveVM)
+        [HttpPost("manager-approve")]
+        public async Task<ActionResult<Result<bool>>> ManagerApprove([FromBody] ApproveVM approveVM)
         {
-            if (approveVM == null)
-            {
-                return BadRequest("Geçersiz istek verisi.");
-            }
-
-            var isApproved = approveVM.IsApproved;
-            var result = await _approveService.ProcessRequest(approveVM, isApproved);
-
+            var result = await _approveService.ManagerApprove(approveVM);
             if (result.Success)
             {
-                return Ok(new { success = true, message = isApproved ? "Talep başarıyla onaylandı." : "Talep başarıyla reddedildi." });
+                return Ok(result);
             }
-            else
-            {
-                return BadRequest(new { success = false, errors = result.Errors });
-            }
+            return BadRequest(result);
         }
 
-        [HttpPost("approve/{id:int}")]
-        public async Task<ActionResult<Result<bool>>> ApproveRequest(int id)
+        [HttpPost("manager-reject")]
+        public async Task<ActionResult<Result<bool>>> ManagerReject([FromBody] ApproveVM approveVM)
         {
-            var approveVM = new ApproveVM { RequestId = id, IsApproved = true };
-            var result = await _approveService.ApproveRequest(approveVM);
+            var result = await _approveService.ManagerReject(approveVM);
             if (result.Success)
             {
-                return Ok(new Result<bool> { Data = true, Success = true, Message = "Talep başarıyla onaylandı." });
+                return Ok(result);
             }
-            return BadRequest(new Result<bool> { Data = false, Errors = result.Errors });
+            return BadRequest(result);
         }
 
-        [HttpPost("reject/{id:int}")]
-        public async Task<ActionResult<Result<bool>>> RejectRequest(int id)
+        [HttpPost("purchasing-approve")]
+        public async Task<ActionResult<Result<bool>>> PurchasingApprove([FromBody] ApproveVM approveVM)
         {
-            var approveVM = new ApproveVM { RequestId = id, IsApproved = false };
-            var result = await _approveService.RejectRequest(approveVM);
+            var result = await _approveService.PurchasingApprove(approveVM);
             if (result.Success)
             {
-                return Ok(new Result<bool> { Data = true, Success = true, Message = "Talep başarıyla reddedildi." });
+                return Ok(result);
             }
-            return BadRequest(new Result<bool> { Data = false, Errors = result.Errors });
+            return BadRequest(result);
+        }
+
+        [HttpPost("purchasing-reject")]
+        public async Task<ActionResult<Result<bool>>> PurchasingReject([FromBody] ApproveVM approveVM)
+        {
+            var result = await _approveService.PurchasingReject(approveVM);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("admin-approve")]
+        public async Task<ActionResult<Result<bool>>> AdminApprove([FromBody] ApproveVM approveVM)
+        {
+            var result = await _approveService.AdminApprove(approveVM);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("admin-reject")]
+        public async Task<ActionResult<Result<bool>>> AdminReject([FromBody] ApproveVM approveVM)
+        {
+            var result = await _approveService.AdminReject(approveVM);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("superadmin-approve")]
+        public async Task<ActionResult<Result<bool>>> SuperAdminApprove([FromBody] ApproveVM approveVM)
+        {
+            var result = await _approveService.SuperAdminApprove(approveVM);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("superadmin-reject")]
+        public async Task<ActionResult<Result<bool>>> SuperAdminReject([FromBody] ApproveVM approveVM)
+        {
+            var result = await _approveService.SuperAdminReject(approveVM);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("accounting-fulfillment")]
+        public async Task<ActionResult<Result<bool>>> AccountingFulfillment([FromBody] ApproveVM approveVM)
+        {
+            var result = await _approveService.AccountingFulfillment(approveVM);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
     }
 }
+

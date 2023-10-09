@@ -2,6 +2,6 @@
 {
     public class GetRequestDetailsByRequestIdVM
     {
-        public int? RequestId { get; set; }
+        public int RequestId { get; set; }
     }
 }

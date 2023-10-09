@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using SCM.Application.Behaviors;
 using SCM.Application.Exceptions;
+using SCM.Application.Models.DTOs.RequestDetails;
 using SCM.Application.Models.RequestModels.RequestDetails;
 using SCM.Application.Services.Abstractions;
 using SCM.Application.Validators.RequestDetails;
@@ -20,7 +23,7 @@ namespace SCM.Application.Services.Implementations
             _unitWork = unitWork;
             _mapper = mapper;
         }
-       
+
         #region Create
 
         [ValidationBehavior(typeof(CreateRequestDetailValidator))]
@@ -28,16 +31,16 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<int>();
 
-            var requestsExists = await _unitWork.GetRepository<RequestDetail>().AnyAsync(x => x.Id == createRequestDetailVM.RequestId);
-            if (!requestsExists)
+            var requestExists = await _unitWork.GetRepository<Requests>().AnyAsync(x => x.Id == createRequestDetailVM.RequestId);
+            if (!requestExists)
             {
                 throw new NotFoundException($"{createRequestDetailVM.RequestId} numaralı talep bulunamadı.");
             }
 
-            var productExists = await _unitWork.GetRepository<RequestDetail>().AnyAsync(x => x.ProductId == createRequestDetailVM.ProductId);
-            if (productExists)
+            var productExists = await _unitWork.GetRepository<Product>().AnyAsync(x => x.Id == createRequestDetailVM.ProductId);
+            if (!productExists)
             {
-                throw new NotFoundException($"{createRequestDetailVM.RequestId} numaralı talep için {createRequestDetailVM.ProductId} numaralı ürün daha önce eklenmiştir.");
+                throw new NotFoundException($"{createRequestDetailVM.ProductId} numaralı ürün bulunamadı.");
             }
 
             var requestDetailEntity = _mapper.Map<RequestDetail>(createRequestDetailVM);
@@ -52,6 +55,7 @@ namespace SCM.Application.Services.Implementations
         #endregion
 
         #region Delete
+
         [ValidationBehavior(typeof(DeleteRequestDetailValidator))]
         public async Task<Result<int>> DeleteRequestDetail(DeleteRequestDetailVM deleteRequestDetailVM)
         {
@@ -67,6 +71,25 @@ namespace SCM.Application.Services.Implementations
             await _unitWork.CommitAsync();
 
             result.Data = existsRequestDetail.Id;
+            return result;
+        }
+
+        #endregion
+
+        #region Get
+
+        public async Task<Result<List<RequestDetailDTO>>> GetRequestDetailsByRequestId(GetRequestDetailsByRequestIdVM getRequestDetailsByRequestIdVM)
+        {
+            var result = new Result<List<RequestDetailDTO>>();
+
+            var requestDetails = await _unitWork.GetRepository<RequestDetail>()
+                .GetByFilterAsync(x => x.RequestId == getRequestDetailsByRequestIdVM.RequestId);
+
+            var requestDetailDtos = await requestDetails
+                .ProjectTo<RequestDetailDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            result.Data = requestDetailDtos;
             return result;
         }
 

@@ -7,8 +7,8 @@ namespace SCM.Application.Validators.Requests
     {
         public GetRequestsByUserValidator()
         {
-            RuleFor(x => x.UserName)
-                .NotEmpty().WithMessage("Kullanıcı Adı boş olamaz.");
+            RuleFor(request => request.UserId)
+                .NotEmpty().WithMessage("Kullanıcı kimliği boş olamaz.");
         }
     }
 }

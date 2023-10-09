@@ -7,9 +7,8 @@ namespace SCM.Application.Validators.Requests
     {
         public DeleteRequestValidator()
         {
-            RuleFor(x => x.RequestId)
-               .NotEmpty().WithMessage("Talep numarası boş olamaz.")
-               .GreaterThan(0).WithMessage("Talep numarası sıfırdan büyük bir sayı olmalıdır.");
+            RuleFor(request => request.RequestId)
+                .NotEmpty().WithMessage("Talep kimliği boş olamaz.");
         }
     }
 }

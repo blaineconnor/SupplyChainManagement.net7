@@ -7,13 +7,16 @@ namespace SCM.Application.Validators.Requests
     {
         public UpdateRequestValidator()
         {
-            RuleFor(x => x.RequestId)
-                            .NotEmpty().WithMessage("Talep numarası boş olamaz.")
-                            .GreaterThan(0).WithMessage("Talep numarası sıfırdan büyük bir sayı olmalıdır.");
-
-            RuleFor(x => x.StatusId)
-                .NotEmpty().WithMessage("Talep durumu boş olamaz.")
-                .IsInEnum().WithMessage("Talep durumu geçerli bir değer değildir.");
+            RuleFor(request => request.RequestId)
+                .NotEmpty().WithMessage("Talep kimliği boş olamaz.");
+            RuleFor(request => request.UserId)
+                .NotEmpty().WithMessage("Kullanıcı kimliği boş olamaz.");
+            RuleFor(request => request.RequestDate)
+                .NotEmpty().WithMessage("Talep tarihi boş olamaz.");
+            RuleFor(request => request.Status)
+                .IsInEnum().WithMessage("Geçersiz talep durumu.");
+            RuleFor(request => request.Amount)
+                .GreaterThan(0).WithMessage("Talep miktarı 0'dan büyük olmalıdır.");
         }
     }
 }

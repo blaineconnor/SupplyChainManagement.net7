@@ -25,19 +25,23 @@ namespace SCM.Application.Services.Implementations
         }
 
         #region Create
-        
+
         [ValidationBehavior(typeof(CreateRequestValidator))]
         public async Task<Result<int>> CreateRequest(CreateRequestVM createRequestVM)
         {
             var result = new Result<int>();
 
-            var userExists = await _uWork.GetRepository<Account>().AnyAsync(x => x.UserName == createRequestVM.UserName);
+            // Kullanıcı var mı kontrol et
+            var userExists = await _uWork.GetRepository<Account>().AnyAsync(x => x.Id == createRequestVM.UserId);
             if (!userExists)
             {
-                throw new NotFoundException($"{createRequestVM.UserName} numaralı talep bulunamadı.");
+                throw new NotFoundException($"{createRequestVM.UserId} numaralı kullanıcı bulunamadı.");
             }
 
+            // CreateRequestVM'yi Requests varlık tipine eşle
             var requestEntity = _mapper.Map<Requests>(createRequestVM);
+
+            // Veritabanına talebi ekleyin
             _uWork.GetRepository<Requests>().Add(requestEntity);
             await _uWork.CommitAsync();
 
@@ -54,12 +58,14 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<int>();
 
+            // Talep var mı kontrol et
             var requestEntity = await _uWork.GetRepository<Requests>().GetById(deleteRequestVM.RequestId);
             if (requestEntity is null)
             {
                 throw new NotFoundException($"{deleteRequestVM.RequestId} numaralı talep bulunamadı.");
             }
 
+            // Talep detaylarını al ve sil
             var requestDetailByOrder = await _uWork.GetRepository<RequestDetail>().GetByFilterAsync(x => x.RequestId == deleteRequestVM.RequestId);
             if (requestDetailByOrder.Any())
             {
@@ -68,6 +74,8 @@ namespace SCM.Application.Services.Implementations
                     _uWork.GetRepository<RequestDetail>().Delete(requestDetail);
                 });
             }
+
+            // Talebi sil
             _uWork.GetRepository<Requests>().Delete(requestEntity);
             await _uWork.CommitAsync();
 
@@ -84,14 +92,15 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<int>();
 
+            // Talep var mı kontrol et
             var requestExists = await _uWork.GetRepository<Requests>().AnyAsync(x => x.Id == updateRequestVM.RequestId);
             if (!requestExists)
             {
                 throw new NotFoundException($"{updateRequestVM.RequestId} numaralı talep bulunamadı.");
             }
 
-            var requestEntity = await _uWork.GetRepository<Requests>().GetById(updateRequestVM.RequestId.Value);
-
+            // Talebi al ve güncelle
+            var requestEntity = await _uWork.GetRepository<Requests>().GetById(updateRequestVM.RequestId);
             _mapper.Map(updateRequestVM, requestEntity);
             _uWork.GetRepository<Requests>().Update(requestEntity);
             await _uWork.CommitAsync();
@@ -104,12 +113,14 @@ namespace SCM.Application.Services.Implementations
 
         #region Get
 
-        [ValidationBehavior(typeof(GetRequestsByUserValidator))]
         public async Task<Result<List<RequestDTO>>> GetRequestsByUser(GetRequestsByUserVM getRequestsByUserVM)
         {
             var result = new Result<List<RequestDTO>>();
 
-            var requests = await _uWork.GetRepository<Requests>().GetByFilterAsync(x => x.UserName == getRequestsByUserVM.UserName);
+            // Kullanıcının taleplerini al
+            var requests = await _uWork.GetRepository<Requests>().GetByFilterAsync(x => x.UserId == getRequestsByUserVM.UserId);
+
+            // Talepleri DTO'ya dönüştür
             var requestDtos = await requests.ProjectTo<RequestDTO>(_mapper.ConfigurationProvider).ToListAsync();
 
             result.Data = requestDtos;

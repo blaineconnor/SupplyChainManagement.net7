@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+using Azure.Core;
 using SCM.Application.Models.RequestModels.Approves;
 using SCM.Application.Services.Abstractions;
 using SCM.Application.Wrapper;
 using SCM.Domain.Entities;
 using SCM.Domain.UnitofWork;
-using System.Security.Claims;
 
 namespace SCM.Application.Services.Implementations
 {
@@ -13,125 +12,15 @@ namespace SCM.Application.Services.Implementations
     {
         private readonly IMapper _mapper;
         private readonly IUnitWork _uWork;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ApproveService(IUnitWork uWork, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+        public ApproveService(IUnitWork uWork, IMapper mapper)
         {
-            _mapper = mapper;
             _uWork = uWork;
-            _httpContextAccessor = httpContextAccessor;
+            _mapper = mapper;
         }
 
-        #region Approve
-        public async Task<Result<bool>> ApproveRequest(ApproveVM approveVM)
+        public async Task<Result<bool>> ManagerApprove(ApproveVM approveVM)
         {
-            var user = _httpContextAccessor.HttpContext.User;
-            var userRoles = user.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
-            var result = new Result<bool>();
-
-            if (userRoles.Contains("Admin"))
-            {
-                if (approveVM.Amount <= 500000)
-                {
-                    var processResult = await ProcessRequest(approveVM, true);
-                    if (processResult.Success)
-                    {
-                        result.Data = true;
-                    }
-                    else
-                    {
-                        result.Success = false;
-                        result.Errors.AddRange(processResult.Errors);
-                    }
-                }
-                else
-                {
-                    result.Success = false;
-                    result.Errors.Add("Admin yetkisi sadece 0-500000 aralığındaki talepleri onaylayabilir.");
-                }
-            }
-            else if (userRoles.Contains("SuperAdmin"))
-            {
-                var processResult = await ProcessRequest(approveVM, true);
-                if (processResult.Success)
-                {
-                    result.Data = true;
-                }
-                else
-                {
-                    result.Success = false;
-                    result.Errors.AddRange(processResult.Errors);
-                }
-            }
-            else
-            {
-                result.Success = false;
-                result.Errors.Add("Yetkiniz bulunmuyor.");
-            }
-
-            return result;
-        }
-
-        #endregion
-
-        #region Reject
-
-        public async Task<Result<bool>> RejectRequest(ApproveVM approveVM)
-        {
-            var user = _httpContextAccessor.HttpContext.User;
-            var userRoles = user.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
-            var result = new Result<bool>();
-
-            if (userRoles.Contains("Admin"))
-            {
-                if (approveVM.Amount <= 500000)
-                {
-                    var processResult = await ProcessRequest(approveVM, false);
-                    if (processResult.Success)
-                    {
-                        result.Data = true;
-                    }
-                    else
-                    {
-                        result.Success = false;
-                        result.Errors.AddRange(processResult.Errors);
-                    }
-                }
-                else
-                {
-                    result.Success = false;
-                    result.Errors.Add("Admin yetkisi sadece 0-500000 aralığındaki talepleri reddedebilir.");
-                }
-            }
-            else if (userRoles.Contains("SuperAdmin"))
-            {
-                var processResult = await ProcessRequest(approveVM, false);
-                if (processResult.Success)
-                {
-                    result.Data = true;
-                }
-                else
-                {
-                    result.Success = false;
-                    result.Errors.AddRange(processResult.Errors);
-                }
-            }
-            else
-            {
-                result.Success = false;
-                result.Errors.Add("Yetkiniz bulunmuyor.");
-            }
-
-            return result;
-        }
-
-        #endregion
-
-        #region Process
-
-        public async Task<Result<bool>> ProcessRequest(ApproveVM approveVM, bool isApproved)
-        {
-            // Veritabanından talebi al
             var request = await _uWork.GetRepository<Requests>().GetById(approveVM.RequestId);
 
             if (request == null)
@@ -143,16 +32,164 @@ namespace SCM.Application.Services.Implementations
                 };
             }
 
-            // Talebi onayla veya reddet
-            request.IsApproved = isApproved;
+            // Manager onayladı işlemi burada gerçekleştirilir
+            // Örnek olarak:
+            request.Status = RequestStatus.ManagerApproved;
+            request.Amount = approveVM.ApprovedAmount;
+            request.DateTime = DateTime.UtcNow;
 
-            // Talebi güncelle
             _uWork.GetRepository<Requests>().Update(request);
             await _uWork.CommitAsync();
 
-            return new Result<bool> { Success = true, Data = isApproved };
+            return new Result<bool> { Success = true, Data = true };
         }
 
-        #endregion
+        public async Task<Result<bool>> ManagerReject(ApproveVM approveVM)
+        {
+            // Reddedilecek talep bilgisini alın
+            var requestId = approveVM.RequestId;
+
+            // Talebi veritabanından alın
+            var request = await _uWork.GetRepository<Requests>().GetById(requestId);
+
+            // Talep bulunamazsa veya talep zaten reddedilmişse hata döndürün
+            if (request == null || request.Status == RequestStatus.ManagerApproved || request.Status == RequestStatus.Rejected)
+            {
+                return new Result<bool>
+                {
+                    Success = false,
+                    Errors = new List<string> { "Geçersiz talep veya talep zaten reddedildi veya onaylandı." }
+                };
+            }
+
+            // Talebi reddedin
+            request.Status = RequestStatus.Rejected;
+            request.By = Role.Manager.ToString();
+            request.DateTime = DateTime.Now;
+
+            // Veritabanında güncellemeyi kaydedin
+            _uWork.GetRepository<Requests>().Update(request);
+            await _uWork.CommitAsync();
+
+            return new Result<bool> { Success = true, Data = true };
+        }
+
+        public async Task<Result<bool>> PurchasingApprove(ApproveVM approveVM)
+        {
+            var request = await _uWork.GetRepository<Requests>().GetById(approveVM.RequestId);
+
+            if (request == null)
+            {
+                return new Result<bool>
+                {
+                    Success = false,
+                    Errors = new List<string> { "Talep bulunamadı." }
+                };
+            }
+
+            // Purchasing onayladı işlemi burada gerçekleştirilir
+            // Örnek olarak:
+            request.Status = RequestStatus.PurchasingApproved;
+            request.Amount = approveVM.ApprovedAmount;
+            request.DateTime = DateTime.UtcNow;
+
+            _uWork.GetRepository<Requests>().Update(request);
+            await _uWork.CommitAsync();
+
+            // Supplier'lara bildirme işlemi veya diğer adımlar burada yapılabilir
+
+            return new Result<bool> { Success = true, Data = true };
+        }
+
+       
+
+        public async Task<Result<bool>> AdminApprove(ApproveVM approveVM)
+        {
+            var request = await _uWork.GetRepository<Requests>().GetById(approveVM.RequestId);
+
+            if (request == null)
+            {
+                return new Result<bool>
+                {
+                    Success = false,
+                    Errors = new List<string> { "Talep bulunamadı." }
+                };
+            }
+
+            // Admin onayladı işlemi burada gerçekleştirilir
+            // Örnek olarak:
+            request.Status = RequestStatus.AdminApproved;
+            request.Amount = approveVM.ApprovedAmount;
+            request.DateTime = DateTime.UtcNow;
+
+            _uWork.GetRepository<Requests>().Update(request);
+            await _uWork.CommitAsync();
+
+            // Muhasebeye yönlendirme işlemi veya diğer adımlar burada yapılabilir
+
+            return new Result<bool> { Success = true, Data = true };
+        }
+
+       
+
+        public async Task<Result<bool>> SuperAdminApprove(ApproveVM approveVM)
+        {
+            var request = await _uWork.GetRepository<Requests>().GetById(approveVM.RequestId);
+
+            if (request == null)
+            {
+                return new Result<bool>
+                {
+                    Success = false,
+                    Errors = new List<string> { "Talep bulunamadı." }
+                };
+            }
+
+            // SuperAdmin onayladı işlemi burada gerçekleştirilir
+            // Örnek olarak:
+            request.Status = RequestStatus.SuperAdminApproved;
+            request.Amount = approveVM.ApprovedAmount;
+            request.DateTime = DateTime.UtcNow;
+
+            _uWork.GetRepository<Requests>().Update(request);
+            await _uWork.CommitAsync();
+
+            // Muhasebeye yönlendirme işlemi veya diğer adımlar burada yapılabilir
+
+            return new Result<bool> { Success = true, Data = true };
+        }
+
+      
+
+        public async Task<Result<bool>> AccountingFulfillment(ApproveVM approveVM)
+        {
+            // Onaylayan kişinin rolünü ve talep kimliğini alın
+            var approverRole = approveVM.ApproverRole;
+            var requestId = approveVM.RequestId;
+
+            // Muhasebe tarafından onaylanmış bir talep olduğunu doğrulayın
+            var request = await _uWork.GetRepository<Requests>().GetById(requestId);
+            if (request == null || (request.Status != RequestStatus.AdminApproved && request.Status != RequestStatus.SuperAdminApproved))
+            {
+                return new Result<bool> { Success = false, Message = "Muhasebe tarafından onaylanmış bir talep bulunamadı." };
+            }
+
+            // Onay veren kişinin rolünü kontrol edin, sadece Admin veya SuperAdmin onaylayabilir
+            if (approverRole != Role.Admin.ToString() && approverRole != Role.SuperAdmin.ToString())
+            {
+                return new Result<bool> { Success = false, Message = "Sadece Admin veya SuperAdmin talebi onaylayabilir." };
+            }
+
+            // Muhasebe işlemleri burada gerçekleştirilir
+            // Örneğin, faturalandırma işlemleri burada yapılır.
+
+            // Talebi "Completed" olarak işaretle
+            request.Status = RequestStatus.Completed;
+
+            _uWork.GetRepository<Requests>().Update(request);
+            await _uWork.CommitAsync();
+
+            return new Result<bool> { Success = true, Data = true };
+        }
     }
 }

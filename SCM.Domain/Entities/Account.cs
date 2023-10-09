@@ -11,6 +11,7 @@ namespace SCM.Domain.Entities
         public string LastUserIP { get; set; }
         public Role Roles { get; set; } 
 
+        public Supplier Suppliers { get; set; }
         public User User { get; set; }
     }
 
@@ -21,5 +22,9 @@ namespace SCM.Domain.Entities
         Accounting = 3,
         User = 4,
         SuperAdmin = 5,
+        Employee = 6,
+        Offer = 7,
+        Manager = 8,
+        Supplier = 9,
     }
 }

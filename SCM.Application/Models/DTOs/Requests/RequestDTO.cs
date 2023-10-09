@@ -1,12 +1,14 @@
-﻿using SCM.Application.Models.DTOs.RequestDetails;
-using SCM.Domain.Entities;
+﻿using SCM.Domain.Entities;
 
 namespace SCM.Application.Models.DTOs.Requests
 {
     public class RequestDTO
     {
-        public DateTime? RequestDate { get; set; }
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        public DateTime RequestDate { get; set; }
         public RequestStatus Status { get; set; }
-        public ICollection<RequestDetailDTO> RequestDetails { get; set; }
+        public int Amount { get; set; }
+        public bool IsApproved { get; set; }
     }
 }

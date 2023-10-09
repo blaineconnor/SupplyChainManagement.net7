@@ -7,10 +7,15 @@ namespace SCM.Application.Validators.Requests
     {
         public CreateRequestValidator()
         {
-            RuleFor(x => x.UserName)
-               .NotEmpty().WithMessage("Kullanıcı adı boş olamaz.");
-            RuleFor(x => x.TheRequest)
-                .NotEmpty().WithMessage("Talep boş olamaz.");
+            RuleFor(request => request.UserId)
+                .NotEmpty().WithMessage("Kullanıcı kimliği boş olamaz.");
+            RuleFor(request => request.RequestDate)
+                .NotEmpty().WithMessage("Talep tarihi boş olamaz.");
+            RuleFor(request => request.Status)
+                .IsInEnum().WithMessage("Geçersiz talep durumu.");
+            RuleFor(request => request.Amount)
+                .GreaterThan(0).WithMessage("Talep miktarı 0'dan büyük olmalıdır.");
+
         }
     }
 }

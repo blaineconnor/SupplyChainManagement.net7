@@ -7,9 +7,8 @@ namespace SCM.Application.Validators.RequestDetails
     {
         public GetRequestDetailsByRequestIdValidator()
         {
-            RuleFor(x => x.RequestId)
-                .NotEmpty().WithMessage("Sipariş numarası boş olamaz.")
-                .GreaterThan(0).WithMessage("Sipariş numarası sıfırdan büyük olmalıdır.");
+            RuleFor(request => request.RequestId)
+                .NotEmpty().WithMessage("Talep kimliği boş olamaz.");
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SCM.Application.Models.DTOs.Requests;
 using SCM.Application.Models.RequestModels.Accounts;
 using SCM.Application.Models.RequestModels.Approves;
 using SCM.Application.Models.RequestModels.Categories;
@@ -36,9 +37,11 @@ namespace SCM.Application.AutoMappings
             #endregion
 
             #region Request
+            CreateMap<Requests, RequestDTO>().ReverseMap();
             CreateMap<CreateRequestVM, Requests>();
             CreateMap<UpdateRequestVM, Requests>();
-            CreateMap<CreateRequestDetailVM, RequestDetail>();
+            CreateMap<DeleteRequestVM, Requests>();
+            CreateMap<GetRequestsByUserVM, Requests>();
             #endregion
 
             #region Approve

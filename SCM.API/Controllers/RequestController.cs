@@ -18,12 +18,11 @@ namespace SCM.API.Controllers
             _requestService = requestService;
         }
 
-        [HttpGet("getByrequester/{id:int?}")]
-        [AllowAnonymous]
-        public async Task<ActionResult<Result<List<RequestDTO>>>> GetRequestsByUser(string userName)
+        [HttpGet("user/{userId:int}")]
+        public async Task<ActionResult<Result<List<RequestDTO>>>> GetRequestsByUser(int userId)
         {
-            var categories = await _requestService.GetRequestsByUser(new GetRequestsByUserVM { UserName = userName });
-            return Ok(categories);
+            var result = await _requestService.GetRequestsByUser(new GetRequestsByUserVM { UserId = userId });
+            return Ok(result);
         }
 
         [HttpPost("create")]
@@ -33,22 +32,23 @@ namespace SCM.API.Controllers
             return Ok(requestId);
         }
 
-        [HttpPut("update/{id:int}")]
-        public async Task<ActionResult<Result<int>>> UpdateRequest(int id, UpdateRequestVM updateRequestVM)
+        [HttpPut("update/{requestId:int}")]
+        public async Task<ActionResult<Result<int>>> UpdateRequest(int requestId, UpdateRequestVM updateRequestVM)
         {
-            if (id != updateRequestVM.RequestId)
+            if (requestId != updateRequestVM.RequestId)
             {
-                return BadRequest();
+                return BadRequest("Invalid request ID.");
             }
-            var requestId = await _requestService.UpdateRequest(updateRequestVM);
-            return Ok(requestId);
+
+            var updatedRequestId = await _requestService.UpdateRequest(updateRequestVM);
+            return Ok(updatedRequestId);
         }
 
-        [HttpDelete("delete/{id:int}")]
-        public async Task<ActionResult<Result<int>>> DeleteRequest(int id)
+        [HttpDelete("delete/{requestId:int}")]
+        public async Task<ActionResult<Result<int>>> DeleteRequest(int requestId)
         {
-            var requestId = await _requestService.DeleteRequest(new DeleteRequestVM { RequestId = id });
-            return Ok(requestId);
+            var deletedRequestId = await _requestService.DeleteRequest(new DeleteRequestVM { RequestId = requestId });
+            return Ok(deletedRequestId);
         }
     }
 }

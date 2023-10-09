@@ -7,6 +7,10 @@ namespace SCM.Application.Validators.Approves
     {
         public ApproveValidator()
         {
+            RuleFor(x => x.RequestId)
+                .NotEmpty().WithMessage("Talep kimliği boş olamaz.")
+                .GreaterThan(0).WithMessage("Geçerli bir talep kimliği belirtmelisiniz.");
+
             RuleFor(x => x.IsApproved)
                 .NotEmpty()
                 .WithMessage("Seçim yapmadan giriş yapamazsınız.");
