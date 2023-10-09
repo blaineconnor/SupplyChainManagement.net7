@@ -8,8 +8,8 @@ namespace SCM.Persistence.Mappings
     {
         public override void ConfigureDerivedEntityMapping(EntityTypeBuilder<Requests> builder)
         {
-            builder.Property(x => x.UserId)
-                .HasColumnName("USER_ID")
+            builder.Property(x => x.UserName)
+                .HasColumnName("USER_NAME")
                 .HasColumnOrder(2);
 
             builder.Property(x => x.RequestDate)

@@ -10,6 +10,7 @@ using SCM.Application.Validators.Accounts;
 using SCM.Application.Wrapper;
 using SCM.Domain.Entities;
 using SCM.Domain.UnitofWork;
+using SCM.Persistence.Context;
 using SCM.Utils;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -22,12 +23,14 @@ namespace SCM.Application.Services.Implementations
         private readonly IMapper _mapper;
         private readonly IUnitWork _uWork;
         private readonly IConfiguration _configuration;
+        private readonly SCM_Context _dbContext;
 
-        public AccountService(IMapper mapper, IUnitWork uWork, IConfiguration configuration)
+        public AccountService(IMapper mapper, IUnitWork uWork, IConfiguration configuration, SCM_Context dbContext)
         {
             _mapper = mapper;
             _uWork = uWork;
             _configuration = configuration;
+            _dbContext = dbContext;
         }
 
         #region Login
@@ -42,6 +45,7 @@ namespace SCM.Application.Services.Implementations
             {
                 throw new NotFoundException($"{loginVM.UserName} kullanıcı adına sahip kullanıcı bulunamadı ye da parola hatalıdır.");
             }
+
 
             var expireMinute = Convert.ToInt32(_configuration["Jwt:Expire"]);
             var expireDate = DateTime.Now.AddMinutes(expireMinute);
@@ -92,19 +96,53 @@ namespace SCM.Application.Services.Implementations
         }
         #endregion
 
+        #region Get
+
+        public async Task<Result<Account>> GetByIdAsync(int id)
+        {
+            var result = new Result<Account>();
+            var account = await _dbContext.Accounts.FindAsync(id);
+
+            if (account != null)
+            {
+                result.Data = account;
+            }
+            else
+            {
+                result.Success = false;
+                result.Errors.Add("Hesap bulunamadı.");
+            }
+
+            return result;
+        }
+
+        #endregion
+
         #region Update
 
         [ValidationBehavior(typeof(UpdateUserValidator))]
-        public async Task<Result<bool>> UpdateUser(UpdateUserVM updateUserVM)
+        public async Task<Result<bool>> UpdateUserRolesByUsernameAsync(string username, Role newRoles)
         {
             var result = new Result<bool>();
 
-            var existsUser = await _uWork.GetRepository<User>().GetById(updateUserVM.Roles);
+            // Kullanıcı adına göre hesabı bul
+            var account = _dbContext.Accounts.FirstOrDefault(a => a.UserName == username);
 
-            _mapper.Map(updateUserVM, existsUser);
+            if (account != null)
+            {
+                // Rollerini güncelle
+                account.Roles = newRoles;
 
-            _uWork.GetRepository<User>().Update(existsUser);
-            result.Data = await _uWork.CommitAsync();
+                // Değişiklikleri kaydet
+                await _dbContext.SaveChangesAsync();
+
+                result.Data = true;
+            }
+            else
+            {
+                result.Success = false;
+                result.Errors.Add("Kullanıcı adına göre hesap bulunamadı.");
+            }
 
             return result;
         }

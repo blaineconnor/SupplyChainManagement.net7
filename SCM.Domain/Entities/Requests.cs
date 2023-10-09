@@ -4,7 +4,7 @@ namespace SCM.Domain.Entities
 {
     public class Requests : AuditableEntity
     {
-        public int UserId { get; set; }
+        public string UserName { get; set; }
         public DateTime RequestDate { get; set; }
         public RequestStatus Status { get; set; }
         public int Amount { get; set; }

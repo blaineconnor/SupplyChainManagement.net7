@@ -4,6 +4,7 @@
     {
         public T Data { get; set; }
         public bool Success { get; set; } = true;
-        public List<string> Errors { get; set; } = new List<string>();       
+        public List<string> Errors { get; set; } = new List<string>();
+        public string Message { get; set; }
     }
 }

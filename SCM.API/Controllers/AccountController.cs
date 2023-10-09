@@ -23,7 +23,6 @@ namespace SCM.API.Controllers
 
 
         [HttpPost("register")]
-        [AllowAnonymous]
         public async Task<ActionResult<Result<int>>> Register(RegisterVM registerVM)
         {
             var result = await _accountService.Register(registerVM);
@@ -38,16 +37,39 @@ namespace SCM.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("update")]
-        
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Result<AccountDTO>>> GetByIdAsync(int id)
+        {
+            var result = await _accountService.GetByIdAsync(id);
+
+            if (result.Data != null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPut("update-user-role")]
         public async Task<ActionResult<Result<int>>> UpdateUser(string userName, UpdateUserVM updateUserVM)
         {
             if (userName != updateUserVM.UserName)
             {
-                return BadRequest();
+                return BadRequest(new Result<int> { Success = false, Errors = new List<string> { "Kullanıcı adı uyuşmuyor." } });
             }
-            var result = await _accountService.UpdateUser(updateUserVM);
-            return Ok(result);
+
+            var result = await _accountService.UpdateUserRolesByUsernameAsync(updateUserVM.UserName, updateUserVM.Roles);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
         }
     }
 }

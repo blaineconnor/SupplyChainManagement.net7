@@ -109,7 +109,7 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<List<RequestDTO>>();
 
-            var requests = await _uWork.GetRepository<Requests>().GetByFilterAsync(x => x.UserId == getRequestsByUserVM.UserId);
+            var requests = await _uWork.GetRepository<Requests>().GetByFilterAsync(x => x.UserName == getRequestsByUserVM.UserName);
             var requestDtos = await requests.ProjectTo<RequestDTO>(_mapper.ConfigurationProvider).ToListAsync();
 
             result.Data = requestDtos;

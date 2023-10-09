@@ -20,9 +20,9 @@ namespace SCM.API.Controllers
 
         [HttpGet("getByrequester/{id:int?}")]
         [AllowAnonymous]
-        public async Task<ActionResult<Result<List<RequestDTO>>>> GetRequestsByUser(int userId)
+        public async Task<ActionResult<Result<List<RequestDTO>>>> GetRequestsByUser(string userName)
         {
-            var categories = await _requestService.GetRequestsByUser(new GetRequestsByUserVM { UserId = userId });
+            var categories = await _requestService.GetRequestsByUser(new GetRequestsByUserVM { UserName = userName });
             return Ok(categories);
         }
 

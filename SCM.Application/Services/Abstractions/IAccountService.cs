@@ -1,6 +1,7 @@
 ﻿using SCM.Application.Models.DTOs.Accounts;
 using SCM.Application.Models.RequestModels.Accounts;
 using SCM.Application.Wrapper;
+using SCM.Domain.Entities;
 
 namespace SCM.Application.Services.Abstractions
 {
@@ -10,7 +11,8 @@ namespace SCM.Application.Services.Abstractions
 
         Task<Result<TokenDTO>> Login(LoginVM loginVM);
 
-        Task<Result<bool>> UpdateUser(UpdateUserVM updateUserVM);
+        Task<Result<Account>> GetByIdAsync(int id);
 
+        Task<Result<bool>> UpdateUserRolesByUsernameAsync(string username, Role newRoles);
     }
 }

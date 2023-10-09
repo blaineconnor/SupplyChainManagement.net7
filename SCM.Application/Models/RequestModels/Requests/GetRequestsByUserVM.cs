@@ -2,6 +2,6 @@
 {
     public class GetRequestsByUserVM
     {
-        public int UserId { get; set; }
+        public string UserName { get; set; }
     }
 }

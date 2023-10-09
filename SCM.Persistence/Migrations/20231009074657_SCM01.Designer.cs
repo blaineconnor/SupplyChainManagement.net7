@@ -12,8 +12,8 @@ using SCM.Persistence.Context;
 namespace SCM.Persistence.Migrations
 {
     [DbContext(typeof(SCM_Context))]
-    [Migration("20231006142456_SCM")]
-    partial class SCM
+    [Migration("20231009074657_SCM01")]
+    partial class SCM01
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,9 +59,7 @@ namespace SCM.Persistence.Migrations
                         .HasColumnOrder(4);
 
                     b.Property<int>("Roles")
-                        .HasColumnType("int")
-                        .HasColumnName("ROLE")
-                        .HasColumnOrder(7);
+                        .HasColumnType("int");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int")
@@ -347,9 +345,13 @@ namespace SCM.Persistence.Migrations
                         .HasColumnName("REQUEST_STATUS")
                         .HasColumnOrder(5);
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
-                        .HasColumnName("USER_ID")
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("USER_NAME")
                         .HasColumnOrder(2);
 
                     b.HasKey("Id");
@@ -492,9 +494,7 @@ namespace SCM.Persistence.Migrations
                 {
                     b.HasOne("SCM.Domain.Entities.User", null)
                         .WithMany("Requests")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("SCM.Domain.Entities.Categories", b =>

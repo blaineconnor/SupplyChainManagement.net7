@@ -9,7 +9,7 @@ namespace SCM.Application.Validators.Accounts
         {
             RuleFor(x => x.Roles)
                 .NotEmpty()
-                .WithMessage("Rol bilgisini seçmeden giriş yapamazsınız.");
+                .WithMessage("Rol bilgisini seçmeden giriş yapamazsınız.");            
         }
     }
 }

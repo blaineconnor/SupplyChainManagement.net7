@@ -85,8 +85,8 @@ namespace SCM.Persistence.Migrations
                     PASSWORD = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     LAST_USER_LOGIN = table.Column<DateTime>(type: "datetime2", nullable: true),
                     LAST_LOGIN_IP = table.Column<string>(type: "nvarchar(50)", nullable: true),
-                    ROLE = table.Column<int>(type: "int", nullable: false),
-                    IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0")
+                    IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0"),
+                    Roles = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

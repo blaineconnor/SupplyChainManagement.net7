@@ -40,10 +40,6 @@ namespace SCM.Persistence.Mappings
                 .HasColumnName("IS_DELETED")
                 .IsRequired(false);
 
-            builder.Property(x => x.Roles)
-                .HasColumnName("ROLE")
-                .HasColumnOrder(7);
-
             builder.HasOne(x => x.User)
                 .WithOne(x => x.Account)
                 .HasForeignKey<Account>(x => x.UserId);
