@@ -5,16 +5,10 @@ namespace SCM.Application.Services.Abstractions
 {
     public interface IApproveService
     {
-
         Task<Result<bool>> ManagerApprove(ApproveVM approveVM);
         Task<Result<bool>> ManagerReject(ApproveVM approveVM);
-        Task<Result<bool>> PurchasingApprove(ApproveVM approveVM);
-        Task<Result<bool>> PurchasingReject(ApproveVM approveVM);
-        Task<Result<bool>> AdminApprove(ApproveVM approveVM);
-        Task<Result<bool>> AdminReject(ApproveVM approveVM);
-        Task<Result<bool>> SuperAdminApprove(ApproveVM approveVM);
-        Task<Result<bool>> SuperAdminReject(ApproveVM approveVM, string rejectionReason);
+        Task<Result<bool>> ApproveOffer(ApproveVM approveVM);
+        Task<Result<bool>> RejectOffer(ApproveVM approveVM, string rejectionReason);
         Task<Result<bool>> AccountingFulfillment();
     }
-
 }

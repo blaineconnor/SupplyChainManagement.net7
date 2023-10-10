@@ -57,14 +57,34 @@ namespace SCM.Application.Services.Implementations
         #endregion
 
         #region Create
-        public async Task<Result<OfferDTO>> CreateOfferAsync(CreateOfferVM createOfferVM)
+        public async Task<Result<bool>> CreateOfferAsync(CreateOfferVM createOfferVM)
         {
+            var request = await _unitOfWork.GetRepository<Requests>()
+                .GetSingleByFilterAsync(r => r.Id == createOfferVM.RequestId && r.Status == RequestStatus.ManagerApproved);
+
+            if (request == null)
+            {
+                return new Result<bool>
+                {
+                    Success = false,
+                    Message = "Onaylanmış bir talep bulunamadı."
+                };
+            }
+
             var offer = _mapper.Map<Offer>(createOfferVM);
+            offer.RequestId = createOfferVM.RequestId;
+
             _unitOfWork.GetRepository<Offer>().Add(offer);
             await _unitOfWork.CommitAsync();
-            return new Result<OfferDTO>
+
+            request.Status = RequestStatus.OfferReceived;
+            _unitOfWork.GetRepository<Requests>().Update(request);
+            await _unitOfWork.CommitAsync();
+
+            return new Result<bool>
             {
-                Data = _mapper.Map<OfferDTO>(offer)
+                Success = true,
+                Message = "Teklif başarıyla kaydedildi ve talep durumu 'Teklif Ulaştı' olarak güncellendi."
             };
         }
 
@@ -72,23 +92,27 @@ namespace SCM.Application.Services.Implementations
 
         #region Update
 
-        public async Task<Result<OfferDTO>> UpdateOfferAsync(UpdateOfferVM updateOfferVM)
+        public async Task<Result<bool>> UpdateOfferAsync(UpdateOfferVM updateOfferVM)
         {
             var offer = await _unitOfWork.GetRepository<Offer>().GetById(updateOfferVM.Id);
+
             if (offer == null)
             {
-                return new Result<OfferDTO>
+                return new Result<bool>
                 {
                     Success = false,
                     Message = $"Teklif bulunamadı (ID: {updateOfferVM.Id})."
                 };
             }
+
             _mapper.Map(updateOfferVM, offer);
             _unitOfWork.GetRepository<Offer>().Update(offer);
             await _unitOfWork.CommitAsync();
-            return new Result<OfferDTO>
+
+            return new Result<bool>
             {
-                Data = _mapper.Map<OfferDTO>(offer)
+                Success = true,
+                Data = true
             };
         }
 

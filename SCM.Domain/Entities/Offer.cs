@@ -11,6 +11,6 @@ namespace SCM.Domain.Entities
         public DateTime OfferDate { get; set; }
 
         public ICollection<Approves> Approves { get; set; }
-        public Approves Approve { get; set; }
+        //public Approves Approve { get; set; }
     }
 }

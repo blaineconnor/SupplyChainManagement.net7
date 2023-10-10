@@ -31,17 +31,15 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<int>();
 
-            // Kullanıcı var mı kontrol et
             var userExists = await _uWork.GetRepository<Account>().AnyAsync(x => x.Id == createRequestVM.UserId);
             if (!userExists)
             {
                 throw new NotFoundException($"{createRequestVM.UserId} numaralı kullanıcı bulunamadı.");
             }
 
-            // CreateRequestVM'yi Requests varlık tipine eşle
             var requestEntity = _mapper.Map<Requests>(createRequestVM);
+            requestEntity.Status = RequestStatus.Pending;
 
-            // Veritabanına talebi ekleyin
             _uWork.GetRepository<Requests>().Add(requestEntity);
             await _uWork.CommitAsync();
 
@@ -102,6 +100,8 @@ namespace SCM.Application.Services.Implementations
             // Talebi al ve güncelle
             var requestEntity = await _uWork.GetRepository<Requests>().GetById(updateRequestVM.RequestId);
             _mapper.Map(updateRequestVM, requestEntity);
+            requestEntity.Status = RequestStatus.Pending;
+
             _uWork.GetRepository<Requests>().Update(requestEntity);
             await _uWork.CommitAsync();
 
@@ -117,10 +117,8 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<List<RequestDTO>>();
 
-            // Kullanıcının taleplerini al
             var requests = await _uWork.GetRepository<Requests>().GetByFilterAsync(x => x.UserId == getRequestsByUserVM.UserId);
 
-            // Talepleri DTO'ya dönüştür
             var requestDtos = await requests.ProjectTo<RequestDTO>(_mapper.ConfigurationProvider).ToListAsync();
 
             result.Data = requestDtos;

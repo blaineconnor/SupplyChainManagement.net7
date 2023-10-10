@@ -1,4 +1,6 @@
-﻿namespace SCM.Application.Models.RequestModels.Approves
+﻿using SCM.Domain.Entities;
+
+namespace SCM.Application.Models.RequestModels.Approves
 {
     public class ApproveVM
     {
@@ -6,5 +8,6 @@
         public string ApproverRole { get; set; } // Manager, Admin, Purchasing, vs.
         public bool IsApproved { get; set; }
         public decimal ApprovedAmount { get; set; }
+        public Role Role { get; set; }
     }
 }

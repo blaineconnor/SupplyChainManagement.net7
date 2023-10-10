@@ -30,6 +30,7 @@ namespace SCM.Domain.Entities
         AdminApproved = 4,       // Admin onayladı, Muhasebeye gönderildi
         SuperAdminApproved = 5,  // SuperAdmin onayladı, Muhasebeye gönderildi
         Completed = 6,           // Muhasebe faturalandırdı, tamamlandı
-        Rejected = 7             // Herhangi bir aşamada reddedildi
+        Rejected = 7,             // Herhangi bir aşamada reddedildi
+        OfferReceived = 8
     }
 }

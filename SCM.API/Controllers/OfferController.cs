@@ -48,14 +48,14 @@ namespace SCM.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Result<OfferDTO>>> CreateOffer([FromBody] CreateOfferVM createOfferVM)
+        public async Task<ActionResult<Result<bool>>> CreateOffer([FromBody] CreateOfferVM createOfferVM)
         {
             var result = await _offerService.CreateOfferAsync(createOfferVM);
-            return CreatedAtAction(nameof(GetOfferById), new { offerId = result.Data.Id }, result);
+            return CreatedAtAction(nameof(GetOfferById), new { offerId = result.Data }, result);
         }
 
         [HttpPut("{offerId}")]
-        public async Task<ActionResult<Result<OfferDTO>>> UpdateOffer(int offerId, [FromBody] UpdateOfferVM updateOfferVM)
+        public async Task<ActionResult<Result<bool>>> UpdateOffer(int offerId, [FromBody] UpdateOfferVM updateOfferVM)
         {
             if (offerId != updateOfferVM.Id)
             {
