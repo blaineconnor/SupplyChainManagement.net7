@@ -10,18 +10,23 @@ namespace SCM.Domain.Entities
         public DateTime RequestDate { get; set; }
         public RequestStatus Status { get; set; }
         public decimal Amount { get; set; }
+        public bool IsApproved { get; set; }
+        public string? RejectionReason { get; set; }
 
+        
+        //NavigationProperties
+        public ICollection<Invoice> Invoices { get; set; }
+        public ICollection<Offer> Offers { get; set; }
         public ICollection<RequestDetail> RequestDetails { get; set; }
         public ICollection<Approves> Approves { get; set; }
-        public bool IsApproved { get; set; }
-        public string RejectionReason { get; set; }
+        
     }
 
     public enum RequestStatus
     {
         Pending = 1,             // İlk talep oluşturuldu
         ManagerApproved = 2,     // Manager onayladı, Purchasing'e gönderildi
-        PurchasingApproved = 3,  // Purchasing onayladı, Admin veya SuperAdmin'e gönderildi
+        PurchasingApproved = 3,  // Fiyat Alındı ve Purchasing fiyatı seçti, Purchasing onayladı ya da Admin veya SuperAdmin'e gönderildi
         AdminApproved = 4,       // Admin onayladı, Muhasebeye gönderildi
         SuperAdminApproved = 5,  // SuperAdmin onayladı, Muhasebeye gönderildi
         Completed = 6,           // Muhasebe faturalandırdı, tamamlandı

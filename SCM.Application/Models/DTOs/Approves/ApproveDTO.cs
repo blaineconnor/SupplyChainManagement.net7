@@ -9,6 +9,9 @@ namespace SCM.Application.Models.DTOs.Approves
         public string ApproverRole { get; set; } // Manager, Admin, Purchasing, vs.
         public bool IsApproved { get; set; }
         public decimal ApprovedAmount { get; set; }
+        public RequestStatus Status { get; set; }
         public DateTime ApprovalDate { get; set; }
+        public string ApprovedBy { get; set; }
+        public string RequestedBy { get; set; }
     }
 }

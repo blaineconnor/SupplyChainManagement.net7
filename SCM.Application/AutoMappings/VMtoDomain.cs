@@ -3,6 +3,7 @@ using SCM.Application.Models.DTOs.Requests;
 using SCM.Application.Models.RequestModels.Accounts;
 using SCM.Application.Models.RequestModels.Approves;
 using SCM.Application.Models.RequestModels.Categories;
+using SCM.Application.Models.RequestModels.Offers;
 using SCM.Application.Models.RequestModels.Products;
 using SCM.Application.Models.RequestModels.RequestDetails;
 using SCM.Application.Models.RequestModels.Requests;
@@ -44,8 +45,17 @@ namespace SCM.Application.AutoMappings
             CreateMap<GetRequestsByUserVM, Requests>();
             #endregion
 
+            #region Offer
+            CreateMap<CreateOfferVM, Offer>();
+            CreateMap<UpdateOfferVM, Offer>();
+            #endregion
+
             #region Approve
             CreateMap<ApproveVM, Approves>();
+            #endregion
+
+            #region OfferVM to ApproveVM
+            CreateMap<CreateOfferVM, ApproveVM>();
             #endregion
         }
     }

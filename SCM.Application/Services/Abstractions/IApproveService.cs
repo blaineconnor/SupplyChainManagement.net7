@@ -13,8 +13,8 @@ namespace SCM.Application.Services.Abstractions
         Task<Result<bool>> AdminApprove(ApproveVM approveVM);
         Task<Result<bool>> AdminReject(ApproveVM approveVM);
         Task<Result<bool>> SuperAdminApprove(ApproveVM approveVM);
-        Task<Result<bool>> SuperAdminReject(ApproveVM approveVM);
-        Task<Result<bool>> AccountingFulfillment(ApproveVM approveVM);
+        Task<Result<bool>> SuperAdminReject(ApproveVM approveVM, string rejectionReason);
+        Task<Result<bool>> AccountingFulfillment();
     }
 
 }

@@ -12,6 +12,8 @@ namespace SCM.Domain.Entities
         public string RequestedBy { get; set; }
 
 
+        public ICollection<Offer> Offers { get; set; }
+        public Offer Offer { get; set; }
         public Requests Requests { get; set; }
         public RequestStatus RequestStatus { get; set; }
     }

@@ -17,14 +17,17 @@ namespace SCM.Persistence.Mappings
                 .HasColumnOrder(4)
                 .HasColumnType("date");
 
-            //builder.Property(x => x.IsApproved)
-            //    .HasColumnName("IS_APPROVED")
-            //    .HasColumnOrder(1);
+            builder.Property(x => x.ApprovedBy)
+              .HasColumnName("APPROVED_BY")
+              .HasColumnOrder(5)
+              .HasMaxLength(100) 
+              .IsRequired();
 
-            //builder.Property(x => x.IsDeleted)
-            //    .HasColumnType("bit")
-            //    .HasColumnName("IS_DELETED")
-            //    .IsRequired(false);
+            builder.Property(x => x.Status)
+                .HasColumnName("STATUS")
+                .HasColumnOrder(6)
+                .IsRequired();
+
 
             builder.ToTable("APPROVES");
         }
