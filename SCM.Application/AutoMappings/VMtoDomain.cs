@@ -50,11 +50,11 @@ namespace SCM.Application.AutoMappings
             #endregion
 
             #region Approve
-            CreateMap<ApproveVM, Approves>();
+            CreateMap<ManagerApproveVM, Approves>();
             #endregion
 
             #region OfferVM to ApproveVM
-            CreateMap<CreateOfferVM, ApproveVM>();
+            CreateMap<CreateOfferVM, ManagerApproveVM>();
             #endregion
         }
     }

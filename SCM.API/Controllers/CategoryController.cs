@@ -9,7 +9,7 @@ namespace SCM.API.Controllers
 {
     [ApiController]
     [Route("category")]
-    [Authorize(Policy = "PurchasingPolicy")]
+    [Authorize(Policy = "EmployeePolicy")]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
@@ -20,7 +20,7 @@ namespace SCM.API.Controllers
         }
 
         [HttpGet("get")]
-        [AllowAnonymous]
+        [Authorize(Policy = "EmployeePolicy")]
         public async Task<ActionResult<Result<List<CategoryDTO>>>> GetAllCategories()
         {
             var categories = await _categoryService.GetAllCategories();
@@ -28,7 +28,7 @@ namespace SCM.API.Controllers
         }
 
         [HttpGet("get/{id:int}")]
-        [AllowAnonymous]
+        [Authorize(Policy = "EmployeePolicy")]
         public async Task<ActionResult<Result<CategoryDTO>>> GetCategoryById(int id)
         {
             var category = await _categoryService.GetCategoryById(new GetCategoryByIdVM { Id = id });
@@ -36,7 +36,7 @@ namespace SCM.API.Controllers
         }
 
         [HttpPost("create")]
-        
+        [Authorize(Policy = "PurchasingPolicy")]
         public async Task<ActionResult<Result<int>>> CreateCategory(CreateCategoryVM createCategoryVM)
         {
             var categoryId = await _categoryService.CreateCategory(createCategoryVM);
@@ -44,6 +44,7 @@ namespace SCM.API.Controllers
         }
 
         [HttpPut("update/{id:int}")]
+        [Authorize(Policy = "PurchasingPolicy")]
         public async Task<ActionResult<Result<int>>> UpdateCategory(int id, UpdateCategoryVM updateCategoryVM)
         {
             if (id != updateCategoryVM.Id)
@@ -55,6 +56,7 @@ namespace SCM.API.Controllers
         }
 
         [HttpDelete("delete/{id:int}")]
+        [Authorize(Policy = "PurchasingPolicy")]
         public async Task<ActionResult<Result<int>>> DeleteCategory(int id)
         {
             var categoryId = await _categoryService.DeleteCategory(new DeleteCategoryVM { Id = id });

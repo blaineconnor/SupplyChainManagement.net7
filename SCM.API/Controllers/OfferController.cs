@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SCM.Application.Models.DTOs.Offer;
 using SCM.Application.Models.RequestModels.Offers;
 using SCM.Application.Services.Abstractions;
@@ -18,6 +19,7 @@ namespace SCM.API.Controllers
         }
 
         [HttpGet("GetOfferByID")]
+        [Authorize(Policy = "PurchasingPolicy")]
         public async Task<ActionResult<Result<OfferDTO>>> GetOfferById(int offerId)
         {
             var result = await _offerService.GetOfferByIdAsync(offerId);
@@ -27,6 +29,7 @@ namespace SCM.API.Controllers
         }
 
         [HttpGet("GetOffersByRequestID")]
+        [Authorize(Policy = "PurchasingPolicy")]
         public async Task<ActionResult<Result<List<OfferDTO>>>> GetOffersByRequestId(int requestId)
         {
             var result = await _offerService.GetOffersByRequestIdAsync(requestId);
@@ -36,6 +39,7 @@ namespace SCM.API.Controllers
         }
 
         [HttpGet("GetAll")]
+        [Authorize(Policy = "PurchasingPolicy")]
         public async Task<ActionResult<Result<List<OfferDTO>>>> GetAllOffers()
         {
             var result = await _offerService.GetAllOffersAsync();
@@ -43,6 +47,8 @@ namespace SCM.API.Controllers
         }
 
         [HttpPost("CreateOffer")]
+        [Authorize(Policy = "SupplierPolicy")]
+
         public async Task<ActionResult<Result<bool>>> CreateOffer([FromBody] CreateOfferVM createOfferVM)
         {
             var result = await _offerService.CreateOfferAsync(createOfferVM);
@@ -50,6 +56,7 @@ namespace SCM.API.Controllers
         }
 
         [HttpPut("UpdateOffer")]
+        [Authorize(Policy = "SupplierPolicy")]
         public async Task<ActionResult<Result<bool>>> UpdateOffer(int offerId, [FromBody] UpdateOfferVM updateOfferVM)
         {
             if (offerId != updateOfferVM.Id)
@@ -62,6 +69,7 @@ namespace SCM.API.Controllers
         }
 
         [HttpDelete("DeleteOffer")]
+        [Authorize(Policy = "SupplierPolicy")]
         public async Task<ActionResult<Result<bool>>> DeleteOffer(int offerId)
         {
             var result = await _offerService.DeleteOfferAsync(offerId);

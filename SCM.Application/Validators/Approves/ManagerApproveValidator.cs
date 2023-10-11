@@ -3,13 +3,13 @@ using SCM.Application.Models.RequestModels.Approves;
 
 namespace SCM.Application.Validators.Approves
 {
-    public class ApproveValidator : AbstractValidator<ManagerApproveVM>
+    public class ManagerApproveValidator : AbstractValidator<ManagerApproveVM>
     {
-        public ApproveValidator()
+        public ManagerApproveValidator() 
         {
             RuleFor(x => x.RequestId)
-                .NotEmpty().WithMessage("Talep kimliği boş olamaz.")
-                .GreaterThan(0).WithMessage("Geçerli bir talep kimliği belirtmelisiniz.");
+              .NotEmpty().WithMessage("Talep kimliği boş olamaz.")
+              .GreaterThan(0).WithMessage("Geçerli bir talep kimliği belirtmelisiniz.");
 
             RuleFor(x => x.IsApproved)
                 .NotEmpty()

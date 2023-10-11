@@ -1,8 +1,7 @@
 ﻿namespace SCM.Application.Models.RequestModels.Approves
 {
-    public class ApproveVM
+    public class RejectVM
     {
         public int RequestId { get; set; }
-        public bool IsApproved { get; set; }
     }
 }

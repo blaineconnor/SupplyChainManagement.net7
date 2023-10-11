@@ -123,13 +123,6 @@ builder.Services.AddAuthorization(options =>
         .RequireAuthenticatedUser()
         .Build();
 
-    options.AddPolicy("AdminPolicy", policy =>
-    {
-        policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
-        policy.RequireRole("Admin", "SuperAdmin");
-    });
-
-
 
     options.AddPolicy("SuperAdminPolicy", policy =>
     {
@@ -137,7 +130,11 @@ builder.Services.AddAuthorization(options =>
         policy.RequireRole("SuperAdmin");
     });
 
-
+    options.AddPolicy("AdminPolicy", policy =>
+    {
+        policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
+        policy.RequireRole("Admin", "SuperAdmin");
+    });
 
     options.AddPolicy("PurchasingPolicy", policy =>
     {
@@ -145,19 +142,37 @@ builder.Services.AddAuthorization(options =>
         policy.RequireRole("Purchasing", "Admin", "SuperAdmin");
     });
 
-
     options.AddPolicy("AccountingPolicy", policy =>
     {
         policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
         policy.RequireRole("Accounting", "Admin", "SuperAdmin");
     });
 
-
-    options.AddPolicy("UserPolicy", policy =>
+    options.AddPolicy("EmployeePolicy", policy =>
     {
         policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
-        policy.RequireRole("User", "Admin", "SuperAdmin", "Purchasing", "Accounting");
+        policy.RequireRole("Employee", "Admin", "SuperAdmin", "Purchasing", "Accounting", "Manager");
     });
+
+    options.AddPolicy("SupplierPolicy", policy =>
+    {
+        policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
+        policy.RequireRole("Supplier", "Admin", "SuperAdmin", "Purchasing");
+    });
+
+    options.AddPolicy("MPPolicy", policy =>
+    {
+        policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
+        policy.RequireRole("Manager", "Purchasing", "Admin", "SuperAdmin");
+    });
+
+    options.AddPolicy("ManagerPolicy", policy =>
+    {
+        policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
+        policy.RequireRole("Manager", "Admin", "SuperAdmin");
+    });
+
+
 });
 
 

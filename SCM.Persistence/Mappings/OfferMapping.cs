@@ -30,12 +30,6 @@ namespace SCM.Persistence.Mappings
                 .HasColumnOrder(6)
                 .IsRequired();
 
-            builder.Property(x => x.OfferDate)
-                .HasColumnName("OFFER_DATE")
-                .HasColumnOrder(7)
-                .HasColumnType("datetime") 
-                .IsRequired();
-
             builder.ToTable("OFFERS");
         }
     }

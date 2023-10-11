@@ -27,7 +27,7 @@ namespace SCM.Persistence.Mappings
                 .HasColumnName("REQUEST_BY")
                 .HasMaxLength(50);
 
-            builder.Property(x => x.HowMany)
+            builder.Property(x => x.Amount)
                 .HasColumnName("AMOUNT")
                 .HasColumnType("decimal(18, 2)")
                 .IsRequired();

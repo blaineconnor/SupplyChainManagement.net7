@@ -12,6 +12,5 @@ namespace SCM.Domain.Entities
 
 
         public Requests Request { get; set; }
-        public Supplier Supplier { get; set; }
     }
 }

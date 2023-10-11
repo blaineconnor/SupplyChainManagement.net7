@@ -8,7 +8,7 @@ namespace SCM.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Policy = "AdminPolicy")]
+    
     public class ApproveController : ControllerBase
     {
         private readonly IApproveService _approveService;
@@ -18,41 +18,44 @@ namespace SCM.API.Controllers
             _approveService = approveService;
         }
 
-        [HttpPut("manager-approve")]
-        public async Task<ActionResult<Result<bool>>> ManagerApprove(ApproveVM approveVM)
+        [HttpPut("manager-Approve")]
+        [Authorize(Policy = "ManagerPolicy")]
+        public async Task<ActionResult<Result<bool>>> ManagerApprove(ManagerApproveVM approveVM)
         {
             var result = await _approveService.ManagerApprove(approveVM);
-
             return Ok(result);
-
-        }
-
-        [HttpPut("manager-reject")]
-        public async Task<ActionResult<Result<bool>>> ManagerReject(ApproveVM approveVM)
-        {
-            var result = await _approveService.ManagerReject(approveVM);
-
-
-            return Ok(result);
-
-        }
-
-        [HttpPut("approve")]
-        public async Task<ActionResult<Result<bool>>> ApproveOffer(ApproveVM approveVM)
-        {
-            var result = await _approveService.ApproveOffer(approveVM);
-
-            return Ok(result);
-
         }
 
         [HttpPut("reject")]
-        public async Task<ActionResult<Result<bool>>> RejectOffer(ApproveVM approveVM, string rejectionReason)
+        [Authorize(Policy = "MPPolicy")]
+        public async Task<ActionResult<Result<bool>>> Reject(RejectVM approveVM, string rejectionReason)
         {
-            var result = await _approveService.RejectOffer(approveVM, rejectionReason);
-
+            var result = await _approveService.Reject(approveVM, rejectionReason);
             return Ok(result);
+        }
 
+        [HttpPut("Purchasing-Approve")]
+        [Authorize(Policy = "PurchasingPolicy")]
+        public async Task<ActionResult<Result<bool>>> PurchasingApprove(ApproveVM approveVM)
+        {
+            var result = await _approveService.PurchasingApprove(approveVM);
+            return Ok(result);
+        }
+
+        [HttpPut("Admin-Approve")]
+        [Authorize(Policy = "AdminPolicy")]
+        public async Task<ActionResult<Result<bool>>> AdminApprove(ApproveVM approveVM)
+        {
+            var result = await _approveService.AdminApprove(approveVM);
+            return Ok(result);
+        }
+
+        [HttpPut("SuperAdmin-Approve")]
+        [Authorize(Policy = "SuperAdminPolicy")]
+        public async Task<ActionResult<Result<bool>>> SuperAdminApprove(ApproveVM approveVM)
+        {
+            var result = await _approveService.SuperAdminApprove(approveVM);
+            return Ok(result);
         }
     }
 }

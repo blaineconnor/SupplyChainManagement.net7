@@ -28,23 +28,6 @@ namespace SCM.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SUPPLIERS",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NAME = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    EMAIL = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    DATE_TIME = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BY = table.Column<string>(type: "NVARCHAR(10)", nullable: true),
-                    IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SUPPLIERS", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "USERS",
                 columns: table => new
                 {
@@ -109,12 +92,6 @@ namespace SCM.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_ACCOUNTS", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_ACCOUNTS_SUPPLIERS_USER_ID",
-                        column: x => x.USER_ID,
-                        principalTable: "SUPPLIERS",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_ACCOUNTS_USERS_USER_ID",
                         column: x => x.USER_ID,
                         principalTable: "USERS",
@@ -173,12 +150,6 @@ namespace SCM.Persistence.Migrations
                         principalTable: "REQUESTS",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_INVOICES_SUPPLIERS_SUPPLIER_ID",
-                        column: x => x.SUPPLIER_ID,
-                        principalTable: "SUPPLIERS",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -191,7 +162,6 @@ namespace SCM.Persistence.Migrations
                     AMOUNT = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     SUPPLIER_NAME = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     SUPPLIER_ID = table.Column<int>(type: "int", nullable: false),
-                    OFFER_DATE = table.Column<DateTime>(type: "datetime", nullable: false),
                     DATE_TIME = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BY = table.Column<string>(type: "NVARCHAR(10)", nullable: true),
                     IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0"),
@@ -211,23 +181,17 @@ namespace SCM.Persistence.Migrations
                         column: x => x.RequestsId,
                         principalTable: "REQUESTS",
                         principalColumn: "ID");
-                    table.ForeignKey(
-                        name: "FK_OFFERS_SUPPLIERS_SUPPLIER_ID",
-                        column: x => x.SUPPLIER_ID,
-                        principalTable: "SUPPLIERS",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "APPROVES",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     REQUEST_ID = table.Column<int>(type: "int", nullable: false),
                     APPROVED_BY = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     STATUS = table.Column<int>(type: "int", nullable: false),
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     DATE_TIME = table.Column<DateTime>(type: "date", nullable: false),
                     BY = table.Column<string>(type: "NVARCHAR(10)", nullable: true),
                     IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0"),
@@ -299,11 +263,6 @@ namespace SCM.Persistence.Migrations
                 column: "REQUEST_ID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_INVOICES_SUPPLIER_ID",
-                table: "INVOICES",
-                column: "SUPPLIER_ID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_OFFERS_ProductId",
                 table: "OFFERS",
                 column: "ProductId");
@@ -312,11 +271,6 @@ namespace SCM.Persistence.Migrations
                 name: "IX_OFFERS_RequestsId",
                 table: "OFFERS",
                 column: "RequestsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OFFERS_SUPPLIER_ID",
-                table: "OFFERS",
-                column: "SUPPLIER_ID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PRODUCTS_CATEGORY_ID",
@@ -349,9 +303,6 @@ namespace SCM.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "REQUESTS");
-
-            migrationBuilder.DropTable(
-                name: "SUPPLIERS");
 
             migrationBuilder.DropTable(
                 name: "CATEGORIES");

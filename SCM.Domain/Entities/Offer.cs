@@ -8,7 +8,6 @@ namespace SCM.Domain.Entities
         public decimal Amount { get; set; }
         public string SupplierName { get; set; }
         public int SupplierId { get; set; }
-        public DateTime OfferDate { get; set; }
 
         public ICollection<Approves> Approves { get; set; }
         //public Approves Approve { get; set; }

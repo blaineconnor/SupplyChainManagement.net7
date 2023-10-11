@@ -28,7 +28,10 @@ namespace SCM.Persistence.Mappings
                 .HasColumnOrder(6)
                 .IsRequired();
 
-
+            builder.Property<int>(x => x.Id)
+                .HasColumnName("ID")
+                .HasColumnOrder(7);
+                
             builder.ToTable("APPROVES");
         }
     }

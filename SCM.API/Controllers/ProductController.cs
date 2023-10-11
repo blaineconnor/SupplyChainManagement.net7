@@ -9,7 +9,6 @@ namespace SCM.API.Controllers
 {
     [ApiController]
     [Route("product")]
-    [Authorize(Policy = "PurchasingPolicy")]
 
     public class ProductController : ControllerBase
     {
@@ -21,7 +20,7 @@ namespace SCM.API.Controllers
         }
 
         [HttpGet("get")]
-        [AllowAnonymous]
+        [Authorize(Policy = "EmployeePolicy")]
         public async Task<ActionResult<Result<List<ProductDTO>>>> GetAllProducts()
         {
             var categories = await _productService.GetAllProducts();
@@ -29,7 +28,7 @@ namespace SCM.API.Controllers
         }
 
         [HttpGet("get/{id:int}")]
-        [AllowAnonymous]
+        [Authorize(Policy = "EmployeePolicy")]
         public async Task<ActionResult<Result<ProductDTO>>> GetProductById(int id)
         {
             var category = await _productService.GetProductById(new GetProductByIdVM { Id = id });
@@ -37,14 +36,15 @@ namespace SCM.API.Controllers
         }
 
         [HttpPost("create")]
-        
+        [Authorize(Policy = "PurchasingPolicy")]
         public async Task<ActionResult<Result<int>>> CreateProduct(CreateProductVM createProductVM)
         {
             var categoryId = await _productService.CreateProduct(createProductVM);
             return Ok(categoryId);
         }
 
-        [HttpPut("update/{id:int}")]
+        [HttpPut("update")]
+        [Authorize(Policy = "EmployeePolicy")]
         public async Task<ActionResult<Result<int>>> UpdateProduct(int id, UpdateProductVM updateProductVM)
         {
             if (id != updateProductVM.Id)
@@ -55,7 +55,8 @@ namespace SCM.API.Controllers
             return Ok(categoryId);
         }
 
-        [HttpDelete("delete/{id:int}")]
+        [HttpDelete("delete")]
+        [Authorize(Policy = "EmployeePolicy")]
         public async Task<ActionResult<Result<int>>> DeleteProduct(int id)
         {
             var categoryId = await _productService.DeleteProduct(new DeleteProductVM { Id = id });
