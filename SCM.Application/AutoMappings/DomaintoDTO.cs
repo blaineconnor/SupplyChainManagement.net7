@@ -5,7 +5,6 @@ using SCM.Application.Models.DTOs.Categories;
 using SCM.Application.Models.DTOs.Invoice;
 using SCM.Application.Models.DTOs.Offer;
 using SCM.Application.Models.DTOs.Products;
-using SCM.Application.Models.DTOs.RequestDetails;
 using SCM.Application.Models.DTOs.Requests;
 using SCM.Application.Models.DTOs.Users;
 using SCM.Domain.Entities;
@@ -25,8 +24,6 @@ namespace SCM.Application.AutoMappings
             CreateMap<Product, ProductDTO>();
 
             CreateMap<Requests, RequestDTO>();
-
-            CreateMap<RequestDetail, RequestDetailDTO>();
 
             CreateMap<Approves, ApproveDTO>();
 

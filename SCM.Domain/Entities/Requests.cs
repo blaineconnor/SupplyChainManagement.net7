@@ -5,11 +5,11 @@ namespace SCM.Domain.Entities
 {
     public class Requests : AuditableEntity
     {
+        public int RequestId { get; set; }
         public int UserId { get; set; }
         public string UserName { get; set; }
-        public DateTime RequestDate { get; set; }
         public RequestStatus Status { get; set; }
-        public decimal Amount { get; set; }
+        public decimal HowMany { get; set; }
         public bool IsApproved { get; set; }
         public string? RejectionReason { get; set; }
 
@@ -17,7 +17,6 @@ namespace SCM.Domain.Entities
         //NavigationProperties
         public ICollection<Invoice> Invoices { get; set; }
         public ICollection<Offer> Offers { get; set; }
-        public ICollection<RequestDetail> RequestDetails { get; set; }
         public ICollection<Approves> Approves { get; set; }
         
     }

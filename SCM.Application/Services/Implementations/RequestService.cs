@@ -64,12 +64,12 @@ namespace SCM.Application.Services.Implementations
             }
 
             // Talep detaylarını al ve sil
-            var requestDetailByOrder = await _uWork.GetRepository<RequestDetail>().GetByFilterAsync(x => x.RequestId == deleteRequestVM.RequestId);
+            var requestDetailByOrder = await _uWork.GetRepository<Requests>().GetByFilterAsync(x => x.RequestId == deleteRequestVM.RequestId);
             if (requestDetailByOrder.Any())
             {
                 await requestDetailByOrder.ForEachAsync(requestDetail =>
                 {
-                    _uWork.GetRepository<RequestDetail>().Delete(requestDetail);
+                    _uWork.GetRepository<Requests>().Delete(requestDetail);
                 });
             }
 

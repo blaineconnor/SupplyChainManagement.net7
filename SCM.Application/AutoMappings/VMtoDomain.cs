@@ -5,7 +5,6 @@ using SCM.Application.Models.RequestModels.Approves;
 using SCM.Application.Models.RequestModels.Categories;
 using SCM.Application.Models.RequestModels.Offers;
 using SCM.Application.Models.RequestModels.Products;
-using SCM.Application.Models.RequestModels.RequestDetails;
 using SCM.Application.Models.RequestModels.Requests;
 using SCM.Domain.Entities;
 

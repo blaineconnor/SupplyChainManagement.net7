@@ -8,25 +8,26 @@ namespace SCM.Persistence.Mappings
     {
         public override void ConfigureDerivedEntityMapping(EntityTypeBuilder<Requests> builder)
         {
+            builder.Property(x => x.RequestId)
+                .HasColumnName("REQUEST_ID")
+                .HasColumnOrder(2);
+                
             builder.Property(x => x.UserName)
-                            .HasColumnName("USER_NAME")
-                            .HasMaxLength(255)
-                            .IsRequired();
-
-            builder.Property(x => x.RequestDate)
-                .HasColumnName("REQUEST_DATE")
-                .HasDefaultValueSql("getdate()")
-                .IsRequired();
+                 .HasColumnName("USER_NAME")
+                 .HasMaxLength(50);           
 
             builder.Property(x => x.Status)
                 .HasColumnName("REQUEST_STATUS")
                 .IsRequired();
 
+            builder.Property(x => x.DateTime)
+                .HasColumnName("CreatedDate");
+
             builder.Property(x => x.By)
                 .HasColumnName("REQUEST_BY")
-                .HasMaxLength(255);
+                .HasMaxLength(50);
 
-            builder.Property(x => x.Amount)
+            builder.Property(x => x.HowMany)
                 .HasColumnName("AMOUNT")
                 .HasColumnType("decimal(18, 2)")
                 .IsRequired();

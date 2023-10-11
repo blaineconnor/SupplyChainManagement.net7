@@ -99,23 +99,28 @@ namespace SCM.Application.Services.Implementations
             if (request.Status == RequestStatus.OfferReceived)
             {
 
-                if (userRole == Role.Purchasing && request.Amount <= 50000)
+                if (userRole == Role.Purchasing && request.HowMany <= 50000)
                 {
                     request.Status = RequestStatus.PurchasingApproved;
                     request.By = userRole.ToString();
                     request.DateTime = DateTime.Now;
+                    request.IsApproved = true;
                 }
-                else if (userRole == Role.Admin && request.Amount <= 500000)
+                else if (userRole == Role.Admin && request.HowMany <= 500000)
                 {
                     request.Status = RequestStatus.AdminApproved;
                     request.By = userRole.ToString();
                     request.DateTime = DateTime.Now;
+                    request.IsApproved = true;
+
                 }
                 else if (userRole == Role.SuperAdmin)
                 {
                     request.Status = RequestStatus.SuperAdminApproved;
                     request.By = userRole.ToString();
                     request.DateTime = DateTime.Now;
+                    request.IsApproved = true;
+
                 }
             }
             else
@@ -155,12 +160,23 @@ namespace SCM.Application.Services.Implementations
                 };
             }
 
-            var userRole = approveVM.Role; 
-
-            request.Status = RequestStatus.OfferReceived;
-            request.By = userRole.ToString();
-            request.DateTime = DateTime.Now;
-            request.RejectionReason = rejectionReason;
+            var userRole = approveVM.Role;
+            if (request.Status == RequestStatus.OfferReceived)
+            {
+                request.Status = RequestStatus.Rejected;
+                request.By = userRole.ToString();
+                request.DateTime = DateTime.Now;
+                request.RejectionReason = rejectionReason;
+                request.IsApproved = false;
+            }
+            else
+            {
+                return new Result<bool>
+                {
+                    Success = false,
+                    Errors = new List<string> { "Bu talep için ret yetkiniz yok." }
+                };
+            }
 
             _uWork.GetRepository<Requests>().Update(request);
             await _uWork.CommitAsync();
@@ -196,7 +212,7 @@ namespace SCM.Application.Services.Implementations
                 {
                     RequestId = request.Id,
                     SupplierId = supplier.Id,
-                    Amount = request.Amount,
+                    Amount = request.HowMany,
                     InvoiceDate = DateTime.UtcNow,
                 };
 

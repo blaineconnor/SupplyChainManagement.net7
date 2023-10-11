@@ -11,7 +11,6 @@ namespace SCM.Domain.Entities
         public decimal UnitPrice { get; set; }
 
         public Categories Categories { get; set; }
-        public ICollection<RequestDetail> Details { get; set; }
         public ICollection<Approves> Approves { get; set; }
         public ICollection<Offer> Offers { get; set; }
     }

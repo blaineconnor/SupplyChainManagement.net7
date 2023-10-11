@@ -21,22 +21,18 @@ namespace SCM.API.Controllers
         public async Task<ActionResult<Result<OfferDTO>>> GetOfferById(int offerId)
         {
             var result = await _offerService.GetOfferByIdAsync(offerId);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return NotFound(result);
+
+            return Ok(result);
+
         }
 
         [HttpGet("GetOffersByRequestID")]
         public async Task<ActionResult<Result<List<OfferDTO>>>> GetOffersByRequestId(int requestId)
         {
             var result = await _offerService.GetOffersByRequestIdAsync(requestId);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return NotFound(result);
+
+            return Ok(result);
+
         }
 
         [HttpGet("GetAll")]
@@ -50,7 +46,7 @@ namespace SCM.API.Controllers
         public async Task<ActionResult<Result<bool>>> CreateOffer([FromBody] CreateOfferVM createOfferVM)
         {
             var result = await _offerService.CreateOfferAsync(createOfferVM);
-            return CreatedAtAction(nameof(GetOfferById), new { offerId = result.Data }, result);
+            return Ok(result);
         }
 
         [HttpPut("UpdateOffer")]

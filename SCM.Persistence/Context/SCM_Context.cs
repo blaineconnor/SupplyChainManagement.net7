@@ -22,7 +22,6 @@ namespace SCM.Persistence.Context
         public DbSet<User> Users { get; set; }
         public DbSet<Categories> Categories { get; set; }
         public DbSet<Requests> Requests { get; set; }
-        public DbSet<RequestDetail> RequestDetails { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Approves> Approves { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
@@ -37,7 +36,6 @@ namespace SCM.Persistence.Context
             modelBuilder.ApplyConfiguration(new AccountMapping());
             modelBuilder.ApplyConfiguration(new CategoryMapping());
             modelBuilder.ApplyConfiguration(new RequestMapping());
-            modelBuilder.ApplyConfiguration(new RequestDetailMapping());
             modelBuilder.ApplyConfiguration(new ProductMapping());
             modelBuilder.ApplyConfiguration(new ApproveMapping());
             modelBuilder.ApplyConfiguration(new UserMapping());
@@ -50,7 +48,6 @@ namespace SCM.Persistence.Context
             modelBuilder.Entity<User>().HasQueryFilter(x => x.IsDeleted == null || !(!x.IsDeleted.HasValue || x.IsDeleted.Value));
             modelBuilder.Entity<Categories>().HasQueryFilter(x => x.IsDeleted == null || (x.IsDeleted.HasValue && !x.IsDeleted.Value));
             modelBuilder.Entity<Requests>().HasQueryFilter(x => x.IsDeleted == null || (x.IsDeleted.HasValue && !x.IsDeleted.Value));
-            modelBuilder.Entity<RequestDetail>().HasQueryFilter(x => x.IsDeleted == null || (x.IsDeleted.HasValue && !x.IsDeleted.Value));
             modelBuilder.Entity<Approves>().HasQueryFilter(x => x.IsDeleted == null || (x.IsDeleted.HasValue && !x.IsDeleted.Value));
             modelBuilder.Entity<Product>().HasQueryFilter(x => x.IsDeleted == null || (x.IsDeleted.HasValue && !x.IsDeleted.Value));
             modelBuilder.Entity<Offer>().HasQueryFilter(x => x.IsDeleted == null || !(!x.IsDeleted.HasValue || x.IsDeleted.Value));

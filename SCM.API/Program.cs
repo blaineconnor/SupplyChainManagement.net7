@@ -87,7 +87,6 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ILoggedUserService, LoggedUserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IRequestService, RequestService>();
-builder.Services.AddScoped<IRequestDetailService, RequestDetailService>();
 builder.Services.AddScoped<IApproveService, ApproveService>();
 builder.Services.AddScoped<IOfferService, OfferService>();
 

@@ -44,6 +44,10 @@ namespace SCM.Persistence.Mappings
                 .WithOne(x => x.Account)
                 .HasForeignKey<Account>(x => x.UserId);
 
+            builder.HasOne(x => x.Supplier)
+                .WithOne(x => x.Account)
+                .HasForeignKey<Account>(x=>x.UserId);
+
             builder.ToTable("ACCOUNTS");
         }
     }

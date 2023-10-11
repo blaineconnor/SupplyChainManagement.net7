@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SCM.Application.Models.RequestModels.Approves;
 using SCM.Application.Services.Abstractions;
-using SCM.Application.Services.Implementations;
 using SCM.Application.Wrapper;
 
 namespace SCM.API.Controllers
@@ -20,51 +19,40 @@ namespace SCM.API.Controllers
         }
 
         [HttpPut("manager-approve")]
-        public async Task<IActionResult> ManagerApprove( ApproveVM approveVM)
+        public async Task<ActionResult<Result<bool>>> ManagerApprove(ApproveVM approveVM)
         {
             var result = await _approveService.ManagerApprove(approveVM);
 
-            if (result.Success)
-            {
-                return Ok(result);
-            }
+            return Ok(result);
 
-            return BadRequest(result);
         }
 
         [HttpPut("manager-reject")]
-        public async Task<IActionResult> ManagerReject( ApproveVM approveVM)
+        public async Task<ActionResult<Result<bool>>> ManagerReject(ApproveVM approveVM)
         {
             var result = await _approveService.ManagerReject(approveVM);
 
-            if (result.Success)
-            {
-                return Ok(result);
-            }
 
-            return BadRequest(result);
+            return Ok(result);
+
         }
 
-        [HttpPut("approve/{id}")]
-        public async Task<ActionResult<Result<bool>>> ApproveOffer(int id)
+        [HttpPut("approve")]
+        public async Task<ActionResult<Result<bool>>> ApproveOffer(ApproveVM approveVM)
         {
-            var result = await _approveService.ApproveOffer(new ApproveVM { RequestId = id });
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
+            var result = await _approveService.ApproveOffer(approveVM);
+
+            return Ok(result);
+
         }
 
-        [HttpPut("reject/{id}")]
-        public async Task<ActionResult<Result<bool>>> RejectOffer(int id, string rejectionReason)
+        [HttpPut("reject")]
+        public async Task<ActionResult<Result<bool>>> RejectOffer(ApproveVM approveVM, string rejectionReason)
         {
-            var result = await _approveService.RejectOffer(new ApproveVM { RequestId = id }, rejectionReason);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
+            var result = await _approveService.RejectOffer(approveVM, rejectionReason);
+
+            return Ok(result);
+
         }
     }
 }
