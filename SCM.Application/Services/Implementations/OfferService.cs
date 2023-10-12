@@ -60,7 +60,7 @@ namespace SCM.Application.Services.Implementations
         public async Task<Result<bool>> CreateOfferAsync(CreateOfferVM createOfferVM)
         {
             var request = await _unitOfWork.GetRepository<Requests>()
-                .GetSingleByFilterAsync(r => r.Id == createOfferVM.RequestId && r.Status == RequestStatus.ManagerApproved);
+                .GetSingleByFilterAsync(r => r.Id == createOfferVM.RequestId && r.Status == RequestStatus.ManagerApproved || r.Status == RequestStatus.OfferReceived);
 
             if (request == null)
             {
