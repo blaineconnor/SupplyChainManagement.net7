@@ -1,7 +1,11 @@
-﻿@using SCM.UI.Models.RequestModels.Categories;
-@model CreateCategoryVM
+﻿@model SCM.UI.Models.RequestModels.Categories.CreateCategoryVM
 
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/_Layout.cshtml";
+}
 
+<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -12,9 +16,12 @@
                 <span asp-validation-for="CategoryName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Kaydet" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

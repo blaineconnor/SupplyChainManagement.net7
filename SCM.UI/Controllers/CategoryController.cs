@@ -7,9 +7,9 @@ using SCM.UI.Models.Wrapper;
 using SCM.UI.Services.Abstraction;
 using System.Net;
 
-namespace SCM.UI.Areas.Admin.Controllers
+namespace SCM.UI.Controllers
 {
-    [Area("Admin")]
+    
     [Authorize(Policy = "EmployeePolicy")]
     public class CategoryController : Controller
     {
@@ -101,7 +101,7 @@ namespace SCM.UI.Areas.Admin.Controllers
             else
             {
                 TempData["success"] = $"{response.Data.Data} numaralı kayıt başarıyla güncellendi.";
-                return RedirectToAction("List", "Category", new { Area = "Admin" });
+                return RedirectToAction("List", "Category");
             }
         }
         [HttpDelete]

@@ -38,14 +38,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         {
             OnRedirectToLogin = context =>
             {
-
-                if (context.Request.Path.Value.Contains("admin"))
                 {
-                    context.Response.Redirect("/admin/login/signin");
-                }
-                else
-                {
-                    context.Response.Redirect("/Account/SignIn");
+                    context.Response.Redirect("/LogIn/SignIn");
                 }
                 return Task.CompletedTask;
             }
@@ -78,10 +72,6 @@ app.UseSession();
 app.UseAuthentication();
 
 app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "admin",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",
