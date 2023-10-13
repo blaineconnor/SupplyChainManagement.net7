@@ -8,18 +8,14 @@ using System.Net;
 
 namespace SCM.UI.Controllers
 {
-    public class LoginController : Controller
-    {
-        public IActionResult Index()
-        {
-            return View();
-        }
 
+    public class AccountController : Controller
+    {
         private readonly IRestService _restService;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly IConfiguration _configuration;
 
-        public LoginController(IRestService restService, IHttpContextAccessor contextAccessor, IConfiguration configuration)
+        public AccountController(IRestService restService, IHttpContextAccessor contextAccessor, IConfiguration configuration)
         {
             _restService = restService;
             _contextAccessor = contextAccessor;
@@ -35,7 +31,6 @@ namespace SCM.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> SignIn(LoginVM loginModel, [FromQuery] string ReturnUrl)
         {
-            //Model doğrulamasını geçemeyen kullanıcıyı buradan tekrar login sayfasına gönder.
             if (!ModelState.IsValid)
             {
                 return View(loginModel);
@@ -60,7 +55,24 @@ namespace SCM.UI.Controllers
             }
 
             return View(loginModel);
+        }
 
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterVM registerVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(registerVM);
+            }
+
+            var response = await _restService.PostAsync<RegisterVM, Result<bool>>(registerVM, "account/register", false);
+            return View(registerVM);
         }
     }
 }
+

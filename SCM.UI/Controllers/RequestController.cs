@@ -1,44 +1,40 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SCM.UI.Models.DTOs.Categories;
-using SCM.UI.Models.RequestModels.Categories;
+using SCM.UI.Models.DTOs.Requests;
+using SCM.UI.Models.RequestModels.Requests;
 using SCM.UI.Models.Wrapper;
 using SCM.UI.Services.Abstraction;
+using SCM.UI.Services.Implementation;
 using System.Net;
 
 namespace SCM.UI.Controllers
 {
-    
-    [Authorize(Policy = "PurchasingPolicy")]
-    public class CategoryController : Controller
+    public class RequestController : Controller
     {
-        private IRestService _restService;
+        private IRestService restService;
         private readonly IMapper _mapper;
 
-        public CategoryController(IRestService restService, IMapper mapper)
+        public RequestController(IRestService restService, IMapper mapper)
         {
-            _restService = restService;
+            this.restService = restService;
             _mapper = mapper;
         }
 
-        public IActionResult Create()
+        public IActionResult CreateRequest()
         {
-            ViewBag.Header = "Kategori İşlemleri";
-            ViewBag.Title = "Yeni Kategori Oluştur";
+            ViewBag.Header = "Talep İşlemleri";
+            ViewBag.Title = "Yeni Talep Oluştur";
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateCategoryVM categoryModel)
+        public async Task<IActionResult> CreateRequest(CreateRequestVM createRequestVM)
         {
             if (!ModelState.IsValid)
             {
-                return View(categoryModel);
+                return View(createRequestVM);
             }
-
-            var response = await _restService.PostAsync<CreateCategoryVM, Result<int>>(categoryModel, "category/create");
-
+            var response = await restService.PostAsync<Result<List<CreateRequestVM>>>("request/details");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -47,18 +43,18 @@ namespace SCM.UI.Controllers
             }
             else
             {
-                TempData["success"] = $"{response.Data.Data} numaralı kayıt başarıyla eklendi.";
-                return RedirectToAction("List", "Category");
+                TempData["success"] = $"{response.Data.Data} numaralı talep başarıyla eklendi.";
+                return RedirectToAction("List", "Request");
             }
         }
-
-
+        
+        [HttpGet]
         public async Task<IActionResult> List()
         {
-            ViewBag.Header = "Kategori İşlemleri";
-            ViewBag.Title = "Kategori Düzenle";
+            ViewBag.Header = "Talep İşlemleri";
+            ViewBag.Title = "Talep Düzenle";
 
-            var response = await _restService.GetAsync<Result<List<CategoryDTO>>>("category/get");
+            var response = await restService.GetAsync<Result<List<RequestDTO>>>("request/get");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -70,12 +66,13 @@ namespace SCM.UI.Controllers
                 return View(response.Data.Data);
             }
         }
+
         public async Task<IActionResult> Edit(int id)
         {
             ViewBag.Header = "Kategori İşlemleri";
             ViewBag.Title = "Kategori Güncelle";
 
-            var response = await _restService.GetAsync<Result<CategoryDTO>>($"category/get/{id}");
+            var response = await restService.GetAsync<Result<RequestDTO>>($"requests/get/{id}");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -84,14 +81,14 @@ namespace SCM.UI.Controllers
             }
             else
             {
-                var model = _mapper.Map<UpdateCategoryVM>(response.Data.Data);
+                var model = _mapper.Map<UpdateRequestVM>(response.Data.Data);
                 return View(model);
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(UpdateCategoryVM updateCategoryModel)
+        public async Task<IActionResult> Edit(UpdateRequestVM updateRequestVM)
         {
-            var response = await _restService.PutAsync<UpdateCategoryVM, Result<int>>(updateCategoryModel, $"category/update/{updateCategoryModel.Id}");
+            var response = await restService.PutAsync<UpdateRequestVM, Result<int>>(updateRequestVM, $"category/update/{updateRequestVM.RequestId}");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -104,14 +101,12 @@ namespace SCM.UI.Controllers
                 return RedirectToAction("List", "Category");
             }
         }
+
         [HttpDelete]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteRequest(int id)
         {
-
-            var response = await _restService.DeleteAsync<Result<int>>($"category/delete/{id}");
-
+            var response = await restService.DeleteAsync<Result<bool>>($"request/delete/{id}");
             return Json(response.Data);
-
         }
     }
 }

@@ -38,9 +38,10 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         {
             OnRedirectToLogin = context =>
             {
+                if (context.Request.Path.Value.Contains("Index"))
                 {
-                    context.Response.Redirect("/LogIn/SignIn");
-                }
+                    context.Response.Redirect("/Login/Signin");
+                }                
                 return Task.CompletedTask;
             }
         };

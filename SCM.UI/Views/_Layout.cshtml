@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
@@ -24,7 +24,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="~/index.html" class="site_title"></i> <span>SupplyChaingManage</span></a>
+                        <a href="~/index.html" class="site_title"> <span>SupplyChaingManage</span></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -82,8 +82,8 @@
                                         <li>
                                             <a><i class="fa fa-table"></i> Kategoriler <span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
-                                                <li><a href="bligisayar.html">Bilgisayar</a></li>
-                                                <li><a href="telefon.html">Telefon</a></li>
+                                                <li><a href="bligisayar.html">Kategori Ekle</a></li>
+                                                <li><a href="telefon.html">Kategori Düzenle</a></li>
                                                 <li><a href="kazi.html">Kazı</a></li>
                                                 <li><a href="pos.html">Pos</a></li>
                                                 <li><a href="olcumaletleri.html">Ölçüm Aletleri</a></li>
@@ -100,12 +100,41 @@
                                             </ul>
                                         </li>
                                     </ul>
-
                                 </li>
+                                <li>
+                                    <a><i class="fa fa-table"></i> Kategori Ayarları <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <a href="#" class="nav-link active">
+                                            <i class="nav-icon far fa-plus-square"></i>
+                                            <p>
+                                                Kategori İşlemleri
+                                                <i class="fas fa-angle-left right"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("Create","Category")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>
+                                                        Yeni Kategori
+                                                    </p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("List","Category")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>
+                                                        Kategori Düzenle
+                                                    </p>
+                                                </a>
+                                            </li>
+                                        </ul>
 
 
+                                    </ul>
                                 </li>
                             </ul>
+
                         </div>
 
                     </div>
