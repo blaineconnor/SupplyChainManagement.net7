@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SCM.UI.Models.DTOs.Accounts;
 using SCM.UI.Models.RequestModels.Accounts;
@@ -57,12 +58,14 @@ namespace SCM.UI.Controllers
             return View(loginModel);
         }
 
+        [Authorize(Policy = "AdminPolicy")]
         public IActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Policy = "AdminPolicy")]
         public async Task<IActionResult> Register(RegisterVM registerVM)
         {
             if (!ModelState.IsValid)

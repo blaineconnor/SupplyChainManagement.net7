@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SCM.UI.Models.DTOs.Requests;
 using SCM.UI.Models.RequestModels.Requests;
 using SCM.UI.Models.Wrapper;
 using SCM.UI.Services.Abstraction;
-using SCM.UI.Services.Implementation;
 using System.Net;
 
 namespace SCM.UI.Controllers
 {
+    [Authorize(Policy = "EmployeePolicy")]
     public class RequestController : Controller
     {
         private IRestService restService;
@@ -69,8 +70,8 @@ namespace SCM.UI.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            ViewBag.Header = "Kategori İşlemleri";
-            ViewBag.Title = "Kategori Güncelle";
+            ViewBag.Header = "Talep İşlemleri";
+            ViewBag.Title = "Talep Güncelle";
 
             var response = await restService.GetAsync<Result<RequestDTO>>($"requests/get/{id}");
 
@@ -88,7 +89,7 @@ namespace SCM.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UpdateRequestVM updateRequestVM)
         {
-            var response = await restService.PutAsync<UpdateRequestVM, Result<int>>(updateRequestVM, $"category/update/{updateRequestVM.RequestId}");
+            var response = await restService.PutAsync<UpdateRequestVM, Result<int>>(updateRequestVM, $"request/update/{updateRequestVM.RequestId}");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -97,8 +98,8 @@ namespace SCM.UI.Controllers
             }
             else
             {
-                TempData["success"] = $"{response.Data.Data} numaralı kayıt başarıyla güncellendi.";
-                return RedirectToAction("List", "Category");
+                TempData["success"] = $"{response.Data.Data} numaralı talep başarıyla güncellendi.";
+                return RedirectToAction("List", "Request");
             }
         }
 

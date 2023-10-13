@@ -36,7 +36,7 @@ namespace SCM.API.Controllers
         }
 
         [HttpPost("create")]
-        [Authorize(Policy = "PurchasingPolicy")]
+        [Authorize(Policy = "AccountingPolicy")]
         public async Task<ActionResult<Result<int>>> CreateProduct(CreateProductVM createProductVM)
         {
             var categoryId = await _productService.CreateProduct(createProductVM);
@@ -44,7 +44,7 @@ namespace SCM.API.Controllers
         }
 
         [HttpPut("update")]
-        [Authorize(Policy = "EmployeePolicy")]
+        [Authorize(Policy = "AccountingPolicy")]
         public async Task<ActionResult<Result<int>>> UpdateProduct(int id, UpdateProductVM updateProductVM)
         {
             if (id != updateProductVM.Id)
@@ -56,7 +56,7 @@ namespace SCM.API.Controllers
         }
 
         [HttpDelete("delete")]
-        [Authorize(Policy = "EmployeePolicy")]
+        [Authorize(Policy = "AccountingPolicy")]
         public async Task<ActionResult<Result<int>>> DeleteProduct(int id)
         {
             var categoryId = await _productService.DeleteProduct(new DeleteProductVM { Id = id });
