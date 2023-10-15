@@ -38,10 +38,117 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         {
             OnRedirectToLogin = context =>
             {
-                if (context.Request.Path.Value.Contains("Index"))
+
+                if (context.Request.Path.Value.Contains("admin"))
                 {
-                    context.Response.Redirect("/Login/Signin");
-                }                
+                    context.Response.Redirect("/admin/login/signin");
+                }
+                else
+                {
+                    context.Response.Redirect("/Account/SignIn");
+                }
+                return Task.CompletedTask;
+            }
+        };
+
+        opt.Events = new CookieAuthenticationEvents
+        {
+            OnRedirectToLogin = context =>
+            {
+
+                if (context.Request.Path.Value.Contains("superadmin"))
+                {
+                    context.Response.Redirect("/superadmin/login/signin");
+                }
+                else
+                {
+                    context.Response.Redirect("/Account/SignIn");
+                }
+                return Task.CompletedTask;
+            }
+        };
+
+        opt.Events = new CookieAuthenticationEvents
+        {
+            OnRedirectToLogin = context =>
+            {
+
+                if (context.Request.Path.Value.Contains("purchasing"))
+                {
+                    context.Response.Redirect("/purchasing/login/signin");
+                }
+                else
+                {
+                    context.Response.Redirect("/Account/SignIn");
+                }
+                return Task.CompletedTask;
+            }
+        };
+
+        opt.Events = new CookieAuthenticationEvents
+        {
+            OnRedirectToLogin = context =>
+            {
+
+                if (context.Request.Path.Value.Contains("manager"))
+                {
+                    context.Response.Redirect("/manager/login/signin");
+                }
+                else
+                {
+                    context.Response.Redirect("/Account/SignIn");
+                }
+                return Task.CompletedTask;
+            }
+        };
+
+        opt.Events = new CookieAuthenticationEvents
+        {
+            OnRedirectToLogin = context =>
+            {
+
+                if (context.Request.Path.Value.Contains("supplier"))
+                {
+                    context.Response.Redirect("/supplier/login/signin");
+                }
+                else
+                {
+                    context.Response.Redirect("/Account/SignIn");
+                }
+                return Task.CompletedTask;
+            }
+        };
+
+        opt.Events = new CookieAuthenticationEvents
+        {
+            OnRedirectToLogin = context =>
+            {
+
+                if (context.Request.Path.Value.Contains("employee"))
+                {
+                    context.Response.Redirect("/employee/login/signin");
+                }
+                else
+                {
+                    context.Response.Redirect("/Account/SignIn");
+                }
+                return Task.CompletedTask;
+            }
+        };
+
+        opt.Events = new CookieAuthenticationEvents
+        {
+            OnRedirectToLogin = context =>
+            {
+
+                if (context.Request.Path.Value.Contains("accounting"))
+                {
+                    context.Response.Redirect("/accounting/login/signin");
+                }
+                else
+                {
+                    context.Response.Redirect("/Account/SignIn");
+                }
                 return Task.CompletedTask;
             }
         };
@@ -73,6 +180,34 @@ app.UseSession();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "superadmin",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "admin",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "purchasing",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "manager",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "supplier",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "employee",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "accounting",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

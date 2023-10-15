@@ -1,4 +1,4 @@
-﻿namespace SCM.UI.Models
+namespace SCM.UI.Models
 {
     public class ErrorViewModel
     {

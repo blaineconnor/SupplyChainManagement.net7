@@ -7,18 +7,18 @@ using SCM.UI.Models.Wrapper;
 using SCM.UI.Services.Abstraction;
 using System.Net;
 
-namespace SCM.UI.Areas.Accounting.Controllers
+namespace SCM.UI.Areas.Employee.Controllers
 {
-    [Authorize(Policy = "AccountingPolicy")]
-    [Area("Accounting")]
+    [Authorize(Policy = "EmployeePolicy")]
+    [Area("Employee")]
     public class RequestController : Controller
     {
-        private IRestService _restService;
+        private IRestService restService;
         private readonly IMapper _mapper;
 
         public RequestController(IRestService restService, IMapper mapper)
         {
-            _restService = restService;
+            this.restService = restService;
             _mapper = mapper;
         }
 
@@ -36,7 +36,7 @@ namespace SCM.UI.Areas.Accounting.Controllers
             {
                 return View(createRequestVM);
             }
-            var response = await _restService.PostAsync<Result<List<CreateRequestVM>>>("request/details");
+            var response = await restService.PostAsync<Result<List<CreateRequestVM>>>("request/details");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -56,7 +56,7 @@ namespace SCM.UI.Areas.Accounting.Controllers
             ViewBag.Header = "Talep İşlemleri";
             ViewBag.Title = "Talep Düzenle";
 
-            var response = await _restService.GetAsync<Result<List<RequestDTO>>>("request/get");
+            var response = await restService.GetAsync<Result<List<RequestDTO>>>("request/get");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -74,7 +74,7 @@ namespace SCM.UI.Areas.Accounting.Controllers
             ViewBag.Header = "Talep İşlemleri";
             ViewBag.Title = "Talep Güncelle";
 
-            var response = await _restService.GetAsync<Result<RequestDTO>>($"requests/get/{id}");
+            var response = await restService.GetAsync<Result<RequestDTO>>($"requests/get/{id}");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -90,7 +90,7 @@ namespace SCM.UI.Areas.Accounting.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UpdateRequestVM updateRequestVM)
         {
-            var response = await _restService.PutAsync<UpdateRequestVM, Result<int>>(updateRequestVM, $"request/update/{updateRequestVM.RequestId}");
+            var response = await restService.PutAsync<UpdateRequestVM, Result<int>>(updateRequestVM, $"request/update/{updateRequestVM.RequestId}");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -107,7 +107,7 @@ namespace SCM.UI.Areas.Accounting.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteRequest(int id)
         {
-            var response = await _restService.DeleteAsync<Result<bool>>($"request/delete/{id}");
+            var response = await restService.DeleteAsync<Result<bool>>($"request/delete/{id}");
             return Json(response.Data);
         }
     }
