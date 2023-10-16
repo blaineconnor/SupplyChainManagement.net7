@@ -26,6 +26,7 @@ namespace SCM.UI.Areas.Admin.Controllers
 
         }
 
+        [HttpGet("/admin/addoffer")]
         public IActionResult AddOffer()
         {
             ViewBag.Header = "Teklif İşlemleri";
@@ -70,7 +71,7 @@ namespace SCM.UI.Areas.Admin.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet("/admin/getlist")]
         public async Task<IActionResult> List()
         {
             ViewBag.Header = "Teklif İşlemleri";

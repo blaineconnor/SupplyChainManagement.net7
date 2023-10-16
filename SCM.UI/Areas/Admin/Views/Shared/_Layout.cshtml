@@ -56,10 +56,10 @@
                                     <a><i class="fa fa-edit"></i> Talepler <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li>
-                                            <a href="/createrequest">Talep Oluştur</a>
+                                            <a href="/admin/createrequest">Talep Oluştur</a>
                                         </li>
                                         <li>
-                                            <a href="/listrequests">Mevcut Talepler</a>
+                                            <a href="/admin/listrequests">Mevcut Talepler</a>
                                         </li>
 
                                     </ul>
@@ -68,10 +68,10 @@
                                     <a><i class="fa fa-edit"></i> Onaylamalar <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li>
-                                            <a href="~/../Areas/Admin/Views/AdminApprove/AdminApprove">Onaylama Yap</a>
+                                            <a href="/admin/approve">Onaylama Yap</a>
                                         </li>
                                         <li>
-                                            <a href="~/../Areas/Admin/Views/AdminApprove/List.cshtml">Onaylananlar</a>
+                                            <a href="/admin/listapproves">Onaylananlar</a>
                                         </li>
 
                                     </ul>
@@ -80,10 +80,10 @@
                                     <a><i class="fa fa-edit"></i> Kategoriler <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li>
-                                            <a href="/categorycreate">Kategori Ekle</a>
+                                            <a href="/admin/categorycreate">Kategori Ekle</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="/categoryget">Kategori Düzenle
+                                            <a href="/admin/categoryget">Kategori Düzenle
                                             </a>
                                         </li>
                                     </ul>
@@ -92,7 +92,7 @@
                                     <a><i class="fa fa-edit"></i> Teklifler <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li>
-                                            <a href="@Url.Action("List","Category")">Teklifleri Görüntüle</a>
+                                            <a href="/admin/getlist">Teklifleri Görüntüle</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -100,12 +100,10 @@
                                     <a><i class="fa fa-edit"></i> Ürünler <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li>
-                                            <a href=" @Html.ActionLink("Admin", "Product", "Create",
-                                            new { area = "Admin" })">Ürün Ekle</a>
+                                            <a href="/admin/addproduct">Ürün Ekle</a>
                                         </li>
                                         <li>
-                                            <a href="@Html.ActionLink("Admin", "Product", "List",
-                                            new { area = "Admin" })">Ürün Düzenle</a>
+                                            <a href="/admin/listproducts">Ürün Düzenle</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -113,8 +111,7 @@
                                     <a><i class="fa fa-edit"></i> Hesap Oluştur <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li>
-                                            <a href=" @Html.ActionLink("Admin", "Register", "Register",
-                                            new { area = "Admin" })">Hesap Oluştur</a>
+                                            <a href="/admin/register">Hesap Oluştur</a>
                                         </li>
                                     </ul>
                                 </li>

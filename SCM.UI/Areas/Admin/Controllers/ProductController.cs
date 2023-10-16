@@ -24,7 +24,7 @@ namespace SCM.UI.Areas.Admin.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("/admin/addproduct")]
         public async Task<IActionResult> Create()
         {
             ViewBag.Header = "Ürün İşlemleri";
@@ -85,7 +85,7 @@ namespace SCM.UI.Areas.Admin.Controllers
 
         }
 
-        [HttpGet]
+        [HttpGet("/admin/listproducts")]
         public async Task<IActionResult> List()
         {
             ViewBag.Header = "Ürün İşlemleri";

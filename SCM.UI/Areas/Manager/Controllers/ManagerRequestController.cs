@@ -11,17 +11,18 @@ namespace SCM.UI.Areas.Manager.Controllers
 {
     [Authorize(Policy = "ManagerPolicy")]
     [Area("Manager")]
-    public class RequestController : Controller
+    public class ManagerRequestController : Controller
     {
         private IRestService restService;
         private readonly IMapper _mapper;
 
-        public RequestController(IRestService restService, IMapper mapper)
+        public ManagerRequestController(IRestService restService, IMapper mapper)
         {
             this.restService = restService;
             _mapper = mapper;
         }
 
+        [HttpGet("/manager/createrequest")]
         public IActionResult Create()
         {
             ViewBag.Header = "Talep İşlemleri";
@@ -50,7 +51,7 @@ namespace SCM.UI.Areas.Manager.Controllers
             }
         }
         
-        [HttpGet]
+        [HttpGet("/manager/listrequests")]
         public async Task<IActionResult> List()
         {
             ViewBag.Header = "Talep İşlemleri";

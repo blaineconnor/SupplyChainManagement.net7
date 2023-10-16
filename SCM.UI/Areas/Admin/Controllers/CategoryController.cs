@@ -21,7 +21,7 @@ namespace SCM.UI.Areas.Admin.Controllers
             _restService = restService;
             _mapper = mapper;
         }
-        [HttpGet("/categorycreate")]
+        [HttpGet("/admin/categorycreate")]
         public IActionResult Create()
         {
             ViewBag.Header = "Kategori İşlemleri";
@@ -53,7 +53,7 @@ namespace SCM.UI.Areas.Admin.Controllers
             }
         }
 
-        [HttpGet("categoryget")]
+        [HttpGet("/admin/categoryget")]
         public async Task<IActionResult> List()
         {
             ViewBag.Header = "Kategori İşlemleri";

@@ -25,7 +25,7 @@ namespace SCM.UI.Areas.Admin.Controllers
             _requestDTO = requestDTO;
         }
 
-
+        [HttpGet("/admin/approve")]
         public IActionResult AdminApprove()
         {
             ViewBag.Header = "Satın Alma Onay İşlemleri";
@@ -69,7 +69,7 @@ namespace SCM.UI.Areas.Admin.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("/admin/listapproves")]
         public async Task<IActionResult> List()
         {
             ViewBag.Header = "Onay İşlemleri";

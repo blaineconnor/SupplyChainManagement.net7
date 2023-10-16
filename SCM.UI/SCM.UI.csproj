@@ -9,15 +9,39 @@
   <ItemGroup>
     <Compile Remove="Areas\Admin\Data\**" />
     <Compile Remove="Areas\Admin\Models\**" />
+    <Compile Remove="Areas\Employee\Data\**" />
+    <Compile Remove="Areas\Employee\Models\**" />
+    <Compile Remove="Areas\Manager\Data\**" />
+    <Compile Remove="Areas\Manager\Models\**" />
+    <Compile Remove="Areas\Purchasing\Data\**" />
+    <Compile Remove="Areas\Purchasing\Models\**" />
     <Compile Remove="Data\**" />
     <Content Remove="Areas\Admin\Data\**" />
     <Content Remove="Areas\Admin\Models\**" />
+    <Content Remove="Areas\Employee\Data\**" />
+    <Content Remove="Areas\Employee\Models\**" />
+    <Content Remove="Areas\Manager\Data\**" />
+    <Content Remove="Areas\Manager\Models\**" />
+    <Content Remove="Areas\Purchasing\Data\**" />
+    <Content Remove="Areas\Purchasing\Models\**" />
     <Content Remove="Data\**" />
     <EmbeddedResource Remove="Areas\Admin\Data\**" />
     <EmbeddedResource Remove="Areas\Admin\Models\**" />
+    <EmbeddedResource Remove="Areas\Employee\Data\**" />
+    <EmbeddedResource Remove="Areas\Employee\Models\**" />
+    <EmbeddedResource Remove="Areas\Manager\Data\**" />
+    <EmbeddedResource Remove="Areas\Manager\Models\**" />
+    <EmbeddedResource Remove="Areas\Purchasing\Data\**" />
+    <EmbeddedResource Remove="Areas\Purchasing\Models\**" />
     <EmbeddedResource Remove="Data\**" />
     <None Remove="Areas\Admin\Data\**" />
     <None Remove="Areas\Admin\Models\**" />
+    <None Remove="Areas\Employee\Data\**" />
+    <None Remove="Areas\Employee\Models\**" />
+    <None Remove="Areas\Manager\Data\**" />
+    <None Remove="Areas\Manager\Models\**" />
+    <None Remove="Areas\Purchasing\Data\**" />
+    <None Remove="Areas\Purchasing\Models\**" />
     <None Remove="Data\**" />
   </ItemGroup>
 
@@ -222,15 +246,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Employee\Data\" />
-    <Folder Include="Areas\Employee\Models\" />
-    <Folder Include="Areas\Employee\Views\" />
-    <Folder Include="Areas\Manager\Data\" />
-    <Folder Include="Areas\Manager\Models\" />
-    <Folder Include="Areas\Manager\Views\" />
-    <Folder Include="Areas\Purchasing\Data\" />
-    <Folder Include="Areas\Purchasing\Models\" />
-    <Folder Include="Areas\Purchasing\Views\" />
     <Folder Include="Areas\SuperAdmin\Data\" />
     <Folder Include="Areas\SuperAdmin\Models\" />
     <Folder Include="Areas\SuperAdmin\Views\" />
@@ -238,12 +253,14 @@
     <Folder Include="Areas\Supplier\Models\" />
     <Folder Include="Areas\Supplier\Views\" />
     <Folder Include="Controllers\" />
+    <Folder Include="Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Shared\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\lib\bootstrap\" />
+    <Folder Include="wwwroot\lib\bootstrap\dist\css\" />
     <Folder Include="wwwroot\lib\bootstrap\dist\js\" />
     <Folder Include="wwwroot\lib\jquery-validation-unobtrusive\" />
     <Folder Include="wwwroot\lib\jquery-validation\" />

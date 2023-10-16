@@ -17,6 +17,7 @@ namespace SCM.UI.Areas.Admin.Controllers
             _restService = restService;
         }
 
+        [HttpGet("/admin/register")]
         public IActionResult Register()
         {
             return View();

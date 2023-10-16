@@ -22,6 +22,7 @@ namespace SCM.UI.Areas.Purchasing.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("/purchasing/createrequest")]
         public IActionResult Create()
         {
             ViewBag.Header = "Talep İşlemleri";
@@ -50,12 +51,9 @@ namespace SCM.UI.Areas.Purchasing.Controllers
             }
         }
         
-        [HttpGet]
+        [HttpGet("/purchasing/listrequests")]
         public async Task<IActionResult> List()
         {
-            ViewBag.Header = "Talep İşlemleri";
-            ViewBag.Title = "Talep Düzenle";
-
             var response = await restService.GetAsync<Result<List<RequestDTO>>>("request/get");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
@@ -71,9 +69,6 @@ namespace SCM.UI.Areas.Purchasing.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            ViewBag.Header = "Talep İşlemleri";
-            ViewBag.Title = "Talep Güncelle";
-
             var response = await restService.GetAsync<Result<RequestDTO>>($"requests/get/{id}");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)

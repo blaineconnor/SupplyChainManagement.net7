@@ -20,7 +20,7 @@ namespace SCM.UI.Areas.Accounting.Controllers
             _restService = restService;
         }
 
-        [HttpGet("/accounting/fullfilment")]
+        [HttpGet("/accounting/fulfillment")]
         public IActionResult Fulfillment()
         {
             return View();

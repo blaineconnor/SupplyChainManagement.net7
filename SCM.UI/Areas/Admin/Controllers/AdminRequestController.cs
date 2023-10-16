@@ -21,7 +21,7 @@ namespace SCM.UI.Areas.Admin.Controllers
             this.restService = restService;
             _mapper = mapper;
         }
-        [HttpGet("/createrequest")]
+        [HttpGet("/admin/createrequest")]
 
         public IActionResult Create()
         {
@@ -51,7 +51,7 @@ namespace SCM.UI.Areas.Admin.Controllers
             }
         }
         
-        [HttpGet("/listrequests")]
+        [HttpGet("/admin/listrequests")]
         public async Task<IActionResult> List()
         {
             ViewBag.Header = "Talep İşlemleri";
