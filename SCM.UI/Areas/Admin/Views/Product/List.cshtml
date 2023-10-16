@@ -1,0 +1,95 @@
+﻿@model IEnumerable<SCM.UI.Models.DTOs.Products.ProductDTO>
+
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>List</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Detail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitInStock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Detail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitInStock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+                @Html.ActionLink("Güncelle", "Edit","Product", new { Area="Admin", id=item.Id }, new{@class="btn btn-success"})
+                <a href="#" data-id="@item.Id" class="btn btn-danger btnDelete">Sil</a>
+        </tr>
+}
+    </tbody>
+</table>
+@section Scripts{
+    <script>
+
+        $().ready(function () {
+            $(".btnDelete").click(function () {
+                var id = $(this).attr('data-id')
+                console.log(id)
+                $.ajax({
+                    type: "DELETE",
+                    url: "/admin/product/delete/" + id,
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (response) {
+                        console.log(response)
+                        if (response.success) {
+                            var tdClassName = "tr-" + id
+                            $("." + tdClassName).fadeOut('slow', function () {
+                                $(this).remove()
+                            })
+                        } else {
+                            alert(response.errors[0])
+                        }
+                    },
+                    error: function (response) {
+                        alert('İstek esnasından sonucu taraflı bir hata oluştu.')
+                    }
+                })
+            })
+        })
+
+    </script>
+}

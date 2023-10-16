@@ -2,13 +2,13 @@
 
 @{
     ViewData["Title"] = "List";
-    Layout = "~/Areas/Accounting/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 <h1>List</h1>
 
 <p>
-    <a asp-action="Create">Düzenle</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -41,42 +41,40 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RequestDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HowMany)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsApproved)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RejectionReason)
-                </td>
-                <td>
-                    @Html.ActionLink("Güncelle","Edit", "Request", new {Area="Accounting", id=item.Id},  new{@class="btn btn-success"}) |
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequestDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HowMany)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsApproved)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RejectionReason)
+            </td>
+            <td>
+                    @Html.ActionLink("Güncelle", "Edit","AdminApprove", new { Area="Admin", id=item.Id }, new{@class="btn btn-success"})
                     <a href="#" data-id="@item.Id" class="btn btn-danger btnDelete">Sil</a>
-                </td>
-            </tr>
-        }
+            </td>
+        </tr>
+}
     </tbody>
 </table>
-
 @section Scripts{
     <script>
 
@@ -86,7 +84,7 @@
                 console.log(id)
                 $.ajax({
                     type: "DELETE",
-                    url: "/accounting/request/delete/" + id,
+                    url: "/admin/adminapprove/delete/" + id,
                     dataType: "json",
                     contentType: "application/json;charset=utf-8",
                     success: function (response) {

@@ -31,7 +31,6 @@ namespace SCM.UI.Areas.Accounting.Controllers
         [HttpPost]
         public async Task<IActionResult> SignIn(LoginVM loginModel, [FromQuery] string ReturnUrl)
         {
-            //Model doğrulamasını geçemeyen kullanıcıyı buradan tekrar login sayfasına gönder.
             if (!ModelState.IsValid)
             {
                 return View(loginModel);
@@ -52,7 +51,7 @@ namespace SCM.UI.Areas.Accounting.Controllers
                 {
                     return Redirect(ReturnUrl);
                 }
-                return RedirectToAction("Index", "Home", new { Area = "Accounting" }); ;
+                return RedirectToAction("Index", "Home", new { Area = "Accounting" });
             }
 
             return View(loginModel);

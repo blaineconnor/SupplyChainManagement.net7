@@ -20,7 +20,13 @@ namespace SCM.UI.Areas.Accounting.Controllers
             _restService = restService;
         }
 
-        [HttpPost]
+        [HttpGet("/accounting/fullfilment")]
+        public IActionResult Fulfillment()
+        {
+            return View();
+        }
+
+        [HttpPut]
         public async Task<IActionResult> Fulfillment(AccountingVM accountingVM)
         {
             if (!ModelState.IsValid)
@@ -54,7 +60,7 @@ namespace SCM.UI.Areas.Accounting.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("/accounting/listfullfilments")]
         public async Task<IActionResult> List()
         {
             ViewBag.Header = "Muhasebe İşlemleri";

@@ -54,15 +54,18 @@
                                 <li>
                                     <a><i class="fa fa-edit"></i> Talepler <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="~/@Url.Action("Create","Request")">Talep Oluştur</a></li>
-                                        <li><a href="~/@Url.Action("List","Request")">Talep Düzenle</a></li>
+                                        <li>
+                                            <a href="/accounting/createrequest"
+                                        </li>
+                                        
+                                        <li><a href="/accounting/listrequests">Talep Düzenle</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <a><i class="fa fa-edit"></i> Muhasebe İşlemleri <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="~/@Url.Action("Fulfillment","Accounting")">Faturalandırma bekleyenler</a></li>
-                                        <li><a href="~/@Url.Action("List","Accounting")">Faturalandırılanlar</a></li>
+                                        <li><a href="/accounting/fulfillment">Faturalandırma bekleyenler</a></li>
+                                        <li><a href="/accounting/listfullfilments">Faturalandırılanlar</a></li>
                                     </ul>
                                 </li>
                             </ul>

@@ -181,36 +181,46 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "superadmin",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-app.MapControllerRoute(
-    name: "admin",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+app.MapAreaControllerRoute(
+    name: "SuperAdmin",
+    areaName: "SuperAdmin",
+    pattern: "SuperAdmin/{controller=Home}/{action=SuperAdminIndex}/{id?}");
 
-app.MapControllerRoute(
-    name: "purchasing",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+app.MapAreaControllerRoute(
+    name: "Admin",
+    areaName: "Admin",
+    pattern: "Admin/{controller=Home}/{action=AdminIndex}/{id?}");
 
-app.MapControllerRoute(
-    name: "manager",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+app.MapAreaControllerRoute(
+    name: "Purchasing",
+    areaName: "Purchasing",
+    pattern: "Purchasing/{controller=Home}/{action=PurchasingIndex}/{id?}");
 
-app.MapControllerRoute(
-    name: "supplier",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+app.MapAreaControllerRoute(
+    name: "Manager",
+    areaName: "Manager",
+    pattern: "Manager/{controller=Home}/{action=ManagerIndex}/{id?}");
 
-app.MapControllerRoute(
-    name: "employee",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+app.MapAreaControllerRoute(
+    name: "Supplier",
+    areaName: "Supplier",
+    pattern: "Supplier/{controller=Home}/{action=SupplierIndex}/{id?}");
 
-app.MapControllerRoute(
-    name: "accounting",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+app.MapAreaControllerRoute(
+    name: "Employee",
+    areaName: "Employee",
+    pattern: "Employee/{controller=Home}/{action=EmployeeIndex}/{id?}");
+
+app.MapAreaControllerRoute(
+    name: "Accounting",
+    areaName: "Accounting",
+    pattern: "Accounting/{controller=Home}/{action=AccountingIndex}/{id?}");
+
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();

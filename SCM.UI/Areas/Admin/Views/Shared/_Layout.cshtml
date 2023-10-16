@@ -1,16 +1,4 @@
-﻿<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-</head>
-<body>
-    <div>
-        @RenderBody()
-    </div>
-</body>
-</html>
+﻿
 <!DOCTYPE html>
 
 <!DOCTYPE html>
@@ -67,12 +55,67 @@
                                 <li>
                                     <a><i class="fa fa-edit"></i> Talepler <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="~/../Views/Request/CreateRequest.cshtml">Talep Oluştur</a></li>
-                                        <li><a href="~/form.html">Onaylananlar</a></li>
-                                        <li><a href="~/form_advanced.html">Onay Bekleyenler</a></li>
-                                        <li><a href="~/form_validation.html">Reddedilenler</a></li>
-                                        <li><a href="~/form_validation.html">Teklif Verilenler</a></li>
-                                        <li><a href="~/form_validation.html">Faturalandırılanlar</a></li>
+                                        <li>
+                                            <a href="/createrequest">Talep Oluştur</a>
+                                        </li>
+                                        <li>
+                                            <a href="/listrequests">Mevcut Talepler</a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-edit"></i> Onaylamalar <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="~/../Areas/Admin/Views/AdminApprove/AdminApprove">Onaylama Yap</a>
+                                        </li>
+                                        <li>
+                                            <a href="~/../Areas/Admin/Views/AdminApprove/List.cshtml">Onaylananlar</a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-edit"></i> Kategoriler <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="/categorycreate">Kategori Ekle</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="/categoryget">Kategori Düzenle
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-edit"></i> Teklifler <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="@Url.Action("List","Category")">Teklifleri Görüntüle</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-edit"></i> Ürünler <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href=" @Html.ActionLink("Admin", "Product", "Create",
+                                            new { area = "Admin" })">Ürün Ekle</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Html.ActionLink("Admin", "Product", "List",
+                                            new { area = "Admin" })">Ürün Düzenle</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-edit"></i> Hesap Oluştur <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href=" @Html.ActionLink("Admin", "Register", "Register",
+                                            new { area = "Admin" })">Hesap Oluştur</a>
+                                        </li>
                                     </ul>
                                 </li>
                             </ul>
@@ -94,11 +137,9 @@
                             <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                         </a>
                     </div>
-                    <!-- /menu footer buttons -->
                 </div>
             </div>
 
-            <!-- top navigation -->
             <div class="top_nav">
                 <div class="nav_menu">
                     <div class="nav toggle">

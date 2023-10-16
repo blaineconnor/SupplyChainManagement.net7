@@ -5,7 +5,7 @@ namespace SCM.UI.Areas.Accounting.Controllers
     [Area("Accounting")]
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult AccountingIndex()
         {
             return View();
         }

@@ -7,6 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\Data\**" />
+    <Compile Remove="Areas\Admin\Models\**" />
+    <Compile Remove="Data\**" />
+    <Content Remove="Areas\Admin\Data\**" />
+    <Content Remove="Areas\Admin\Models\**" />
+    <Content Remove="Data\**" />
+    <EmbeddedResource Remove="Areas\Admin\Data\**" />
+    <EmbeddedResource Remove="Areas\Admin\Models\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <None Remove="Areas\Admin\Data\**" />
+    <None Remove="Areas\Admin\Models\**" />
+    <None Remove="Data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\SCM\vendors\parsleyjs\bower_components\bootstrap\bower.json" />
     <Content Include="wwwroot\SCM\vendors\parsleyjs\bower_components\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="wwwroot\SCM\vendors\parsleyjs\bower_components\bootstrap\dist\css\bootstrap-theme.min.css" />
@@ -207,8 +222,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Employee\Data\" />
     <Folder Include="Areas\Employee\Models\" />
     <Folder Include="Areas\Employee\Views\" />
@@ -225,7 +238,6 @@
     <Folder Include="Areas\Supplier\Models\" />
     <Folder Include="Areas\Supplier\Views\" />
     <Folder Include="Controllers\" />
-    <Folder Include="Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Shared\" />
     <Folder Include="wwwroot\css\" />

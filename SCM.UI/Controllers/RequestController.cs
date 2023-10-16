@@ -7,7 +7,7 @@ using SCM.UI.Models.Wrapper;
 using SCM.UI.Services.Abstraction;
 using System.Net;
 
-namespace SCM.UI.Areas.Accounting.Controllers
+namespace SCM.UI.Controllers
 {
     [Authorize(Policy = "AccountingPolicy")]
     [Area("Accounting")]
@@ -49,7 +49,7 @@ namespace SCM.UI.Areas.Accounting.Controllers
                 return RedirectToAction("List", "Request");
             }
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> List()
         {

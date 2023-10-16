@@ -7,25 +7,25 @@ using SCM.UI.Models.Wrapper;
 using SCM.UI.Services.Abstraction;
 using System.Net;
 
-namespace SCM.UI.Areas.Admin.Controllers
+namespace SCM.UI.Areas.Accounting.Controllers
 {
-    [Authorize(Policy = "AdminPolicy")]
-    [Area("Admin")]
-    public class RequestController : Controller
+    [Authorize(Policy = "AccountingPolicy")]
+    [Area("Accounting")]
+    public class AccountingRequestController : Controller
     {
         private IRestService restService;
         private readonly IMapper _mapper;
 
-        public RequestController(IRestService restService, IMapper mapper)
+        public AccountingRequestController(IRestService restService, IMapper mapper)
         {
             this.restService = restService;
             _mapper = mapper;
         }
 
+
+        [HttpGet("accounting/createrequest")]
         public IActionResult Create()
         {
-            ViewBag.Header = "Talep İşlemleri";
-            ViewBag.Title = "Yeni Talep Oluştur";
             return View();
         }
 
@@ -49,8 +49,8 @@ namespace SCM.UI.Areas.Admin.Controllers
                 return RedirectToAction("List", "Request");
             }
         }
-        
-        [HttpGet]
+
+        [HttpGet("/accounting/listrequests")]
         public async Task<IActionResult> List()
         {
             ViewBag.Header = "Talep İşlemleri";
@@ -87,6 +87,7 @@ namespace SCM.UI.Areas.Admin.Controllers
                 return View(model);
             }
         }
+
         [HttpPost]
         public async Task<IActionResult> Edit(UpdateRequestVM updateRequestVM)
         {

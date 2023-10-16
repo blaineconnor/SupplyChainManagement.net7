@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "List";
-    Layout = "~/Areas/Accounting/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 <h1>List</h1>
@@ -55,12 +55,41 @@
             <td>
                 @Html.DisplayFor(modelItem => item.OfferDate)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+                @Html.ActionLink("Güncelle", "Edit","Offer", new { Area="Admin", id=item.Id }, new{@class="btn btn-success"})
+                <a href="#" data-id="@item.Id" class="btn btn-danger btnDelete">Sil</a>
         </tr>
 }
     </tbody>
 </table>
+@section Scripts{
+    <script>
+
+        $().ready(function () {
+            $(".btnDelete").click(function () {
+                var id = $(this).attr('data-id')
+                console.log(id)
+                $.ajax({
+                    type: "DELETE",
+                    url: "/admin/offer/delete/" + id,
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (response) {
+                        console.log(response)
+                        if (response.success) {
+                            var tdClassName = "tr-" + id
+                            $("." + tdClassName).fadeOut('slow', function () {
+                                $(this).remove()
+                            })
+                        } else {
+                            alert(response.errors[0])
+                        }
+                    },
+                    error: function (response) {
+                        alert('İstek esnasından sonucu taraflı bir hata oluştu.')
+                    }
+                })
+            })
+        })
+
+    </script>
+}
