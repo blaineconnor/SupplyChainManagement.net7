@@ -185,32 +185,32 @@ app.UseAuthorization();
 app.MapAreaControllerRoute(
     name: "SuperAdmin",
     areaName: "SuperAdmin",
-    pattern: "SuperAdmin/{controller=Home}/{action=SuperAdminIndex}/{id?}");
+    pattern: "SuperAdmin/{controller=Home}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "Admin",
     areaName: "Admin",
-    pattern: "Admin/{controller=Home}/{action=AdminIndex}/{id?}");
+    pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "Purchasing",
     areaName: "Purchasing",
-    pattern: "Purchasing/{controller=Home}/{action=PurchasingIndex}/{id?}");
+    pattern: "Purchasing/{controller=Home}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "Manager",
     areaName: "Manager",
-    pattern: "Manager/{controller=Home}/{action=ManagerIndex}/{id?}");
+    pattern: "Manager/{controller=Home}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "Supplier",
     areaName: "Supplier",
-    pattern: "Supplier/{controller=Home}/{action=SupplierIndex}/{id?}");
+    pattern: "Supplier/{controller=Home}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "Employee",
     areaName: "Employee",
-    pattern: "Employee/{controller=Home}/{action=EmployeeIndex}/{id?}");
+    pattern: "Employee/{controller=Home}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "Accounting",
