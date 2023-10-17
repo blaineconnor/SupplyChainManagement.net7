@@ -10,11 +10,7 @@ namespace SCM.Persistence.Mappings
         {
             builder.Property(x => x.RequestId)
                 .HasColumnName("REQUEST_ID")
-                .HasColumnOrder(2);
-                
-            builder.Property(x => x.UserName)
-                 .HasColumnName("USER_NAME")
-                 .HasMaxLength(50);           
+                .HasColumnOrder(2); 
 
             builder.Property(x => x.Status)
                 .HasColumnName("REQUEST_STATUS")

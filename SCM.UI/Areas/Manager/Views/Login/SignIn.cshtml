@@ -5,32 +5,60 @@
     Layout = "~/Areas/Manager/Views/_Layout.cshtml";
 }
 
+@inject IHttpContextAccessor _contextAccessor
+
 <h1>SignIn</h1>
 
 <h4>LoginVM</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="SignIn">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="#"><b>Supply Chain Management</b>Giriş</a>
+        </div>
+        <div class="card">
+            <div class="card-body login-card-body">
+                @{
+                    if (TempData["error"] != null)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @TempData["error"]
+                        </div>
+                    }
+                }
+                <p class="login-box-msg">Kullanıcı bilgileriniz</p>
+                <form action="/accounting/login/signin@_contextAccessor.HttpContext.Request.QueryString.Value" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="input-group mb-1">
+                        <input asp-for="Username" class="form-control" placeholder="Kullanıcı adınız" />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                    <div class="input-group mb-1">
+                        <input asp-for="Password" class="form-control" type="password" placeholder="Parolanız" />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <div class="row">
+                        <div class="offset-8 col-4">
+                            <button type="submit" class="btn btn-primary btn-block">Giriş Yap</button>
+                        </div>
+                    </div>
+                </form>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
 

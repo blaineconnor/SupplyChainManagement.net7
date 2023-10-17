@@ -63,9 +63,6 @@ namespace SCM.UI.Areas.Accounting.Controllers
         [HttpGet("/accounting/listfullfilments")]
         public async Task<IActionResult> List()
         {
-            ViewBag.Header = "Muhasebe İşlemleri";
-            ViewBag.Title = "Faturalandırmaları göster";
-
             var response = await _restService.GetAsync<Result<List<RequestDTO>>>("accounting/get");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)

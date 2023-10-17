@@ -25,8 +25,6 @@ namespace SCM.UI.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            ViewBag.Header = "Talep İşlemleri";
-            ViewBag.Title = "Yeni Talep Oluştur";
             return View();
         }
 
@@ -54,9 +52,6 @@ namespace SCM.UI.Areas.Admin.Controllers
         [HttpGet("/admin/listrequests")]
         public async Task<IActionResult> List()
         {
-            ViewBag.Header = "Talep İşlemleri";
-            ViewBag.Title = "Talep Düzenle";
-
             var response = await restService.GetAsync<Result<List<RequestDTO>>>("request/get");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)

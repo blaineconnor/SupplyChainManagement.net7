@@ -31,7 +31,6 @@ namespace SCM.UI.Areas.SuperAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> SignIn(LoginVM loginModel, [FromQuery] string ReturnUrl)
         {
-            //Model doğrulamasını geçemeyen kullanıcıyı buradan tekrar login sayfasına gönder.
             if (!ModelState.IsValid)
             {
                 return View(loginModel);

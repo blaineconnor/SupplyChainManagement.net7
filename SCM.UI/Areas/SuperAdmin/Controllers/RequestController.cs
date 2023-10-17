@@ -9,8 +9,8 @@ using System.Net;
 
 namespace SCM.UI.Areas.SuperAdmin.Controllers
 {
-    [Authorize(Policy = "AccountingPolicy")]
-    [Area("Accounting")]
+    [Authorize(Policy = "SuperAdminPolicy")]
+    [Area("SuperAdmin")]
     public class RequestController : Controller
     {
         private IRestService restService;
@@ -22,10 +22,10 @@ namespace SCM.UI.Areas.SuperAdmin.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("/superadmin/createrequest")]
+
         public IActionResult Create()
         {
-            ViewBag.Header = "Talep İşlemleri";
-            ViewBag.Title = "Yeni Talep Oluştur";
             return View();
         }
 
@@ -49,13 +49,11 @@ namespace SCM.UI.Areas.SuperAdmin.Controllers
                 return RedirectToAction("List", "Request");
             }
         }
-        
-        [HttpGet]
+
+        [HttpGet("/superadmin/listrequests")]
+
         public async Task<IActionResult> List()
         {
-            ViewBag.Header = "Talep İşlemleri";
-            ViewBag.Title = "Talep Düzenle";
-
             var response = await restService.GetAsync<Result<List<RequestDTO>>>("request/get");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
@@ -71,9 +69,6 @@ namespace SCM.UI.Areas.SuperAdmin.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            ViewBag.Header = "Talep İşlemleri";
-            ViewBag.Title = "Talep Güncelle";
-
             var response = await restService.GetAsync<Result<RequestDTO>>($"requests/get/{id}");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)

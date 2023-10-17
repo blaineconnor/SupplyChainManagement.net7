@@ -18,7 +18,7 @@ namespace SCM.API.Controllers
             _approveService = approveService;
         }
 
-        [HttpPut("manager-Approve")]
+        [HttpPost("manager-Approve")]
         [Authorize(Policy = "ManagerPolicy")]
         public async Task<ActionResult<Result<bool>>> ManagerApprove(ManagerApproveVM approveVM)
         {
@@ -26,7 +26,7 @@ namespace SCM.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("reject")]
+        [HttpPost("reject")]
         [Authorize(Policy = "MPPolicy")]
         public async Task<ActionResult<Result<bool>>> Reject(RejectVM approveVM, string rejectionReason)
         {
@@ -34,7 +34,7 @@ namespace SCM.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("Purchasing-Approve")]
+        [HttpPost("Purchasing-Approve")]
         [Authorize(Policy = "PurchasingPolicy")]
         public async Task<ActionResult<Result<bool>>> PurchasingApprove(ApproveVM approveVM)
         {
@@ -42,7 +42,7 @@ namespace SCM.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("Admin-Approve")]
+        [HttpPost("Admin-Approve")]
         [Authorize(Policy = "AdminPolicy")]
         public async Task<ActionResult<Result<bool>>> AdminApprove(ApproveVM approveVM)
         {
@@ -50,7 +50,7 @@ namespace SCM.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("SuperAdmin-Approve")]
+        [HttpPost("SuperAdmin-Approve")]
         [Authorize(Policy = "SuperAdminPolicy")]
         public async Task<ActionResult<Result<bool>>> SuperAdminApprove(ApproveVM approveVM)
         {

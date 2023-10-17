@@ -28,9 +28,6 @@ namespace SCM.UI.Areas.Purchasing.Controllers
         [HttpGet("/purchasing/listoffers")]
         public async Task<IActionResult> List()
         {
-            ViewBag.Header = "Teklif İşlemleri";
-            ViewBag.Title = "Teklif Düzenle";
-
             var response = await _restService.GetAsync<Result<List<RequestDTO>>>("approve/get");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)

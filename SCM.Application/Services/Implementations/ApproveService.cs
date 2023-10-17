@@ -1,4 +1,5 @@
-﻿using SCM.Application.Models.RequestModels.Approves;
+﻿using AutoMapper;
+using SCM.Application.Models.RequestModels.Approves;
 using SCM.Application.Services.Abstractions;
 using SCM.Application.Wrapper;
 using SCM.Domain.Entities;
@@ -9,9 +10,11 @@ namespace SCM.Application.Services.Implementations
     public class ApproveService : IApproveService
     {
         private readonly IUnitWork _uWork;
-        public ApproveService(IUnitWork uWork)
+        private readonly IMapper _mapper;
+        public ApproveService(IUnitWork uWork, IMapper mapper)
         {
             _uWork = uWork;
+            _mapper = mapper;
         }
 
         #region Manager
@@ -44,7 +47,12 @@ namespace SCM.Application.Services.Implementations
             request.DateTime = DateTime.UtcNow;
 
             _uWork.GetRepository<Requests>().Update(request);
-            await _uWork.CommitAsync();            
+            await _uWork.CommitAsync();
+
+            var approveEntity = _mapper.Map<Approves>(approveVM);
+
+            _uWork.GetRepository<Approves>().Add(approveEntity);
+            await _uWork.CommitAsync();
 
             return new Result<bool> { Success = true, Data = true };
         }
@@ -80,6 +88,11 @@ namespace SCM.Application.Services.Implementations
             request.IsApproved = true;
 
             _uWork.GetRepository<Requests>().Update(request);
+            await _uWork.CommitAsync();
+
+            var approveEntity = _mapper.Map<Approves>(approveVM);
+
+            _uWork.GetRepository<Approves>().Add(approveEntity);
             await _uWork.CommitAsync();
 
             return new Result<bool>
@@ -121,6 +134,11 @@ namespace SCM.Application.Services.Implementations
             _uWork.GetRepository<Requests>().Update(request);
             await _uWork.CommitAsync();
 
+            var approveEntity = _mapper.Map<Approves>(approveVM);
+
+            _uWork.GetRepository<Approves>().Add(approveEntity);
+            await _uWork.CommitAsync();
+
             return new Result<bool>
             {
                 Success = true,
@@ -160,6 +178,11 @@ namespace SCM.Application.Services.Implementations
             _uWork.GetRepository<Requests>().Update(request);
             await _uWork.CommitAsync();
 
+            var approveEntity = _mapper.Map<Approves>(approveVM);
+
+            _uWork.GetRepository<Approves>().Add(approveEntity);
+            await _uWork.CommitAsync();
+
             return new Result<bool>
             {
                 Success = true,
@@ -195,6 +218,11 @@ namespace SCM.Application.Services.Implementations
             _uWork.GetRepository<Requests>().Update(request);
             await _uWork.CommitAsync();
 
+            var approveEntity = _mapper.Map<Approves>(rejectVM);
+
+            _uWork.GetRepository<Approves>().Add(approveEntity);
+            await _uWork.CommitAsync();
+
             return new Result<bool> { Success = true, Data = true };
         }
 
@@ -216,7 +244,7 @@ namespace SCM.Application.Services.Implementations
                     continue;
                 }
 
-                var supplier = await _uWork.GetRepository<Account>().GetById(offer.SupplierId);
+                var supplier = await _uWork.GetRepository<Account>().GetById(offer.Id);
 
                 if (supplier == null)
                 {
@@ -232,10 +260,14 @@ namespace SCM.Application.Services.Implementations
                 };
 
                 _uWork.GetRepository<Invoice>().Add(invoice);
+                await _uWork.CommitAsync();
+
 
                 request.Status = RequestStatus.Completed;
 
                 _uWork.GetRepository<Requests>().Update(request);
+
+                await _uWork.CommitAsync();
             }
 
             await _uWork.CommitAsync();
@@ -245,7 +277,7 @@ namespace SCM.Application.Services.Implementations
                 Success = true,
                 Message = "Faturalandırma yapıldı."
             };
-        }      
+        }
 
         #endregion
 

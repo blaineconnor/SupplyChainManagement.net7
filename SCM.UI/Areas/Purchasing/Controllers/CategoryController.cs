@@ -25,8 +25,6 @@ namespace SCM.UI.Areas.Purchasing.Controllers
         [HttpGet("/purchasing/categorycreate")]
         public IActionResult Create()
         {
-            ViewBag.Header = "Kategori İşlemleri";
-            ViewBag.Title = "Yeni Kategori Oluştur";
             return View();
         }
 
@@ -56,9 +54,6 @@ namespace SCM.UI.Areas.Purchasing.Controllers
         [HttpGet("/purchasing/categoryget")]
         public async Task<IActionResult> List()
         {
-            ViewBag.Header = "Kategori İşlemleri";
-            ViewBag.Title = "Kategori Düzenle";
-
             var response = await _restService.GetAsync<Result<List<CategoryDTO>>>("category/get");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
@@ -73,9 +68,6 @@ namespace SCM.UI.Areas.Purchasing.Controllers
         }
         public async Task<IActionResult> Edit(int id)
         {
-            ViewBag.Header = "Kategori İşlemleri";
-            ViewBag.Title = "Kategori Güncelle";
-
             var response = await _restService.GetAsync<Result<CategoryDTO>>($"category/get/{id}");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)

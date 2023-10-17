@@ -25,8 +25,6 @@ namespace SCM.UI.Areas.Employee.Controllers
         [HttpGet("/employee/createrequest")]
         public IActionResult Create()
         {
-            ViewBag.Header = "Talep İşlemleri";
-            ViewBag.Title = "Yeni Talep Oluştur";
             return View();
         }
 
@@ -54,8 +52,6 @@ namespace SCM.UI.Areas.Employee.Controllers
         [HttpGet("/employee/listrequests")]
         public async Task<IActionResult> List()
         {
-            ViewBag.Header = "Talep İşlemleri";
-            ViewBag.Title = "Talep Düzenle";
 
             var response = await restService.GetAsync<Result<List<RequestDTO>>>("request/get");
 
@@ -72,8 +68,6 @@ namespace SCM.UI.Areas.Employee.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            ViewBag.Header = "Talep İşlemleri";
-            ViewBag.Title = "Talep Güncelle";
 
             var response = await restService.GetAsync<Result<RequestDTO>>($"requests/get/{id}");
 

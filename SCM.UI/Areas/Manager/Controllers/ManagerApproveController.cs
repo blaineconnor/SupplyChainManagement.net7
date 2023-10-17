@@ -27,9 +27,6 @@ namespace SCM.UI.Areas.Manager.Controllers
         [HttpGet("/manager/managerapprove")]
         public IActionResult ManagerApprove()
         {
-            ViewBag.Header = "Şube Müdürü Onay İşlemleri";
-            ViewBag.Title = "Onaylanacak Teklifleri Görüntüle";
-
             return View();
         }
 
@@ -72,9 +69,6 @@ namespace SCM.UI.Areas.Manager.Controllers
         [HttpGet("/manager/listmanagerapproves")]
         public async Task<IActionResult> List()
         {
-            ViewBag.Header = "Onay İşlemleri";
-            ViewBag.Title = "Onaylamaları göster";
-
             var response = await _restService.GetAsync<Result<List<RequestDTO>>>("managerapprove/get");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)

@@ -27,9 +27,6 @@ namespace SCM.UI.Areas.Admin.Controllers
         [HttpGet("/admin/addproduct")]
         public async Task<IActionResult> Create()
         {
-            ViewBag.Header = "Ürün İşlemleri";
-            ViewBag.Title = "Yeni Ürün Ekle";
-
             var response = await _restService.GetAsync<Result<List<CategoryDTO>>>("category/get");
 
             if (response.StatusCode == HttpStatusCode.Unauthorized)
@@ -49,7 +46,6 @@ namespace SCM.UI.Areas.Admin.Controllers
             }
             else
             {
-                //Kategori listesini açılır kutuya uygun formata dönüşüm
                 ViewBag.Categories = response.Data.Data.Select(x => new SelectListItem
                 {
                     Value = x.Id.ToString(),
@@ -63,13 +59,11 @@ namespace SCM.UI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateProductVM createProductModel)
         {
-            //Fluent validation içerisinde tanımlanan kurallardan bir veya birkaçı ihlal edildiyse
             if (!ModelState.IsValid)
             {
                 return View(createProductModel);
             }
 
-            //Model validasyonu başarılı. Kaydı gerçekleştir.
             var response = await _restService.PostAsync<CreateProductVM, Result<int>>(createProductModel, "product/create");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
@@ -77,7 +71,7 @@ namespace SCM.UI.Areas.Admin.Controllers
                 ModelState.AddModelError("", response.Data.Errors[0]);
                 return View();
             }
-            else // herşey yolunda
+            else
             {
                 TempData["success"] = $"{response.Data.Data} numaralı kayıt başarıyla eklendi.";
                 return RedirectToAction("List", "Product");
@@ -88,9 +82,6 @@ namespace SCM.UI.Areas.Admin.Controllers
         [HttpGet("/admin/listproducts")]
         public async Task<IActionResult> List()
         {
-            ViewBag.Header = "Ürün İşlemleri";
-            ViewBag.Title = "Ürün Düzenle";
-            
             var response = await _restService.GetAsync<Result<List<ProductDTO>>>("product/getWithCategory");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)

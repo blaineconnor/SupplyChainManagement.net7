@@ -24,8 +24,6 @@ namespace SCM.UI.Areas.Admin.Controllers
         [HttpGet("/admin/categorycreate")]
         public IActionResult Create()
         {
-            ViewBag.Header = "Kategori İşlemleri";
-            ViewBag.Title = "Yeni Kategori Oluştur";
             return View();
         }
 
@@ -56,11 +54,6 @@ namespace SCM.UI.Areas.Admin.Controllers
         [HttpGet("/admin/categoryget")]
         public async Task<IActionResult> List()
         {
-            ViewBag.Header = "Kategori İşlemleri";
-            ViewBag.Title = "Kategori Düzenle";
-
-            //Apiye istek at
-            //category/get
             var response = await _restService.GetAsync<Result<List<CategoryDTO>>>("category/get");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
@@ -77,10 +70,6 @@ namespace SCM.UI.Areas.Admin.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            ViewBag.Header = "Kategori İşlemleri";
-            ViewBag.Title = "Kategori Güncelle";
-
-            //ilgili kategoriyi bul ve View'e git
             var response = await _restService.GetAsync<Result<CategoryDTO>>($"category/get/{id}");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
@@ -88,7 +77,7 @@ namespace SCM.UI.Areas.Admin.Controllers
                 ModelState.AddModelError("", response.Data.Errors[0]);
                 return View();
             }
-            else // herşey yolunda
+            else
             {
                 var model = _mapper.Map<UpdateCategoryVM>(response.Data.Data);
                 return View(model);
@@ -106,15 +95,13 @@ namespace SCM.UI.Areas.Admin.Controllers
                 ModelState.AddModelError("", response.Data.Errors[0]);
                 return View();
             }
-            else // herşey yolunda
+            else
             {
                 TempData["success"] = $"{response.Data.Data} numaralı kayıt başarıyla güncellendi.";
                 return RedirectToAction("List", "Category", new { Area = "Admin" });
             }
 
         }
-
-
 
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)

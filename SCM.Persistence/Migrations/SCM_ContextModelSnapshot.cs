@@ -430,9 +430,7 @@ namespace SCM.Persistence.Migrations
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("USER_NAME");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

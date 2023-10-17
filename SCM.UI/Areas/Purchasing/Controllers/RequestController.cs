@@ -25,8 +25,6 @@ namespace SCM.UI.Areas.Purchasing.Controllers
         [HttpGet("/purchasing/createrequest")]
         public IActionResult Create()
         {
-            ViewBag.Header = "Talep İşlemleri";
-            ViewBag.Title = "Yeni Talep Oluştur";
             return View();
         }
 

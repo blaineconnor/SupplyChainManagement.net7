@@ -28,8 +28,6 @@ namespace SCM.UI.Areas.Admin.Controllers
         [HttpGet("/admin/approve")]
         public IActionResult AdminApprove()
         {
-            ViewBag.Header = "Satın Alma Onay İşlemleri";
-            ViewBag.Title = "Onaylanacak Teklifleri Görüntüle";
             return View();
         }
 
@@ -72,9 +70,6 @@ namespace SCM.UI.Areas.Admin.Controllers
         [HttpGet("/admin/listapproves")]
         public async Task<IActionResult> List()
         {
-            ViewBag.Header = "Onay İşlemleri";
-            ViewBag.Title = "Onaylamaları göster";
-
             var response = await _restService.GetAsync<Result<List<RequestDTO>>>("adminapprove/get");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)

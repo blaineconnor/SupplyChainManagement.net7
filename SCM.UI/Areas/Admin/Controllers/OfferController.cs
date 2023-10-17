@@ -26,57 +26,9 @@ namespace SCM.UI.Areas.Admin.Controllers
 
         }
 
-        [HttpGet("/admin/addoffer")]
-        public IActionResult AddOffer()
-        {
-            ViewBag.Header = "Teklif İşlemleri";
-            ViewBag.Title = "Yeni Teklif Oluştur";
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddOffer(CreateOfferVM createOfferVM)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(createOfferVM);
-            }
-
-            var response = await _restService.GetAsync<Result<RequestDTO>>($"offer/get/{createOfferVM.RequestId}");
-
-            if (response.StatusCode == HttpStatusCode.BadRequest)
-            {
-                ModelState.AddModelError("", "İşlem esnasında sunucu taraflı bir hata oluştu. Lütfen sistem yöneticinize başvurunuz.");
-                return View();
-            }
-
-            if (response.Data.Data.Status != Enumarations.RequestStatus.ManagerApproved)
-            {
-                ModelState.AddModelError("", "Bu talebe teklif ekleyemezsiniz. İstek durumu 'Şube Müdürü Onaylı' olmalıdır.");
-                return View();
-            }
-
-            var offerResponse = await _restService.PostAsync<Result<CreateOfferVM>>("offer/details");
-
-            if (offerResponse.StatusCode == HttpStatusCode.BadRequest)
-            {
-                ModelState.AddModelError("", offerResponse.Data.Errors[0]);
-                return View();
-            }
-            else
-            {
-                TempData["success"] = $"{createOfferVM.RequestId} numaralı teklif başarıyla eklendi.";
-                return RedirectToAction("List", "Offer");
-            }
-        }
-
-
         [HttpGet("/admin/getlist")]
         public async Task<IActionResult> List()
         {
-            ViewBag.Header = "Teklif İşlemleri";
-            ViewBag.Title = "Teklif Düzenle";
-
             var response = await _restService.GetAsync<Result<List<RequestDTO>>>("approve/get");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
@@ -93,9 +45,6 @@ namespace SCM.UI.Areas.Admin.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            ViewBag.Header = "Teklif İşlemleri";
-            ViewBag.Title = "Teklif Güncelle";
-
             var response = await _restService.GetAsync<Result<OfferDTO>>($"offer/get/{id}");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)

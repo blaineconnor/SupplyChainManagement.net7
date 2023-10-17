@@ -15,7 +15,10 @@
     <Compile Remove="Areas\Manager\Models\**" />
     <Compile Remove="Areas\Purchasing\Data\**" />
     <Compile Remove="Areas\Purchasing\Models\**" />
-    <Compile Remove="Data\**" />
+    <Compile Remove="Areas\SuperAdmin\Data\**" />
+    <Compile Remove="Areas\SuperAdmin\Models\**" />
+    <Compile Remove="Areas\Supplier\Data\**" />
+    <Compile Remove="Areas\Supplier\Models\**" />
     <Content Remove="Areas\Admin\Data\**" />
     <Content Remove="Areas\Admin\Models\**" />
     <Content Remove="Areas\Employee\Data\**" />
@@ -24,7 +27,10 @@
     <Content Remove="Areas\Manager\Models\**" />
     <Content Remove="Areas\Purchasing\Data\**" />
     <Content Remove="Areas\Purchasing\Models\**" />
-    <Content Remove="Data\**" />
+    <Content Remove="Areas\SuperAdmin\Data\**" />
+    <Content Remove="Areas\SuperAdmin\Models\**" />
+    <Content Remove="Areas\Supplier\Data\**" />
+    <Content Remove="Areas\Supplier\Models\**" />
     <EmbeddedResource Remove="Areas\Admin\Data\**" />
     <EmbeddedResource Remove="Areas\Admin\Models\**" />
     <EmbeddedResource Remove="Areas\Employee\Data\**" />
@@ -33,7 +39,10 @@
     <EmbeddedResource Remove="Areas\Manager\Models\**" />
     <EmbeddedResource Remove="Areas\Purchasing\Data\**" />
     <EmbeddedResource Remove="Areas\Purchasing\Models\**" />
-    <EmbeddedResource Remove="Data\**" />
+    <EmbeddedResource Remove="Areas\SuperAdmin\Data\**" />
+    <EmbeddedResource Remove="Areas\SuperAdmin\Models\**" />
+    <EmbeddedResource Remove="Areas\Supplier\Data\**" />
+    <EmbeddedResource Remove="Areas\Supplier\Models\**" />
     <None Remove="Areas\Admin\Data\**" />
     <None Remove="Areas\Admin\Models\**" />
     <None Remove="Areas\Employee\Data\**" />
@@ -42,7 +51,10 @@
     <None Remove="Areas\Manager\Models\**" />
     <None Remove="Areas\Purchasing\Data\**" />
     <None Remove="Areas\Purchasing\Models\**" />
-    <None Remove="Data\**" />
+    <None Remove="Areas\SuperAdmin\Data\**" />
+    <None Remove="Areas\SuperAdmin\Models\**" />
+    <None Remove="Areas\Supplier\Data\**" />
+    <None Remove="Areas\Supplier\Models\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -246,14 +258,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\SuperAdmin\Data\" />
-    <Folder Include="Areas\SuperAdmin\Models\" />
-    <Folder Include="Areas\SuperAdmin\Views\" />
-    <Folder Include="Areas\Supplier\Data\" />
-    <Folder Include="Areas\Supplier\Models\" />
-    <Folder Include="Areas\Supplier\Views\" />
     <Folder Include="Controllers\" />
-    <Folder Include="Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Shared\" />
     <Folder Include="wwwroot\css\" />
