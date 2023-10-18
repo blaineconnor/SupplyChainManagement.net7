@@ -110,7 +110,7 @@ namespace SCM.Persistence.Migrations
                     BY = table.Column<string>(type: "NVARCHAR(50)", maxLength: 50, nullable: true),
                     IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    USER_NAME = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     REQUEST_STATUS = table.Column<int>(type: "int", nullable: false),
                     AMOUNT = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     IS_APPROVED = table.Column<bool>(type: "bit", nullable: false),

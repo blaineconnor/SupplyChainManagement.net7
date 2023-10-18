@@ -23,7 +23,6 @@ namespace SCM.API.Controllers
 
 
         [HttpPost("register")]
-
         public async Task<ActionResult<Result<int>>> Register(RegisterVM registerVM)
         {
             var result = await _accountService.Register(registerVM);

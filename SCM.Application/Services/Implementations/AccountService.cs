@@ -40,7 +40,7 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<TokenDTO>();
             var hashedPassword = CipherUtil.EncryptString(_configuration["AppSettings:SecretKey"], loginVM.Password);
-            var existsAccount = await _uWork.GetRepository<Account>().GetSingleByFilterAsync(x => x.UserName == loginVM.UserName && x.Password == hashedPassword, "User");
+            var existsAccount = await _uWork.GetRepository<Account>().GetSingleByFilterAsync(x => x.UserName == loginVM.UserName && x.Password == loginVM.Password, "User");
             if (existsAccount is null)
             {
                 throw new NotFoundException($"{loginVM.UserName} kullanıcı adına sahip kullanıcı bulunamadı ye da parola hatalıdır.");
@@ -83,8 +83,8 @@ namespace SCM.Application.Services.Implementations
 
             var userEntity = _mapper.Map<User>(registerVM);
             var accountEntity = _mapper.Map<Account>(registerVM);
-            accountEntity.Password = CipherUtil
-                .EncryptString(_configuration["AppSettings:SecretKey"], accountEntity.Password);
+            //accountEntity.Password = CipherUtil
+            //    .EncryptString(_configuration["AppSettings:SecretKey"], accountEntity.Password);
 
             accountEntity.User = userEntity;
 

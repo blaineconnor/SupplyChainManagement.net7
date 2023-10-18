@@ -18,8 +18,6 @@ namespace SCM.UI.Services.Implementation
             _contextAccessor = contextAccessor;
         }
 
-
-
         #region Post İstekleri
 
         public async Task<RestResponse<TResponse>> PostAsync<TRequest, TResponse>(TRequest requestModel, string endpointUrl, bool tokenRequired = true)
@@ -73,7 +71,6 @@ namespace SCM.UI.Services.Implementation
             restRequest.AddHeader("content-type", "application/x-www-form-urlencoded");
             restRequest.AddHeader("Accept", "application/json");
 
-            //Modelden gelen bilgiler isteğe key value şeklinde aktarılıyor
             AddFormParametersToRequest(restRequest, parameters);
 
             if (tokenRequired && GetToken() != null)
@@ -158,8 +155,6 @@ namespace SCM.UI.Services.Implementation
         }
 
         #endregion
-
-
 
         #region Private Methods
 

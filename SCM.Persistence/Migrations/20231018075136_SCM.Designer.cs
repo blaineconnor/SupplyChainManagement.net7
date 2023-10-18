@@ -12,7 +12,7 @@ using SCM.Persistence.Context;
 namespace SCM.Persistence.Migrations
 {
     [DbContext(typeof(SCM_Context))]
-    [Migration("20231011123028_SCM")]
+    [Migration("20231018075136_SCM")]
     partial class SCM
     {
         /// <inheritdoc />
@@ -433,9 +433,7 @@ namespace SCM.Persistence.Migrations
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("USER_NAME");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

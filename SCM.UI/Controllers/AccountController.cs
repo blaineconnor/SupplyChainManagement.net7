@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SCM.UI.Models.DTOs.Accounts;
@@ -48,11 +49,35 @@ namespace SCM.UI.Controllers
                 var sessionKey = _configuration["Application:SessionKey"];
                 _contextAccessor.HttpContext.Session.SetString(sessionKey, JsonConvert.SerializeObject(response.Data.Data));
 
-                if (ReturnUrl != null)
+                var role = response.Data.Data.Roles;
+
+
+                switch (role)
                 {
-                    return Redirect(ReturnUrl);
+                    case Models.Enumarations.Role.SuperAdmin:
+                        return RedirectToAction("Index", "Home", new { Area = "SuperAdmin" });
+
+                    case Models.Enumarations.Role.Admin:
+                        return RedirectToAction("Index", "Home", new { Area = "Admin" });
+
+                    case Models.Enumarations.Role.Purchasing:
+                        return RedirectToAction("Index", "Home", new { Area = "Purchasing" });
+
+                    case Models.Enumarations.Role.Accounting:
+                        return RedirectToAction("Index", "Home", new { Area = "Accounting" });
+
+                    case Models.Enumarations.Role.Supplier:
+                        return RedirectToAction("Index", "Home  ", new { Area = "Supplier" });
+
+                    case Models.Enumarations.Role.Employee:
+                        return RedirectToAction("Index", "Home", new { Area = "Employee" });
+
+                    case Models.Enumarations.Role.Manager:
+                        return RedirectToAction("Index", "Home", new { Area = "Manager" });
+
+                    default:
+                        return RedirectToAction("Index", "Home");
                 }
-                return RedirectToAction("Index", "Home"); ;
             }
 
             return View(loginModel);
