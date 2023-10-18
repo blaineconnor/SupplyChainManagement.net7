@@ -2252,13 +2252,14 @@ span.right {
   text-overflow: ellipsis; }
 
 .sidebar-footer {
-  bottom: 0px;
-  clear: both;
-  display: block;
-  padding: 5px 0 0 0;
-  position: fixed;
-  width: 230px;
-  background: #2A3F54; }
+    bottom: 0px;
+    clear: both;
+    display: block;
+    padding: 5px 0 0 0;
+    position: fixed;
+    width: 230px;
+    background: #5B482D !important;
+}
 
 .sidebar-footer a {
   padding: 7px 0 3px;

@@ -23,7 +23,7 @@ namespace SCM.UI.Controllers
             _configuration = configuration;
         }
 
-        [HttpGet]
+        [HttpGet("/account/signin")]
         public IActionResult SignIn()
         {
             return View();
