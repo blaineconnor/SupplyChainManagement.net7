@@ -12,7 +12,7 @@ using SCM.Persistence.Context;
 namespace SCM.Persistence.Migrations
 {
     [DbContext(typeof(SCM_Context))]
-    [Migration("20231019053545_SCM")]
+    [Migration("20231019144832_SCM")]
     partial class SCM
     {
         /// <inheritdoc />
