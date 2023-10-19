@@ -1,4 +1,4 @@
-﻿using SCM.Domain.Entities;
+﻿using static SCM.UI.Models.Enumarations;
 
 namespace SCM.UI.Models.DTOs.Approves
 {

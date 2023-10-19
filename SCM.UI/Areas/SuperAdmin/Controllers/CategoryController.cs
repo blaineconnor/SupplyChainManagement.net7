@@ -48,7 +48,7 @@ namespace SCM.UI.Areas.SuperAdmin.Controllers
             else
             {
                 TempData["success"] = $"{response.Data.Data} numaralı kayıt başarıyla eklendi.";
-                return RedirectToAction("List", "Category");
+                return RedirectToAction("List", "Category", new { Area = "SuperAdmin" });
             }
         }
 
@@ -96,7 +96,7 @@ namespace SCM.UI.Areas.SuperAdmin.Controllers
             else
             {
                 TempData["success"] = $"{response.Data.Data} numaralı kayıt başarıyla güncellendi.";
-                return RedirectToAction("List", "Category");
+                return RedirectToAction("List", "Category", new { Area = "SuperAdmin" });
             }
         }
         [HttpDelete]

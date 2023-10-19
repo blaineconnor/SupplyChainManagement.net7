@@ -1,4 +1,4 @@
-﻿using static SCM.Domain.Entities.Offer;
+﻿using static SCM.UI.Models.Enumarations;
 
 namespace SCM.UI.Models.DTOs.Offer
 {

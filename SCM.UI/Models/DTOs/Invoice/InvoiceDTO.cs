@@ -1,6 +1,4 @@
-﻿using SCM.Domain.Entities;
-
-namespace SCM.UI.Models.DTOs.Invoice
+﻿namespace SCM.UI.Models.DTOs.Invoice
 {
     public class InvoiceDTO
     {

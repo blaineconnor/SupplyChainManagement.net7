@@ -27,7 +27,7 @@ namespace SCM.API.Controllers
             return Ok(categories);
         }
 
-        [HttpGet("get/{id:int}")]
+        [HttpGet("get/{id}")]
         [Authorize(Policy = "EmployeePolicy")]
         public async Task<ActionResult<Result<CategoryDTO>>> GetCategoryById(int id)
         {

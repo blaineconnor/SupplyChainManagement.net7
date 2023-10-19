@@ -1,6 +1,4 @@
-﻿using SCM.Domain.Entities;
-
-namespace SCM.UI.Models.RequestModels.Requests
+﻿namespace SCM.UI.Models.RequestModels.Requests
 {
     public class UpdateRequestVM
     {

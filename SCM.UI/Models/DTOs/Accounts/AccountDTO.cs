@@ -1,5 +1,5 @@
-﻿using SCM.Domain.Entities;
-using SCM.UI.Models.DTOs.Users;
+﻿using SCM.UI.Models.DTOs.Users;
+using static SCM.UI.Models.Enumarations;
 
 namespace SCM.UI.Models.DTOs.Accounts
 {

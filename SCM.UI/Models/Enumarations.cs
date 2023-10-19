@@ -37,5 +37,12 @@
             Refinery = 9,
             Undetermined = 10,
         }
+
+        public enum OfferStatus
+        {
+            pending = 1,
+            approved = 2,
+            reject = 3,
+        }
     }
 }
