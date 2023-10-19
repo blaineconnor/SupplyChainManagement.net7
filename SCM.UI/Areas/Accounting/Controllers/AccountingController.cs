@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SCM.UI.Models;
 using SCM.UI.Models.DTOs.Requests;
-using SCM.UI.Models.RequestModels.Approves;
+using SCM.UI.Models.RequestModels.Invoices;
 using SCM.UI.Models.Wrapper;
 using SCM.UI.Services.Abstraction;
 using System.Net;
@@ -27,7 +27,7 @@ namespace SCM.UI.Areas.Accounting.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Fulfillment(AccountingVM accountingVM)
+        public async Task<IActionResult> Fulfillment(CreateInvoiceVM accountingVM)
         {
             if (!ModelState.IsValid)
             {
@@ -46,7 +46,7 @@ namespace SCM.UI.Areas.Accounting.Controllers
                 ModelState.AddModelError("", "Bu isteği onaylayamazsınız. İstek durumu 'Onaylandı' olmalıdır.");
                 return View();
             }
-            var fulfillment = await _restService.PostAsync<Result<AccountingVM>>("accounting/details");
+            var fulfillment = await _restService.PostAsync<Result<CreateInvoiceVM>>("accounting/details");
 
             if (fulfillment.StatusCode == HttpStatusCode.BadRequest)
             {

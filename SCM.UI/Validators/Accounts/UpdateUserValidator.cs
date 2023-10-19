@@ -3,7 +3,7 @@ using SCM.UI.Models.RequestModels.Accounts;
 
 namespace SCM.UI.Validators.Accounts
 {
-    public class UpdateUserValidator : AbstractValidator<UpdateUserVM>
+    public class UpdateUserValidator : AbstractValidator<UpdateRoleVM>
     {
         public UpdateUserValidator()
         {

@@ -7,7 +7,7 @@ using SCM.Application.Wrapper;
 
 namespace SCM.API.Controllers
 {
-    [Route("Offer")]
+    [Route("offer")]
     [ApiController]
     public class OfferController : ControllerBase
     {
@@ -18,7 +18,7 @@ namespace SCM.API.Controllers
             _offerService = offerService ?? throw new ArgumentNullException(nameof(offerService));
         }
 
-        [HttpGet("GetOfferByID")]
+        [HttpGet("getByOfferId")]
         [Authorize(Policy = "PurchasingPolicy")]
         public async Task<ActionResult<Result<OfferDTO>>> GetOfferById(int offerId)
         {
@@ -30,23 +30,15 @@ namespace SCM.API.Controllers
 
         [HttpGet("GetOffersByRequestID")]
         [Authorize(Policy = "PurchasingPolicy")]
-        public async Task<ActionResult<Result<List<OfferDTO>>>> GetOffersByRequestId(int requestId)
+        public async Task<ActionResult<Result<List<OfferDTO>>>> GetOffersByRequestId(GetAllOfferByRequestVM getAllOfferByRequestVM)
         {
-            var result = await _offerService.GetOffersByRequestIdAsync(requestId);
+            var result = await _offerService.GetOffersByRequest(getAllOfferByRequestVM);
 
             return Ok(result);
 
         }
 
-        [HttpGet("GetAll")]
-        [Authorize(Policy = "PurchasingPolicy")]
-        public async Task<ActionResult<Result<List<OfferDTO>>>> GetAllOffers()
-        {
-            var result = await _offerService.GetAllOffersAsync();
-            return Ok(result);
-        }
-
-        [HttpPost("CreateOffer")]
+        [HttpPost("create")]
         [Authorize(Policy = "SupplierPolicy")]
 
         public async Task<ActionResult<Result<bool>>> CreateOffer([FromBody] CreateOfferVM createOfferVM)
@@ -55,7 +47,7 @@ namespace SCM.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("UpdateOffer")]
+        [HttpPut("update")]
         [Authorize(Policy = "SupplierPolicy")]
         public async Task<ActionResult<Result<bool>>> UpdateOffer(int offerId, [FromBody] UpdateOfferVM updateOfferVM)
         {
@@ -68,7 +60,7 @@ namespace SCM.API.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("DeleteOffer")]
+        [HttpDelete("delete")]
         [Authorize(Policy = "SupplierPolicy")]
         public async Task<ActionResult<Result<bool>>> DeleteOffer(int offerId)
         {

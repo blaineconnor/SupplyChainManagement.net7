@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SCM.Application.Models.RequestModels.Approves;
+using SCM.Application.Models.RequestModels.Invoice;
 using SCM.Application.Services.Abstractions;
 using SCM.Application.Wrapper;
 using SCM.Domain.Entities;
@@ -230,7 +231,7 @@ namespace SCM.Application.Services.Implementations
 
         #region Accounting
 
-        public async Task<Result<bool>> AccountingFulfillment(AccountingVM accountingVM)
+        public async Task<Result<bool>> AccountingFulfillment(CreateInvoiceVM accountingVM)
         {
             var approvedRequests = await _uWork.GetRepository<Requests>().GetByFilterAsync(r => r.Status == RequestStatus.AdminApproved || r.Status == RequestStatus.SuperAdminApproved || r.Status == RequestStatus.PurchasingApproved);
             var requestId = accountingVM.RequestId;

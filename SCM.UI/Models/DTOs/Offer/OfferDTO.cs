@@ -1,4 +1,6 @@
-﻿namespace SCM.UI.Models.DTOs.Offer
+﻿using static SCM.Domain.Entities.Offer;
+
+namespace SCM.UI.Models.DTOs.Offer
 {
     public class OfferDTO
     {
@@ -8,6 +10,7 @@
         public string SupplierName { get; set; }
         public int SupplierId { get; set; }
         public DateTime OfferDate { get; set; }
+        public OfferStatus Status { get; set; }
     }
 
 }

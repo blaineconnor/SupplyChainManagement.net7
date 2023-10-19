@@ -6,7 +6,7 @@ using SCM.Application.Wrapper;
 
 namespace SCM.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("request")]
     [ApiController]
     
     public class ApproveController : ControllerBase
@@ -18,7 +18,7 @@ namespace SCM.API.Controllers
             _approveService = approveService;
         }
 
-        [HttpPost("manager-Approve")]
+        [HttpPost("manager")]
         [Authorize(Policy = "ManagerPolicy")]
         public async Task<ActionResult<Result<bool>>> ManagerApprove(ManagerApproveVM approveVM)
         {
@@ -34,7 +34,7 @@ namespace SCM.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost("Purchasing-Approve")]
+        [HttpPost("purchasing")]
         [Authorize(Policy = "PurchasingPolicy")]
         public async Task<ActionResult<Result<bool>>> PurchasingApprove(ApproveVM approveVM)
         {
@@ -42,7 +42,7 @@ namespace SCM.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost("Admin-Approve")]
+        [HttpPost("admin")]
         [Authorize(Policy = "AdminPolicy")]
         public async Task<ActionResult<Result<bool>>> AdminApprove(ApproveVM approveVM)
         {
@@ -50,7 +50,7 @@ namespace SCM.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost("SuperAdmin-Approve")]
+        [HttpPost("superadmin")]
         [Authorize(Policy = "SuperAdminPolicy")]
         public async Task<ActionResult<Result<bool>>> SuperAdminApprove(ApproveVM approveVM)
         {

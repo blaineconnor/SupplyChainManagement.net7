@@ -1,8 +1,8 @@
-﻿using static SCM.UI.Models.Enumarations;
+﻿using SCM.Domain.Entities;
 
 namespace SCM.UI.Models.RequestModels.Accounts
 {
-    public class UpdateUserVM
+    public class UpdateRoleVM
     {
         public string UserName { get; set; }
         public Role Roles { get; set; }

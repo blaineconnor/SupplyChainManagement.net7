@@ -89,6 +89,8 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IRequestService, RequestService>();
 builder.Services.AddScoped<IApproveService, ApproveService>();
 builder.Services.AddScoped<IOfferService, OfferService>();
+builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+
 
 //Automapper
 builder.Services.AddAutoMapper(typeof(DomaintoDTO), typeof(VMtoDomain));

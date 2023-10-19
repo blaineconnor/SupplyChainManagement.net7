@@ -2,7 +2,7 @@
 
 namespace SCM.Application.Models.RequestModels.Accounts
 {
-    public class UpdateUserVM
+    public class UpdateRoleVM
     {
         public string UserName { get; set; }
         public Role Roles { get; set; }

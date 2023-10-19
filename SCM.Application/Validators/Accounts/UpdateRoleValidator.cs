@@ -3,9 +3,9 @@ using SCM.Application.Models.RequestModels.Accounts;
 
 namespace SCM.Application.Validators.Accounts
 {
-    public class UpdateUserValidator: AbstractValidator<UpdateUserVM>
+    public class UpdateRoleValidator: AbstractValidator<UpdateRoleVM>
     {
-        public UpdateUserValidator() 
+        public UpdateRoleValidator() 
         {
             RuleFor(x => x.Roles)
                 .NotEmpty()

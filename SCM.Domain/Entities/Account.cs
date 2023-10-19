@@ -10,6 +10,7 @@ namespace SCM.Domain.Entities
         public DateTime? LastUserLogin { get; set; }
         public string LastUserIP { get; set; }
         public Role Roles { get; set; }
+        public Company Company { get; set; }
 
         public User User { get; set; }
     }
@@ -24,5 +25,19 @@ namespace SCM.Domain.Entities
         Purchasing = 6,
         Admin = 50,
         SuperAdmin = 100,
+    }
+
+    public enum Company
+    {
+        Technology = 1,
+        Energy = 2,
+        Finance = 3,
+        Jewellery = 4,
+        Investment = 5,
+        Automotive = 6,
+        Health = 7,
+        RealEstate = 8,
+        Refinery = 9,
+        Undetermined = 10,
     }
 }

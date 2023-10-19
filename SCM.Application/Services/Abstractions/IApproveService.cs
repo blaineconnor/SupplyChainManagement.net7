@@ -1,4 +1,5 @@
 ﻿using SCM.Application.Models.RequestModels.Approves;
+using SCM.Application.Models.RequestModels.Invoice;
 using SCM.Application.Wrapper;
 
 namespace SCM.Application.Services.Abstractions
@@ -10,6 +11,5 @@ namespace SCM.Application.Services.Abstractions
         Task<Result<bool>> AdminApprove(ApproveVM approveVM);
         Task<Result<bool>> SuperAdminApprove(ApproveVM approveVM);
         Task<Result<bool>> Reject(RejectVM approveVM, string rejectionReason);
-        Task<Result<bool>> AccountingFulfillment(AccountingVM accountingVM);
     }
 }

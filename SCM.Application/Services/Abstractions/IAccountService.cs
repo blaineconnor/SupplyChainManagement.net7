@@ -13,6 +13,8 @@ namespace SCM.Application.Services.Abstractions
 
         Task<Result<Account>> GetByIdAsync(int id);
 
-        Task<Result<bool>> UpdateUserRolesByUsernameAsync(string username, Role newRoles);
+        Task<Result<bool>> UpdateUserRoles(string username, Role newRoles);
+        Task<Result<bool>> UpdateUserCompany(string username, Company newCompany);
+
     }
 }

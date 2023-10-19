@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using SCM.UI.Models.RequestModels.Approves;
+using SCM.UI.Models.RequestModels.Invoices;
 
 namespace SCM.UI.Validators.Approves
 {
-    public class AccountingValidator : AbstractValidator<AccountingVM>
+    public class AccountingValidator : AbstractValidator<CreateInvoiceVM>
     {
         public AccountingValidator()
         {

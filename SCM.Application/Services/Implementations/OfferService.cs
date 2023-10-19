@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using SCM.Application.Models.DTOs.Offer;
 using SCM.Application.Models.RequestModels.Offers;
 using SCM.Application.Services.Abstractions;
@@ -36,24 +37,14 @@ namespace SCM.Application.Services.Implementations
             };
         }
 
-        public async Task<Result<List<OfferDTO>>> GetOffersByRequestIdAsync(int requestId)
+        public async Task<Result<List<OfferDTO>>> GetOffersByRequest(GetAllOfferByRequestVM getAllOfferByRequestVM)
         {
-            var offers = await _unitOfWork.GetRepository<Offer>().GetByFilterAsync(o => o.RequestId == requestId);
-            return new Result<List<OfferDTO>>
-            {
-                Data = _mapper.Map<List<OfferDTO>>(offers)
-            };
+            var result = new Result<List<OfferDTO>>();
+            var ınvoicesEntity = await _unitOfWork.GetRepository<Offer>().GetByFilterAsync(x => x.RequestId == getAllOfferByRequestVM.Id);
+            var invoiceDtos = ınvoicesEntity.ProjectTo<OfferDTO>(_mapper.ConfigurationProvider).ToList();
+            result.Data = invoiceDtos;
+            return result;
         }
-
-        public async Task<Result<List<OfferDTO>>> GetAllOffersAsync()
-        {
-            var offers = await _unitOfWork.GetRepository<Offer>().GetAllAsync();
-            return new Result<List<OfferDTO>>
-            {
-                Data = _mapper.Map<List<OfferDTO>>(offers)
-            };
-        }
-
         #endregion
 
         #region Create

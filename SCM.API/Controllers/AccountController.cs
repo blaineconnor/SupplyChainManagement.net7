@@ -55,14 +55,35 @@ namespace SCM.API.Controllers
 
         [HttpPut("update-user-role")]
         [AllowAnonymous]
-        public async Task<ActionResult<Result<int>>> UpdateUser(string userName, UpdateUserVM updateUserVM)
+        public async Task<ActionResult<Result<int>>> UpdateUserRole(string userName, UpdateRoleVM updateUserVM)
         {
             if (userName != updateUserVM.UserName)
             {
                 return BadRequest(new Result<int> { Success = false, Errors = new List<string> { "Kullanıcı adı uyuşmuyor." } });
             }
 
-            var result = await _accountService.UpdateUserRolesByUsernameAsync(updateUserVM.UserName, updateUserVM.Roles);
+            var result = await _accountService.UpdateUserRoles(updateUserVM.UserName, updateUserVM.Roles);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+
+        [HttpPut("update-user-company")]
+        [AllowAnonymous]
+        public async Task<ActionResult<Result<int>>> UpdateUserCompany(string userName, UpdateCompanyVM updateUserVM)
+        {
+            if (userName != updateUserVM.UserName)
+            {
+                return BadRequest(new Result<int> { Success = false, Errors = new List<string> { "Kullanıcı adı uyuşmuyor." } });
+            }
+
+            var result = await _accountService.UpdateUserCompany(updateUserVM.UserName, updateUserVM.Company);
 
             if (result.Success)
             {

@@ -1,4 +1,4 @@
-﻿using static SCM.UI.Models.Enumarations;
+﻿using SCM.Domain.Entities;
 
 namespace SCM.UI.Models.DTOs.Requests
 {

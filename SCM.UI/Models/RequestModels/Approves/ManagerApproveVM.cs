@@ -1,4 +1,6 @@
-﻿namespace SCM.UI.Models.RequestModels.Approves
+﻿using SCM.Domain.Entities;
+
+namespace SCM.UI.Models.RequestModels.Approves
 {
     public class ManagerApproveVM
     {

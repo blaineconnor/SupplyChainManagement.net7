@@ -11,6 +11,7 @@ namespace SCM.Application.Models.DTOs.Accounts
         public DateTime? LastUserLogin { get; set; }
         public string LastUserIP { get; set; }
         public Role Roles { get; set; }
+        public Company Company { get; set; }
 
         public UserDTO User { get; set; }
     }

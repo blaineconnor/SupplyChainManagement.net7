@@ -15,6 +15,7 @@ namespace SCM.Domain.Entities
 
         
         //NavigationProperties
+        public User User { get; set; }
         public ICollection<Invoice> Invoices { get; set; }
         public ICollection<Offer> Offers { get; set; }
         public ICollection<Approves> Approves { get; set; }

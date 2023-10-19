@@ -23,6 +23,17 @@ namespace SCM.Persistence.Mappings
                 .HasColumnOrder(4)
                 .IsRequired();
 
+            builder.Property(x => x.DateTime)
+                .HasColumnName("INVOICE_DATE")
+                .HasColumnOrder(4)
+                .IsRequired();
+
+            builder.Property(x => x.Description)
+                .HasColumnName("DESCRIPTION")
+                .HasColumnType("nvarchar(max)")
+                .HasColumnOrder (5)
+                .IsRequired();
+
             builder.Property(x => x.Amount)
                 .HasColumnName("AMOUNT")
                 .HasColumnOrder(5)
@@ -34,6 +45,12 @@ namespace SCM.Persistence.Mappings
                 .HasColumnOrder(6)
                 .HasColumnType("datetime")
                 .IsRequired();
+
+            builder.HasOne(x => x.Request)
+               .WithMany(x => x.Invoices)
+               .HasForeignKey(x => x.RequestId)
+               .HasConstraintName("REQUEST_INVOICES_REQUESTID");
+
 
             builder.ToTable("INVOICES");
         }

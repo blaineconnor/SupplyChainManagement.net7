@@ -1,5 +1,5 @@
-﻿using SCM.UI.Models.DTOs.Users;
-using static SCM.UI.Models.Enumarations;
+﻿using SCM.Domain.Entities;
+using SCM.UI.Models.DTOs.Users;
 
 namespace SCM.UI.Models.DTOs.Accounts
 {
@@ -11,6 +11,7 @@ namespace SCM.UI.Models.DTOs.Accounts
         public DateTime? LastUserLogin { get; set; }
         public string LastUserIP { get; set; }
         public Role Roles { get; set; }
+        public Company Company { get; set; }
 
         public UserDTO User { get; set; }
     }

@@ -8,8 +8,17 @@ namespace SCM.Domain.Entities
         public decimal Amount { get; set; }
         public string SupplierName { get; set; }
         public int SupplierId { get; set; }
+        public OfferStatus Status { get; set; }
+        public Requests Requests { get; set; }
 
         public ICollection<Approves> Approves { get; set; }
-        //public Approves Approve { get; set; }
+
+
+        public enum OfferStatus
+        {
+            pending = 1,
+            approved = 2,
+            reject = 3,
+        }
     }
 }

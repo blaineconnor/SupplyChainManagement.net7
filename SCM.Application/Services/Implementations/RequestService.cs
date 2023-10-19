@@ -29,13 +29,7 @@ namespace SCM.Application.Services.Implementations
         [ValidationBehavior(typeof(CreateRequestValidator))]
         public async Task<Result<int>> CreateRequest(CreateRequestVM createRequestVM)
         {
-            var result = new Result<int>();
-
-            var userExists = await _uWork.GetRepository<Account>().AnyAsync(x => x.Id == createRequestVM.UserId);
-            if (!userExists)
-            {
-                throw new NotFoundException($"{createRequestVM.UserId} numaralı kullanıcı bulunamadı.");
-            }
+            var result = new Result<int>();            
 
             var requestEntity = _mapper.Map<Requests>(createRequestVM);
             requestEntity.Status = RequestStatus.Pending;
