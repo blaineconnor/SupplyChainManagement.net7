@@ -63,7 +63,7 @@ namespace SCM.UI.Areas.SuperAdmin.Controllers
             }
             else
             {
-                return View(response.Data.Data);
+                return View(response.Data);
             }
         }
 

@@ -12,8 +12,8 @@ using SCM.Persistence.Context;
 namespace SCM.Persistence.Migrations
 {
     [DbContext(typeof(SCM_Context))]
-    [Migration("20231018173545_SCM2")]
-    partial class SCM2
+    [Migration("20231019053545_SCM")]
+    partial class SCM
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

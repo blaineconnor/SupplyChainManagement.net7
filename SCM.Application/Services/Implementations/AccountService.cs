@@ -40,18 +40,17 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<TokenDTO>();
             var hashedPassword = CipherUtil.EncryptString(_configuration["AppSettings:SecretKey"], loginVM.Password);
-            var existsAccount = await _uWork.GetRepository<Account>().GetSingleByFilterAsync(x => x.UserName == loginVM.UserName && x.Password == loginVM.Password, "User");
+            var existsAccount = await _uWork.GetRepository<Account>().GetSingleByFilterAsync(x => x.UserName == loginVM.UserName && x.Password == hashedPassword, "User");
+
             if (existsAccount is null)
             {
                 throw new NotFoundException($"{loginVM.UserName} kullanıcı adına sahip kullanıcı bulunamadı ye da parola hatalıdır.");
             }
 
-
             var expireMinute = Convert.ToInt32(_configuration["Jwt:Expire"]);
             var expireDate = DateTime.Now.AddMinutes(expireMinute);
 
             var tokenString = GenerateJwtToken(existsAccount, expireDate);
-
             result.Data = new TokenDTO
             {
                 Token = tokenString,
@@ -83,8 +82,8 @@ namespace SCM.Application.Services.Implementations
 
             var userEntity = _mapper.Map<User>(registerVM);
             var accountEntity = _mapper.Map<Account>(registerVM);
-            //accountEntity.Password = CipherUtil
-            //    .EncryptString(_configuration["AppSettings:SecretKey"], accountEntity.Password);
+            accountEntity.Password = CipherUtil
+                .EncryptString(_configuration["AppSettings:SecretKey"], accountEntity.Password);
 
             accountEntity.User = userEntity;
 
@@ -125,15 +124,12 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<bool>();
 
-            // Kullanıcı adına göre hesabı bul
             var account = _dbContext.Accounts.FirstOrDefault(a => a.UserName == username);
 
             if (account != null)
             {
-                // Rollerini güncelle
                 account.Roles = newRoles;
 
-                // Değişiklikleri kaydet
                 await _dbContext.SaveChangesAsync();
 
                 result.Data = true;
