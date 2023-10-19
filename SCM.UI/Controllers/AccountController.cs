@@ -31,7 +31,7 @@ namespace SCM.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignIn(LoginVM loginModel, [FromQuery] string ReturnUrl)
+        public async Task<IActionResult> SignIn(LoginVM loginModel)
         {
             if (!ModelState.IsValid)
             {

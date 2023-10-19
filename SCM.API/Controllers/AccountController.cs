@@ -23,6 +23,7 @@ namespace SCM.API.Controllers
 
 
         [HttpPost("register")]
+        [AllowAnonymous]
         public async Task<ActionResult<Result<int>>> Register(RegisterVM registerVM)
         {
             var result = await _accountService.Register(registerVM);
