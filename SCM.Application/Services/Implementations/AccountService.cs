@@ -55,7 +55,7 @@ namespace SCM.Application.Services.Implementations
             {
                 Token = tokenString,
                 ExpireDate = expireDate,
-                Roles = existsAccount.Roles
+                Roles = existsAccount.Role
             };
 
             return result;
@@ -74,20 +74,20 @@ namespace SCM.Application.Services.Implementations
                 throw new AlreadyExistsException($"{registerVM.UserName} kullanıcı adı daha önce seçilmiştir. Lütfen farklı bir kullanıcı adı belirleyiniz.");
             }
 
-            var emailExists = await _uWork.GetRepository<User>().AnyAsync(x => x.Email.Trim().ToUpper() == registerVM.Email.Trim().ToUpper());
+            var emailExists = await _uWork.GetRepository<Employee>().AnyAsync(x => x.Email.Trim().ToUpper() == registerVM.Email.Trim().ToUpper());
             if (emailExists)
             {
                 throw new AlreadyExistsException($"{registerVM.Email} eposta adresi kullanılmaktadır. Lütfen farklı bir kullanıcı adı belirleyiniz.");
             }
 
-            var userEntity = _mapper.Map<User>(registerVM);
+            var userEntity = _mapper.Map<Employee>(registerVM);
             var accountEntity = _mapper.Map<Account>(registerVM);
             accountEntity.Password = CipherUtil
                 .EncryptString(_configuration["AppSettings:SecretKey"], accountEntity.Password);
 
-            accountEntity.User = userEntity;
+            accountEntity.Employee = userEntity;
 
-            _uWork.GetRepository<User>().Add(userEntity);
+            _uWork.GetRepository<Employee>().Add(userEntity);
             _uWork.GetRepository<Account>().Add(accountEntity);
             result.Data = await _uWork.CommitAsync();
 
@@ -128,7 +128,7 @@ namespace SCM.Application.Services.Implementations
 
             if (account != null)
             {
-                account.Roles = newRoles;
+                account.Role = newRoles;
 
                 await _dbContext.SaveChangesAsync();
 
@@ -177,9 +177,9 @@ namespace SCM.Application.Services.Implementations
 
             var claims = new Claim[]
             {
-                new Claim(ClaimTypes.Role,account.Roles.ToString()),
+                new Claim(ClaimTypes.Role,account.Role.ToString()),
                 new Claim(ClaimTypes.Name,account.UserName),
-                new Claim(ClaimTypes.Email,account.User.Email), 
+                new Claim(ClaimTypes.Email,account.Employee.Email), 
                 new Claim(ClaimTypes.Sid,account.UserId.ToString())
             };
 

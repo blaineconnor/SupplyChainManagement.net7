@@ -40,7 +40,7 @@ namespace SCM.Persistence.Mappings
                 .HasColumnName("IS_DELETED")
                 .IsRequired(false);
 
-            builder.HasOne(x => x.User)
+            builder.HasOne(x => x.Employee)
                 .WithOne(x => x.Account)
                 .HasForeignKey<Account>(x => x.UserId);
 

@@ -21,9 +21,10 @@ namespace SCM.UI.Areas.Accounting.Controllers
         }
 
         [HttpGet("/accounting/fulfillment")]
-        public IActionResult Fulfillment()
+        public IActionResult Fulfillment(int id)
         {
-            return View();
+            var fulfillment = new CreateInvoiceVM() { RequestId = id };
+            return View(fulfillment);
         }
 
         [HttpPost]
@@ -34,19 +35,7 @@ namespace SCM.UI.Areas.Accounting.Controllers
                 return View(accountingVM);
             }
 
-            var response = await _restService.GetAsync<Result<RequestDTO>>($"accounting/get/{accountingVM.RequestId}");
-
-            if (response.StatusCode == HttpStatusCode.BadRequest || response.Data.Data.Status == Enumarations.RequestStatus.Rejected || response.Data.Data.Status == Enumarations.RequestStatus.Completed || response.Data.Data.Status == Enumarations.RequestStatus.OfferReceived || response.Data.Data.Status == Enumarations.RequestStatus.ManagerApproved || response.Data.Data.Status == Enumarations.RequestStatus.Pending)
-            {
-                ModelState.AddModelError("", "İşlem esnasında sunucu taraflı bir hata oluştu. Lütfen sistem yöneticinize başvurunuz.");
-                return View();
-            }
-            if (response.Data.Data.Status != Enumarations.RequestStatus.SuperAdminApproved || response.Data.Data.Status != Enumarations.RequestStatus.AdminApproved || response.Data.Data.Status != Enumarations.RequestStatus.PurchasingApproved)
-            {
-                ModelState.AddModelError("", "Bu isteği onaylayamazsınız. İstek durumu 'Onaylandı' olmalıdır.");
-                return View();
-            }
-            var fulfillment = await _restService.PostAsync<Result<CreateInvoiceVM>>("accounting/create");
+            var fulfillment = await _restService.PostAsync<CreateInvoiceVM, Result<int>>(accountingVM, "invoice/create");
 
             if (fulfillment.StatusCode == HttpStatusCode.BadRequest)
             {

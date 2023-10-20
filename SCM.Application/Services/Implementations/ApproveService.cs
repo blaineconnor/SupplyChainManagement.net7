@@ -24,7 +24,7 @@ namespace SCM.Application.Services.Implementations
         {
             var requestId = approveVM.RequestId;
 
-            var request = await _uWork.GetRepository<Requests>().GetById(requestId);
+            var request = await _uWork.GetRepository<Request>().GetById(requestId);
 
             if (request == null)
             {
@@ -47,7 +47,7 @@ namespace SCM.Application.Services.Implementations
             request.Status = RequestStatus.ManagerApproved;
             request.DateTime = DateTime.UtcNow;
 
-            _uWork.GetRepository<Requests>().Update(request);
+            _uWork.GetRepository<Request>().Update(request);
             await _uWork.CommitAsync();
 
             var approveEntity = _mapper.Map<Approves>(approveVM);
@@ -65,7 +65,7 @@ namespace SCM.Application.Services.Implementations
         {
             var requestId = approveVM.RequestId;
 
-            var request = await _uWork.GetRepository<Requests>().GetById(requestId);
+            var request = await _uWork.GetRepository<Request>().GetById(requestId);
 
             if (request == null)
             {
@@ -88,7 +88,7 @@ namespace SCM.Application.Services.Implementations
             request.DateTime = DateTime.Now;
             request.IsApproved = true;
 
-            _uWork.GetRepository<Requests>().Update(request);
+            _uWork.GetRepository<Request>().Update(request);
             await _uWork.CommitAsync();
 
             var approveEntity = _mapper.Map<Approves>(approveVM);
@@ -109,7 +109,7 @@ namespace SCM.Application.Services.Implementations
         {
             var requestId = approveVM.RequestId;
 
-            var request = await _uWork.GetRepository<Requests>().GetById(requestId);
+            var request = await _uWork.GetRepository<Request>().GetById(requestId);
 
             if (request == null)
             {
@@ -132,7 +132,7 @@ namespace SCM.Application.Services.Implementations
             request.DateTime = DateTime.Now;
             request.IsApproved = true;
 
-            _uWork.GetRepository<Requests>().Update(request);
+            _uWork.GetRepository<Request>().Update(request);
             await _uWork.CommitAsync();
 
             var approveEntity = _mapper.Map<Approves>(approveVM);
@@ -154,7 +154,7 @@ namespace SCM.Application.Services.Implementations
         {
             var requestId = approveVM.RequestId;
 
-            var request = await _uWork.GetRepository<Requests>().GetById(requestId);
+            var request = await _uWork.GetRepository<Request>().GetById(requestId);
 
             if (request == null)
             {
@@ -176,7 +176,7 @@ namespace SCM.Application.Services.Implementations
             request.Status = RequestStatus.SuperAdminApproved;
             request.IsApproved = true;
 
-            _uWork.GetRepository<Requests>().Update(request);
+            _uWork.GetRepository<Request>().Update(request);
             await _uWork.CommitAsync();
 
             var approveEntity = _mapper.Map<Approves>(approveVM);
@@ -199,7 +199,7 @@ namespace SCM.Application.Services.Implementations
         {
             var requestId = rejectVM.RequestId;
 
-            var request = await _uWork.GetRepository<Requests>().GetById(requestId);
+            var request = await _uWork.GetRepository<Request>().GetById(requestId);
 
             if (request == null || request.Status == RequestStatus.Rejected || request.Status == RequestStatus.Completed)
             {
@@ -216,7 +216,7 @@ namespace SCM.Application.Services.Implementations
             request.IsApproved = false;
             request.RejectionReason = rejectionReason;
 
-            _uWork.GetRepository<Requests>().Update(request);
+            _uWork.GetRepository<Request>().Update(request);
             await _uWork.CommitAsync();
 
             var approveEntity = _mapper.Map<Approves>(rejectVM);
@@ -233,7 +233,7 @@ namespace SCM.Application.Services.Implementations
 
         public async Task<Result<bool>> AccountingFulfillment(CreateInvoiceVM accountingVM)
         {
-            var approvedRequests = await _uWork.GetRepository<Requests>().GetByFilterAsync(r => r.Status == RequestStatus.AdminApproved || r.Status == RequestStatus.SuperAdminApproved || r.Status == RequestStatus.PurchasingApproved);
+            var approvedRequests = await _uWork.GetRepository<Request>().GetByFilterAsync(r => r.Status == RequestStatus.AdminApproved || r.Status == RequestStatus.SuperAdminApproved || r.Status == RequestStatus.PurchasingApproved);
             var requestId = accountingVM.RequestId;
 
             foreach (var request in approvedRequests)
@@ -266,7 +266,7 @@ namespace SCM.Application.Services.Implementations
 
                 request.Status = RequestStatus.Completed;
 
-                _uWork.GetRepository<Requests>().Update(request);
+                _uWork.GetRepository<Request>().Update(request);
 
                 await _uWork.CommitAsync();
             }

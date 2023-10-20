@@ -1,0 +1,19 @@
+﻿using SCM.Domain.Common;
+using System.Numerics;
+
+namespace SCM.Domain.Entities
+{
+    public class Supplier : AuditableEntity
+    {
+        public Supplier()
+        {
+            Offers = new HashSet<Offer>();
+        }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public virtual IEnumerable<Offer> Offers { get; set; }
+        public virtual Role Role { get; set; }
+        public BigInteger RoleId { get; set; }
+    }
+}

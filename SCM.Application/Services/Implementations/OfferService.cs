@@ -50,7 +50,7 @@ namespace SCM.Application.Services.Implementations
         #region Create
         public async Task<Result<bool>> CreateOfferAsync(CreateOfferVM createOfferVM)
         {
-            var request = await _unitOfWork.GetRepository<Requests>()
+            var request = await _unitOfWork.GetRepository<Request>()
                 .GetSingleByFilterAsync(r => r.Id == createOfferVM.RequestId && r.Status == RequestStatus.ManagerApproved || r.Status == RequestStatus.OfferReceived);
 
             if (request == null)
@@ -69,7 +69,7 @@ namespace SCM.Application.Services.Implementations
             await _unitOfWork.CommitAsync();
 
             request.Status = RequestStatus.OfferReceived;
-            _unitOfWork.GetRepository<Requests>().Update(request);
+            _unitOfWork.GetRepository<Request>().Update(request);
             await _unitOfWork.CommitAsync();
 
             return new Result<bool>

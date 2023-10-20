@@ -12,7 +12,7 @@ namespace SCM.Persistence.Mappings
                 .HasColumnName("APPROVED_ID")
                 .IsRequired();
 
-            builder.Property(x => x.DateTime)
+            builder.Property(x => x.UpdatedTime)
                 .HasColumnName("APPROVE_TIME")
                 .HasColumnOrder(4)
                 .HasColumnType("date");

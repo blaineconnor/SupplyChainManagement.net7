@@ -27,12 +27,12 @@ namespace SCM.Application.Services.Implementations
         [ValidationBehavior(typeof(CreateInvoiceValidator))]
         public async Task<Result<int>> CreateInvoice(CreateInvoiceVM createInvoiceVM)
         {
-            var approvedRequests = await unitWork.GetRepository<Requests>().GetByFilterAsync(r => r.Status == RequestStatus.AdminApproved || r.Status == RequestStatus.SuperAdminApproved || r.Status == RequestStatus.PurchasingApproved);
+            var approvedRequests = await unitWork.GetRepository<Request>().GetByFilterAsync(r => r.Status == RequestStatus.AdminApproved || r.Status == RequestStatus.SuperAdminApproved || r.Status == RequestStatus.PurchasingApproved);
 
             var requestId = createInvoiceVM.RequestId;
             foreach (var request in approvedRequests)
             {
-                var offer = await unitWork.GetRepository<Requests>().GetById(requestId);
+                var offer = await unitWork.GetRepository<Request>().GetById(requestId);
                 if (offer == null)
                 {
                     continue;
@@ -53,7 +53,7 @@ namespace SCM.Application.Services.Implementations
                 };
 
 
-                var requestExists = await unitWork.GetRepository<Requests>().GetSingleByFilterAsync(x => x.Id == createInvoiceVM.RequestId, "User");
+                var requestExists = await unitWork.GetRepository<Request>().GetSingleByFilterAsync(x => x.Id == createInvoiceVM.RequestId, "User");
 
                 if (requestExists is null)
                 {
@@ -63,7 +63,7 @@ namespace SCM.Application.Services.Implementations
                 else
                 {
                     request.Status = RequestStatus.Completed;
-                    unitWork.GetRepository<Requests>().Update(requestExists);
+                    unitWork.GetRepository<Request>().Update(requestExists);
                 }
 
                 var invoiceEntity = mapper.Map<Invoice>(createInvoiceVM);

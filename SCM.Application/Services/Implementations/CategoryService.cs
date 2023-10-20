@@ -31,7 +31,7 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<List<CategoryDTO>>();
 
-            var categoryEntites = await _db.GetRepository<Categories>().GetAllAsync();
+            var categoryEntites = await _db.GetRepository<Category>().GetAllAsync();
             var categoryDtos = await categoryEntites.ProjectTo<CategoryDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
             result.Data = categoryDtos;
@@ -44,15 +44,15 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<CategoryDTO>();
 
-            var categoryExists = await _db.GetRepository<Categories>().AnyAsync(x => x.Id == getCategoryByIdVM.Id);
+            var categoryExists = await _db.GetRepository<Category>().AnyAsync(x => x.Id == getCategoryByIdVM.Id);
             if (!categoryExists)
             {
                 throw new NotFoundException($"{getCategoryByIdVM.Id} numaralı kategori bulunamadı.");
             }
 
-            var categoryEntity = await _db.GetRepository<Categories>().GetById(getCategoryByIdVM.Id);
+            var categoryEntity = await _db.GetRepository<Category>().GetById(getCategoryByIdVM.Id);
 
-            var categoryDto = _mapper.Map<Categories, CategoryDTO>(categoryEntity);
+            var categoryDto = _mapper.Map<Category, CategoryDTO>(categoryEntity);
 
             result.Data = categoryDto;
             _db.Dispose();
@@ -67,15 +67,15 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<int>();
 
-            var categoryExistsSameName = await _db.GetRepository<Categories>().AnyAsync(x => x.Name == createCategoryVM.CategoryName);
+            var categoryExistsSameName = await _db.GetRepository<Category>().AnyAsync(x => x.Name == createCategoryVM.CategoryName);
             if (categoryExistsSameName)
             {
                 throw new AlreadyExistsException($"{createCategoryVM.CategoryName} isminde bir kategori zaten mevcut.");
             }
 
-            var categoryEntity = _mapper.Map<CreateCategoryVM, Categories>(createCategoryVM);
+            var categoryEntity = _mapper.Map<CreateCategoryVM, Category>(createCategoryVM);
 
-            _db.GetRepository<Categories>().Add(categoryEntity);
+            _db.GetRepository<Category>().Add(categoryEntity);
             await _db.CommitAsync();
 
             result.Data = categoryEntity.Id;
@@ -89,13 +89,13 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<int>();
 
-            var categoryExists = await _db.GetRepository<Categories>().AnyAsync(x => x.Id == deleteCategoryVM.Id);
+            var categoryExists = await _db.GetRepository<Category>().AnyAsync(x => x.Id == deleteCategoryVM.Id);
             if (!categoryExists)
             {
                 throw new NotFoundException($"{deleteCategoryVM.Id} numaralı kategori bulunamadı.");
             }
 
-            _db.GetRepository<Categories>().Delete(deleteCategoryVM.Id);
+            _db.GetRepository<Category>().Delete(deleteCategoryVM.Id);
             await _db.CommitAsync();
 
             result.Data = deleteCategoryVM.Id;
@@ -109,7 +109,7 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<int>();
 
-            var existsCategory = await _db.GetRepository<Categories>().GetById(updateCategoryVM.Id);
+            var existsCategory = await _db.GetRepository<Category>().GetById(updateCategoryVM.Id);
             if (existsCategory is null)
             {
                 throw new Exception($"{updateCategoryVM} numaralı kategori bulunamadı.");
@@ -117,7 +117,7 @@ namespace SCM.Application.Services.Implementations
 
             var updatedCategory = _mapper.Map(updateCategoryVM, existsCategory);
 
-            _db.GetRepository<Categories>().Update(updatedCategory);
+            _db.GetRepository<Category>().Update(updatedCategory);
             await _db.CommitAsync();
 
             result.Data = updatedCategory.Id;

@@ -1,8 +1,11 @@
-﻿namespace SCM.Domain.Common
+﻿using System.Numerics;
+
+namespace SCM.Domain.Common
 {
     public class BaseEntity
     {
-        public int Id { get; set; }
+        public BigInteger Id { get; set; }
         public bool? IsDeleted { get; set; }
+
     }
 }

@@ -4,9 +4,9 @@ using SCM.Domain.Entities;
 
 namespace SCM.Persistence.Mappings
 {
-    public class UserMapping : AuditableEntityMapping<User>
+    public class UserMapping : AuditableEntityMapping<Employee>
     {
-        public override void ConfigureDerivedEntityMapping(EntityTypeBuilder<User> builder)
+        public override void ConfigureDerivedEntityMapping(EntityTypeBuilder<Employee> builder)
         {
             builder.Property(x => x.IdentityNumber)
                 .HasColumnName("IDENTITY_NUMBER")

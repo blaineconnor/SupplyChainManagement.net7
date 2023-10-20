@@ -4,9 +4,9 @@ using SCM.Domain.Entities;
 
 namespace SCM.Persistence.Mappings
 {
-    public class CategoryMapping : AuditableEntityMapping<Categories>
+    public class CategoryMapping : AuditableEntityMapping<Category>
     {
-        public override void ConfigureDerivedEntityMapping(EntityTypeBuilder<Categories> builder)
+        public override void ConfigureDerivedEntityMapping(EntityTypeBuilder<Category> builder)
         {
             builder.Property(x => x.Name)
                 .IsRequired()

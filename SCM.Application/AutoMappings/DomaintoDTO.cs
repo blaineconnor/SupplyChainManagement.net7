@@ -15,15 +15,15 @@ namespace SCM.Application.AutoMappings
     {
         public DomaintoDTO()
         {
-            CreateMap<Categories, CategoryDTO>();
+            CreateMap<Category, CategoryDTO>();
 
-            CreateMap<User, UserDTO>();
+            CreateMap<Employee, UserDTO>();
 
             CreateMap<Account, AccountDTO>();
 
             CreateMap<Product, ProductDTO>();
 
-            CreateMap<Requests, RequestDTO>();
+            CreateMap<Request, RequestDTO>();
 
             CreateMap<Approves, ApproveDTO>();
 

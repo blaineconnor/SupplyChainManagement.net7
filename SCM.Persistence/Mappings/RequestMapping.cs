@@ -4,9 +4,9 @@ using SCM.Domain.Entities;
 
 namespace SCM.Persistence.Mappings
 {
-    public class RequestMapping : AuditableEntityMapping<Requests>
+    public class RequestMapping : AuditableEntityMapping<Request>
     {
-        public override void ConfigureDerivedEntityMapping(EntityTypeBuilder<Requests> builder)
+        public override void ConfigureDerivedEntityMapping(EntityTypeBuilder<Request> builder)
         {
             builder.Property(x => x.Status)
                 .HasColumnName("REQUEST_STATUS")

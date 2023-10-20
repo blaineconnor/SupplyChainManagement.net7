@@ -17,21 +17,21 @@ namespace SCM.Application.AutoMappings
         public VMtoDomain()
         {
             #region Category
-            CreateMap<CreateCategoryVM, Categories>()
+            CreateMap<CreateCategoryVM, Category>()
                 .ForMember(x => x.Name, y => y.MapFrom(e => e.CategoryName));
 
-            CreateMap<UpdateCategoryVM, Categories>()
+            CreateMap<UpdateCategoryVM, Category>()
                 .ForMember(x => x.Name, y => y.MapFrom(e => e.CategoryName));
             #endregion
 
             #region Account
-            CreateMap<RegisterVM, User>();
+            CreateMap<RegisterVM, Employee>();
             CreateMap<RegisterVM, Account>()
-                .ForMember(x => x.Roles, y =>y.MapFrom(e => Role.User));
+                .ForMember(x => x.Role, y =>y.MapFrom(e => Role.User));
             CreateMap<RegisterVM, Account>()
                 .ForMember(x => x.Company, y =>y.MapFrom(e => Company.Undetermined));
-            CreateMap<UpdateRoleVM, User>();
-            CreateMap<UpdateCompanyVM, User>();
+            CreateMap<UpdateRoleVM, Employee>();
+            CreateMap<UpdateCompanyVM, Employee>();
 
             #endregion
 
@@ -43,11 +43,11 @@ namespace SCM.Application.AutoMappings
             #endregion
 
             #region Request
-            CreateMap<Requests, RequestDTO>().ReverseMap();
-            CreateMap<CreateRequestVM, Requests>();
-            CreateMap<UpdateRequestVM, Requests>();
-            CreateMap<DeleteRequestVM, Requests>();
-            CreateMap<GetRequestsByUserVM, Requests>();
+            CreateMap<Request, RequestDTO>().ReverseMap();
+            CreateMap<CreateRequestVM, Request>();
+            CreateMap<UpdateRequestVM, Request>();
+            CreateMap<DeleteRequestVM, Request>();
+            CreateMap<GetRequestsByUserVM, Request>();
             #endregion
 
             #region Offer

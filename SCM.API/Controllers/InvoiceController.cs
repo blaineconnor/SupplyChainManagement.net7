@@ -30,8 +30,8 @@ namespace SCM.API.Controllers
         [HttpGet("get")]
         public async Task<ActionResult<Result<List<InvoiceDTO>>>> GetAllInvoices()
         {
-            var item = _invoiceService.GetAllInvoice();
-            return Ok(item);
+            var result = _invoiceService.GetAllInvoice();
+            return Ok(result);
         }
     }
 }

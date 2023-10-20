@@ -38,7 +38,7 @@ namespace SCM.UI.Areas.Admin.Controllers
             }
             else
             {
-                var filteredData = response.Data.Data.Where(request => request.Status == Enumarations.RequestStatus.OfferReceived || request.Status == Enumarations.RequestStatus.ManagerApproved).ToList();
+                var filteredData = response.Data.Data.Select(request => request.Status == Enumarations.RequestStatus.OfferReceived || request.Status == Enumarations.RequestStatus.ManagerApproved).ToList();
                 return View(filteredData);
             }
         }

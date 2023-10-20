@@ -1,12 +1,16 @@
 ﻿using SCM.Domain.Common;
+using System.Numerics;
 
 namespace SCM.Domain.Entities
 {
     public class Approves : AuditableEntity
     {
-        public int ApproveId { get; set; }
+        public Approves()
+        {
+            Requests=new List<Request>();
+        }
+        public BigInteger ApproveId { get; set; }
         public RequestStatus Status { get; set; }
-
-        public RequestStatus RequestStatus { get; set; }
+        public IEnumerable<Request> Requests { get; set; }
     }
 }

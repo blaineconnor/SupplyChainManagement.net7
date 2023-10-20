@@ -1,9 +1,11 @@
-﻿namespace SCM.Application.Models.DTOs.Products
+﻿using System.Numerics;
+
+namespace SCM.Application.Models.DTOs.Products
 {
     public class ProductDTO
     {
-        public int Id { get; set; }
-        public int CategoryId { get; set; }
+        public BigInteger Id { get; set; }
+        public BigInteger CategoryId { get; set; }
         public string Name { get; set; }
         public string Detail { get; set; }
         public int UnitInStock { get; set; }
