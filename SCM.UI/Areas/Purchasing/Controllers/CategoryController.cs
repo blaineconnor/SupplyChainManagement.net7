@@ -47,7 +47,7 @@ namespace SCM.UI.Areas.Purchasing.Controllers
             else
             {
                 TempData["success"] = $"{response.Data.Data} numaralı kayıt başarıyla eklendi.";
-                return RedirectToAction("List", "Category");
+                return RedirectToAction("List", "Category", new { Area = "Purchasing" });
             }
         }
 
@@ -94,7 +94,7 @@ namespace SCM.UI.Areas.Purchasing.Controllers
             else
             {
                 TempData["success"] = $"{response.Data.Data} numaralı kayıt başarıyla güncellendi.";
-                return RedirectToAction("List", "Category");
+                return RedirectToAction("List", "Category", new { Area = "Purchasing" });
             }
         }
         [HttpDelete]

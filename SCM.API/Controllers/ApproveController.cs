@@ -6,7 +6,7 @@ using SCM.Application.Wrapper;
 
 namespace SCM.API.Controllers
 {
-    [Route("request")]
+    [Route("approves")]
     [ApiController]
     
     public class ApproveController : ControllerBase

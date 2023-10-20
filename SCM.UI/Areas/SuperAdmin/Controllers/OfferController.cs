@@ -30,7 +30,7 @@ namespace SCM.UI.Areas.SuperAdmin.Controllers
 
         public async Task<IActionResult> List()
         {
-            var response = await _restService.GetAsync<Result<List<RequestDTO>>>("approve/get");
+            var response = await _restService.GetAsync<Result<List<RequestDTO>>>("offer/getByOfferId");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -46,7 +46,7 @@ namespace SCM.UI.Areas.SuperAdmin.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var response = await _restService.GetAsync<Result<OfferDTO>>($"offer/get/{id}");
+            var response = await _restService.GetAsync<Result<OfferDTO>>($"offer/getByOfferId");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -63,7 +63,7 @@ namespace SCM.UI.Areas.SuperAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UpdateOfferVM updateOfferVM)
         {
-            var response = await _restService.GetAsync<Result<RequestDTO>>($"offer/get/{updateOfferVM.Id}");
+            var response = await _restService.GetAsync<Result<RequestDTO>>($"offer/getByOfferId");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -87,14 +87,14 @@ namespace SCM.UI.Areas.SuperAdmin.Controllers
             else
             {
                 TempData["success"] = $"{updateOfferVM.Id} numaralı teklif başarıyla güncellendi.";
-                return RedirectToAction("List", "offer");
+                return RedirectToAction("List", "Offer", new { Area = "SuperAdmin" });
             }
         }
 
         [HttpDelete]
         public async Task<IActionResult> DeleteRequest(int id)
         {
-            var response = await _restService.DeleteAsync<Result<bool>>($"offer/delete/{id}");
+            var response = await _restService.DeleteAsync<Result<bool>>($"offer/delete");
             return Json(response.Data);
         }
     }

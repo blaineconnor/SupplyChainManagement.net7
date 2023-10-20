@@ -8,20 +8,15 @@ namespace SCM.Persistence.Mappings
     {
         public override void ConfigureDerivedEntityMapping(EntityTypeBuilder<Approves> builder)
         {
-            builder.Property(x => x.RequestId)
-                .HasColumnName("REQUEST_ID")
-                .HasColumnOrder(3);
+            builder.Property(x=>x.ApproveId)
+                .HasColumnName("APPROVED_ID")
+                .IsRequired();
 
             builder.Property(x => x.DateTime)
                 .HasColumnName("APPROVE_TIME")
                 .HasColumnOrder(4)
                 .HasColumnType("date");
 
-            builder.Property(x => x.ApprovedBy)
-              .HasColumnName("APPROVED_BY")
-              .HasColumnOrder(5)
-              .HasMaxLength(100) 
-              .IsRequired();
 
             builder.Property(x => x.Status)
                 .HasColumnName("STATUS")

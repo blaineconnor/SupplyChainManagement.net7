@@ -58,7 +58,7 @@ namespace SCM.Application.Services.Implementations
             }
 
             // Talep detaylarını al ve sil
-            var requestDetailByOrder = await _uWork.GetRepository<Requests>().GetByFilterAsync(x => x.RequestId == deleteRequestVM.RequestId);
+            var requestDetailByOrder = await _uWork.GetRepository<Requests>().GetByFilterAsync(x => x.Id == deleteRequestVM.RequestId);
             if (requestDetailByOrder.Any())
             {
                 await requestDetailByOrder.ForEachAsync(requestDetail =>
@@ -111,7 +111,7 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<List<RequestDTO>>();
 
-            var requests = await _uWork.GetRepository<Requests>().GetByFilterAsync(x => x.UserId == getRequestsByUserVM.UserId);
+            var requests = await _uWork.GetRepository<Requests>().GetByFilterAsync(x => x.User.Id == getRequestsByUserVM.UserId);
 
             var requestDtos = await requests.ProjectTo<RequestDTO>(_mapper.ConfigurationProvider).ToListAsync();
 

@@ -5,9 +5,6 @@ namespace SCM.Domain.Entities
 {
     public class Requests : AuditableEntity
     {
-        public int RequestId { get; set; }
-        public int UserId { get; set; }
-        public string UserName { get; set; }
         public RequestStatus Status { get; set; }
         public decimal Amount { get; set; }
         public bool IsApproved { get; set; }
@@ -25,8 +22,8 @@ namespace SCM.Domain.Entities
     public enum RequestStatus
     {
         Pending = 1,             // İlk talep oluşturuldu.
-        ManagerApproved = 2,     // Manager onayladı, Purchasing'e gönderildi.
-        PurchasingApproved = 3,  // Fiyat Alındı Purchasing onayladı.
+        ManagerApproved = 2,     // Manager onayladı, teklif almaya gönderildi.
+        PurchasingApproved = 3,  //  Purchasing onayladı, Muhasebeye gönderildi.
         AdminApproved = 4,       // Admin onayladı, Muhasebeye gönderildi.
         SuperAdminApproved = 5,  // SuperAdmin onayladı, Muhasebeye gönderildi.
         Completed = 6,           // Muhasebe faturalandırdı, tamamlandı.

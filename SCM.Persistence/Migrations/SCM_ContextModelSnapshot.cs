@@ -32,6 +32,9 @@ namespace SCM.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("Company")
+                        .HasColumnType("int");
+
                     b.Property<bool?>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -87,8 +90,9 @@ namespace SCM.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("ApprovalDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("ApproveId")
+                        .HasColumnType("int")
+                        .HasColumnName("APPROVED_ID");
 
                     b.Property<string>("ApprovedBy")
                         .IsRequired()
@@ -101,10 +105,6 @@ namespace SCM.Persistence.Migrations
                         .HasColumnType("NVARCHAR(10)")
                         .HasColumnName("BY")
                         .HasColumnOrder(27);
-
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("date")
@@ -124,19 +124,10 @@ namespace SCM.Persistence.Migrations
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RequestId")
-                        .HasColumnType("int")
-                        .HasColumnName("REQUEST_ID")
-                        .HasColumnOrder(3);
-
                     b.Property<int>("RequestStatus")
                         .HasColumnType("int");
 
-                    b.Property<string>("RequestedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RequestsId")
+                    b.Property<int?>("RequestsId")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -209,19 +200,24 @@ namespace SCM.Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18, 2)")
-                        .HasColumnName("AMOUNT")
-                        .HasColumnOrder(5);
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("By")
                         .HasColumnType("NVARCHAR(10)")
                         .HasColumnName("BY")
                         .HasColumnOrder(27);
 
+                    b.Property<int>("Company")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2")
                         .HasColumnName("DATE_TIME")
                         .HasColumnOrder(26);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("InvoiceDate")
                         .HasColumnType("datetime")
@@ -292,7 +288,10 @@ namespace SCM.Persistence.Migrations
                         .HasColumnName("REQUEST_ID")
                         .HasColumnOrder(3);
 
-                    b.Property<int?>("RequestsId")
+                    b.Property<int>("RequestsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<int>("SupplierId")
@@ -529,19 +528,15 @@ namespace SCM.Persistence.Migrations
                         .WithMany("Approves")
                         .HasForeignKey("ProductId");
 
-                    b.HasOne("SCM.Domain.Entities.Requests", "Requests")
+                    b.HasOne("SCM.Domain.Entities.Requests", null)
                         .WithMany("Approves")
-                        .HasForeignKey("RequestsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RequestsId");
 
                     b.HasOne("SCM.Domain.Entities.User", null)
                         .WithMany("Approves")
                         .HasForeignKey("UserId");
 
                     b.Navigation("Offer");
-
-                    b.Navigation("Requests");
                 });
 
             modelBuilder.Entity("SCM.Domain.Entities.Invoice", b =>
@@ -550,7 +545,8 @@ namespace SCM.Persistence.Migrations
                         .WithMany("Invoices")
                         .HasForeignKey("RequestId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("REQUEST_INVOICES_REQUESTID");
 
                     b.Navigation("Request");
                 });
@@ -561,9 +557,13 @@ namespace SCM.Persistence.Migrations
                         .WithMany("Offers")
                         .HasForeignKey("ProductId");
 
-                    b.HasOne("SCM.Domain.Entities.Requests", null)
+                    b.HasOne("SCM.Domain.Entities.Requests", "Requests")
                         .WithMany("Offers")
-                        .HasForeignKey("RequestsId");
+                        .HasForeignKey("RequestsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Requests");
                 });
 
             modelBuilder.Entity("SCM.Domain.Entities.Product", b =>
@@ -580,11 +580,13 @@ namespace SCM.Persistence.Migrations
 
             modelBuilder.Entity("SCM.Domain.Entities.Requests", b =>
                 {
-                    b.HasOne("SCM.Domain.Entities.User", null)
+                    b.HasOne("SCM.Domain.Entities.User", "User")
                         .WithMany("Requests")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SCM.Domain.Entities.Categories", b =>

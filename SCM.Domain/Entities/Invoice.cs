@@ -11,6 +11,7 @@ namespace SCM.Domain.Entities
         public DateTime InvoiceDate { get; set; }
         public Company Company { get; set; }
 
+        public User User { get; set; }
         public Requests Request { get; set; }
     }
 }

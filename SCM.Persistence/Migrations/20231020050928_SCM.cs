@@ -86,7 +86,8 @@ namespace SCM.Persistence.Migrations
                     LAST_USER_LOGIN = table.Column<DateTime>(type: "datetime2", nullable: true),
                     LAST_LOGIN_IP = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0"),
-                    Roles = table.Column<int>(type: "int", nullable: false)
+                    Roles = table.Column<int>(type: "int", nullable: false),
+                    Company = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -135,17 +136,19 @@ namespace SCM.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     REQUEST_ID = table.Column<int>(type: "int", nullable: false),
                     SUPPLIER_ID = table.Column<int>(type: "int", nullable: false),
-                    AMOUNT = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     INVOICE_DATE = table.Column<DateTime>(type: "datetime", nullable: false),
                     DATE_TIME = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BY = table.Column<string>(type: "NVARCHAR(10)", nullable: true),
-                    IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0")
+                    IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0"),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Company = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_INVOICES", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_INVOICES_REQUESTS_REQUEST_ID",
+                        name: "REQUEST_INVOICES_REQUESTID",
                         column: x => x.REQUEST_ID,
                         principalTable: "REQUESTS",
                         principalColumn: "ID",
@@ -165,8 +168,9 @@ namespace SCM.Persistence.Migrations
                     DATE_TIME = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BY = table.Column<string>(type: "NVARCHAR(10)", nullable: true),
                     IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0"),
-                    ProductId = table.Column<int>(type: "int", nullable: true),
-                    RequestsId = table.Column<int>(type: "int", nullable: true)
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    RequestsId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -180,14 +184,14 @@ namespace SCM.Persistence.Migrations
                         name: "FK_OFFERS_REQUESTS_RequestsId",
                         column: x => x.RequestsId,
                         principalTable: "REQUESTS",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "APPROVES",
                 columns: table => new
                 {
-                    REQUEST_ID = table.Column<int>(type: "int", nullable: false),
                     APPROVED_BY = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     STATUS = table.Column<int>(type: "int", nullable: false),
                     ID = table.Column<int>(type: "int", nullable: false)
@@ -195,13 +199,11 @@ namespace SCM.Persistence.Migrations
                     DATE_TIME = table.Column<DateTime>(type: "date", nullable: false),
                     BY = table.Column<string>(type: "NVARCHAR(10)", nullable: true),
                     IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0"),
-                    ApprovalDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RequestedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    APPROVED_ID = table.Column<int>(type: "int", nullable: false),
                     OfferId = table.Column<int>(type: "int", nullable: false),
-                    RequestsId = table.Column<int>(type: "int", nullable: false),
                     RequestStatus = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: true),
+                    RequestsId = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -222,8 +224,7 @@ namespace SCM.Persistence.Migrations
                         name: "FK_APPROVES_REQUESTS_RequestsId",
                         column: x => x.RequestsId,
                         principalTable: "REQUESTS",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_APPROVES_USERS_UserId",
                         column: x => x.UserId,

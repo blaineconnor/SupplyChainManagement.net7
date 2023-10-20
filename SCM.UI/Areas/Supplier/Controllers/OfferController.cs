@@ -38,7 +38,7 @@ namespace SCM.UI.Areas.Supplier.Controllers
                 return View(createOfferVM);
             }
 
-            var response = await _restService.GetAsync<Result<RequestDTO>>($"offer/get/{createOfferVM.RequestId}");
+            var response = await _restService.GetAsync<Result<RequestDTO>>($"offer/create");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -52,7 +52,7 @@ namespace SCM.UI.Areas.Supplier.Controllers
                 return View();
             }
 
-            var offerResponse = await _restService.PostAsync<Result<CreateOfferVM>>("offer/details");
+            var offerResponse = await _restService.PostAsync<Result<CreateOfferVM>>("offer/create");
 
             if (offerResponse.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -62,7 +62,7 @@ namespace SCM.UI.Areas.Supplier.Controllers
             else
             {
                 TempData["success"] = $"{createOfferVM.RequestId} numaralı teklif başarıyla eklendi.";
-                return RedirectToAction("List", "Offer");
+                return RedirectToAction("List", "Offer", new { Area = "Supplier" });
             }
         }
 
@@ -71,7 +71,7 @@ namespace SCM.UI.Areas.Supplier.Controllers
         public async Task<IActionResult> Edit(int id)
         {
 
-            var response = await _restService.GetAsync<Result<OfferDTO>>($"offer/get/{id}");
+            var response = await _restService.GetAsync<Result<OfferDTO>>($"offer/getByOfferId");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -88,7 +88,7 @@ namespace SCM.UI.Areas.Supplier.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UpdateOfferVM updateOfferVM)
         {
-            var response = await _restService.GetAsync<Result<RequestDTO>>($"offer/get/{updateOfferVM.Id}");
+            var response = await _restService.GetAsync<Result<RequestDTO>>($"offer/getByOfferId");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -112,14 +112,14 @@ namespace SCM.UI.Areas.Supplier.Controllers
             else
             {
                 TempData["success"] = $"{updateOfferVM.Id} numaralı teklif başarıyla güncellendi.";
-                return RedirectToAction("List", "offer");
+                return RedirectToAction("List", "Offer", new { Area = "Supplier" });
             }
         }
 
         [HttpDelete]
         public async Task<IActionResult> DeleteRequest(int id)
         {
-            var response = await _restService.DeleteAsync<Result<bool>>($"offer/delete/{id}");
+            var response = await _restService.DeleteAsync<Result<bool>>($"offer/delete");
             return Json(response.Data);
         }
     }

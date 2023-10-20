@@ -21,7 +21,7 @@ namespace SCM.UI.Areas.Manager.Controllers
         [HttpGet("/manager/listproducts")]
         public async Task<IActionResult> List()
         {           
-            var response = await _restService.GetAsync<Result<List<ProductDTO>>>("product/getWithCategory");
+            var response = await _restService.GetAsync<Result<List<ProductDTO>>>("product/get");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {

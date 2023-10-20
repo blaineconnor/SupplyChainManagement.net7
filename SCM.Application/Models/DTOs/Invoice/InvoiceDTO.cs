@@ -1,4 +1,5 @@
-﻿using SCM.Domain.Entities;
+﻿using SCM.Application.Models.DTOs.Accounts;
+using SCM.Domain.Entities;
 
 namespace SCM.Application.Models.DTOs.Invoice
 {

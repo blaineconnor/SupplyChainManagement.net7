@@ -28,7 +28,7 @@ namespace SCM.UI.Areas.Purchasing.Controllers
         [HttpGet("/purchasing/listoffers")]
         public async Task<IActionResult> List()
         {
-            var response = await _restService.GetAsync<Result<List<RequestDTO>>>("approve/get");
+            var response = await _restService.GetAsync<Result<List<RequestDTO>>>("offer/get");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {

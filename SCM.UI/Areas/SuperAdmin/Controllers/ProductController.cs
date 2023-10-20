@@ -72,7 +72,7 @@ namespace SCM.UI.Areas.SuperAdmin.Controllers
             else 
             {
                 TempData["success"] = $"{response.Data.Data} numaralı kayıt başarıyla eklendi.";
-                return RedirectToAction("List", "Product");
+                return RedirectToAction("List", "Product", new { Area = "SuperAdmin" });
             }
 
         }
@@ -81,7 +81,7 @@ namespace SCM.UI.Areas.SuperAdmin.Controllers
 
         public async Task<IActionResult> List()
         {            
-            var response = await _restService.GetAsync<Result<List<ProductDTO>>>("product/getWithCategory");
+            var response = await _restService.GetAsync<Result<List<ProductDTO>>>("product/get");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -107,7 +107,7 @@ namespace SCM.UI.Areas.SuperAdmin.Controllers
             else
             {
                 TempData["success"] = $"{response.Data.Data} numaralı kayıt başarıyla güncellendi.";
-                return RedirectToAction("List", "Product");
+                return RedirectToAction("List", "Product", new {Area = "SuperAdmin"});
             }
         }
 

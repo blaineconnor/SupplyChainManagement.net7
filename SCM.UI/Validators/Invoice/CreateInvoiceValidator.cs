@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using SCM.UI.Models.RequestModels.Invoice;
+using SCM.UI.Models.RequestModels.Invoices;
 
 namespace SCM.UI.Validators.Invoice
 {

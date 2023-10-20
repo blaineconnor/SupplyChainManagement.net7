@@ -29,7 +29,7 @@ namespace SCM.UI.Areas.Admin.Controllers
         [HttpGet("/admin/getlist")]
         public async Task<IActionResult> List()
         {
-            var response = await _restService.GetAsync<Result<List<RequestDTO>>>("approve/get");
+            var response = await _restService.GetAsync<Result<List<RequestDTO>>>("offer/get");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -86,7 +86,7 @@ namespace SCM.UI.Areas.Admin.Controllers
             else
             {
                 TempData["success"] = $"{updateOfferVM.Id} numaralı teklif başarıyla güncellendi.";
-                return RedirectToAction("List", "offer");
+                return RedirectToAction("List", "Offer", new { Area = "Admin" });
             }
         }
 

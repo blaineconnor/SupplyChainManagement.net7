@@ -30,7 +30,7 @@ namespace SCM.UI.Areas.Manager.Controllers
             return View();
         }
 
-        [HttpPut]
+        [HttpPost]
         public async Task<IActionResult> ManagerApprove(ManagerApproveVM managerApproveVM)
         {
             if (!ModelState.IsValid)
@@ -38,7 +38,7 @@ namespace SCM.UI.Areas.Manager.Controllers
                 return View(managerApproveVM);
             }
 
-            var response = await _restService.GetAsync<Result<RequestDTO>>($"managerapprove/get/{managerApproveVM.RequestId}");
+            var response = await _restService.PostAsync<Result<RequestDTO>>($"approve/get/{managerApproveVM.RequestId}");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -52,7 +52,7 @@ namespace SCM.UI.Areas.Manager.Controllers
                 return View();
             }
 
-            var approvalResponse = await _restService.PostAsync<Result<ManagerApproveVM>>("managerapprove/details");
+            var approvalResponse = await _restService.PostAsync<Result<ManagerApproveVM>>("approve/managerapprove");
 
             if (approvalResponse.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -62,14 +62,14 @@ namespace SCM.UI.Areas.Manager.Controllers
             else
             {
                 TempData["success"] = $"{managerApproveVM.RequestId} numaralı onay başarıyla girildi.";
-                return RedirectToAction("List", "ManagerApprove");
+                return RedirectToAction("List", "ManagerApprove", new { Area = "Manager" });
             }
         }
 
         [HttpGet("/manager/listmanagerapproves")]
         public async Task<IActionResult> List()
         {
-            var response = await _restService.GetAsync<Result<List<RequestDTO>>>("managerapprove/get");
+            var response = await _restService.GetAsync<Result<List<RequestDTO>>>("approve/get");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -92,7 +92,7 @@ namespace SCM.UI.Areas.Manager.Controllers
                 return View(rejectVM);
             }
 
-            var response = await _restService.GetAsync<Result<RequestDTO>>($"managerapprove/get/{rejectVM.RequestId}");
+            var response = await _restService.GetAsync<Result<RequestDTO>>($"approve/get/{rejectVM.RequestId}");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -100,7 +100,7 @@ namespace SCM.UI.Areas.Manager.Controllers
                 return View();
             }
 
-            var approvalResponse = await _restService.PostAsync<Result<RejectVM>>("managerapprove/details");
+            var approvalResponse = await _restService.PostAsync<Result<RejectVM>>("approve/reject");
 
             if (approvalResponse.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -110,7 +110,7 @@ namespace SCM.UI.Areas.Manager.Controllers
             else
             {
                 TempData["success"] = $"{rejectVM.RequestId} numaralı onay başarıyla girildi.";
-                return RedirectToAction("List", "ManagerApprove");
+                return RedirectToAction("List", "ManagerApprove", new { Area = "Manager" });
             }
         }
     }

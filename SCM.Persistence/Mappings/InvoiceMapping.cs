@@ -26,19 +26,7 @@ namespace SCM.Persistence.Mappings
             builder.Property(x => x.DateTime)
                 .HasColumnName("INVOICE_DATE")
                 .HasColumnOrder(4)
-                .IsRequired();
-
-            builder.Property(x => x.Description)
-                .HasColumnName("DESCRIPTION")
-                .HasColumnType("nvarchar(max)")
-                .HasColumnOrder (5)
-                .IsRequired();
-
-            builder.Property(x => x.Amount)
-                .HasColumnName("AMOUNT")
-                .HasColumnOrder(5)
-                .HasColumnType("decimal(18, 2)")
-                .IsRequired();
+                .IsRequired();            
 
             builder.Property(x => x.InvoiceDate)
                 .HasColumnName("INVOICE_DATE")

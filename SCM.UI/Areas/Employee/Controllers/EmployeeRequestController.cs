@@ -35,7 +35,7 @@ namespace SCM.UI.Areas.Employee.Controllers
             {
                 return View(createRequestVM);
             }
-            var response = await restService.PostAsync<Result<List<CreateRequestVM>>>("request/details");
+            var response = await restService.PostAsync<Result<List<CreateRequestVM>>>("request/create");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -45,7 +45,7 @@ namespace SCM.UI.Areas.Employee.Controllers
             else
             {
                 TempData["success"] = $"{response.Data.Data} numaralı talep başarıyla eklendi.";
-                return RedirectToAction("List", "Request");
+                return RedirectToAction("List", "Request", new { Area = "Employee" });
             }
         }
         
@@ -95,7 +95,7 @@ namespace SCM.UI.Areas.Employee.Controllers
             else
             {
                 TempData["success"] = $"{response.Data.Data} numaralı talep başarıyla güncellendi.";
-                return RedirectToAction("List", "Request");
+                return RedirectToAction("List", "Request", new { Area = "Employee" });
             }
         }
 

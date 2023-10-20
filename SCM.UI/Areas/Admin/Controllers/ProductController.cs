@@ -74,7 +74,7 @@ namespace SCM.UI.Areas.Admin.Controllers
             else
             {
                 TempData["success"] = $"{response.Data.Data} numaralı kayıt başarıyla eklendi.";
-                return RedirectToAction("List", "Product");
+                return RedirectToAction("List", "Product", new { Area = "Admin" });
             }
 
         }
@@ -108,7 +108,7 @@ namespace SCM.UI.Areas.Admin.Controllers
             else
             {
                 TempData["success"] = $"{response.Data.Data} numaralı kayıt başarıyla güncellendi.";
-                return RedirectToAction("List", "Product");
+                return RedirectToAction("List", "Product", new { Area = "Admin" });
             }
         }
         [HttpDelete]

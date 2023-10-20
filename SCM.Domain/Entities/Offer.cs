@@ -9,7 +9,6 @@ namespace SCM.Domain.Entities
         public string SupplierName { get; set; }
         public int SupplierId { get; set; }
         public OfferStatus Status { get; set; }
-        public Requests Requests { get; set; }
 
         public ICollection<Approves> Approves { get; set; }
 

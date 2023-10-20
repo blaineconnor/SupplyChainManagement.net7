@@ -26,7 +26,7 @@ namespace SCM.UI.Areas.Accounting.Controllers
             return View();
         }
 
-        [HttpPut]
+        [HttpPost]
         public async Task<IActionResult> Fulfillment(CreateInvoiceVM accountingVM)
         {
             if (!ModelState.IsValid)
@@ -46,7 +46,7 @@ namespace SCM.UI.Areas.Accounting.Controllers
                 ModelState.AddModelError("", "Bu isteği onaylayamazsınız. İstek durumu 'Onaylandı' olmalıdır.");
                 return View();
             }
-            var fulfillment = await _restService.PostAsync<Result<CreateInvoiceVM>>("accounting/details");
+            var fulfillment = await _restService.PostAsync<Result<CreateInvoiceVM>>("accounting/create");
 
             if (fulfillment.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -56,7 +56,7 @@ namespace SCM.UI.Areas.Accounting.Controllers
             else
             {
                 TempData["success"] = $"{accountingVM.RequestId} numaralı onay başarıyla girildi.";
-                return RedirectToAction("List", "Accounting");
+                return RedirectToAction("List", "Accounting", new { Area = "Accounting" });
             }
         }
 

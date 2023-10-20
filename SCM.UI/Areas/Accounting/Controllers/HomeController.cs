@@ -6,7 +6,7 @@ namespace SCM.UI.Areas.Accounting.Controllers
     public class HomeController : Controller
     {
         [HttpGet("accounting/index")]
-        public IActionResult AccountingIndex()
+        public IActionResult Index()
         {
             return View();
         }

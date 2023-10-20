@@ -39,7 +39,7 @@ namespace SCM.UI.Areas.Purchasing.Controllers
                 return View(approveVM);
             }
 
-            var response = await _restService.GetAsync<Result<RequestDTO>>($"purchasingapprove/get/{approveVM.RequestId}");
+            var response = await _restService.GetAsync<Result<RequestDTO>>($"approve/get/{approveVM.RequestId}");
 
             if (response.StatusCode == HttpStatusCode.BadRequest || response.Data.Data.Status == Enumarations.RequestStatus.AdminApproved || response.Data.Data.Status == Enumarations.RequestStatus.SuperAdminApproved || response.Data.Data.Status == Enumarations.RequestStatus.Rejected || response.Data.Data.Status == Enumarations.RequestStatus.PurchasingApproved)
             {
@@ -53,7 +53,7 @@ namespace SCM.UI.Areas.Purchasing.Controllers
                 return View();
             }
 
-            var approvalResponse = await _restService.PostAsync<Result<ApproveVM>>("purchasingapprove/details");
+            var approvalResponse = await _restService.PostAsync<Result<ApproveVM>>("approve/purchasing");
 
             if (approvalResponse.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -63,14 +63,14 @@ namespace SCM.UI.Areas.Purchasing.Controllers
             else
             {
                 TempData["success"] = $"{approveVM.RequestId} numaralı onay başarıyla girildi.";
-                return RedirectToAction("List", "PurchasingApprove");
+                return RedirectToAction("List", "PurchasingApprove", new { Area = "Purchasing" });
             }
         }
 
         [HttpGet("/purchasing/listapproves")]
         public async Task<IActionResult> List()
         {
-            var response = await _restService.GetAsync<Result<List<RequestDTO>>>("purchasingapprove/get");
+            var response = await _restService.GetAsync<Result<List<RequestDTO>>>("approve/get");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -101,7 +101,7 @@ namespace SCM.UI.Areas.Purchasing.Controllers
                 return View();
             }
 
-            var approvalResponse = await _restService.PostAsync<Result<RejectVM>>("purchasingapprove/details");
+            var approvalResponse = await _restService.PostAsync<Result<RejectVM>>("approve/reject");
 
             if (approvalResponse.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -111,7 +111,7 @@ namespace SCM.UI.Areas.Purchasing.Controllers
             else
             {
                 TempData["success"] = $"{rejectVM.RequestId} numaralı onay başarıyla girildi.";
-                return RedirectToAction("List", "PurchasingApprove");
+                return RedirectToAction("List", "PurchasingApprove", new { Area = "Purchasing" });
             }
         }
     }
