@@ -51,18 +51,18 @@ namespace SCM.API.Controllers
             {
                 return NotFound();
             }
-        }
+        }        
 
-        [HttpPut("update-user-role")]
+        [HttpPut("update-user-auths")]
         [AllowAnonymous]
-        public async Task<ActionResult<Result<int>>> UpdateUserRole(string userName, UpdateRoleVM updateUserVM)
+        public async Task<ActionResult<Result<int>>> UpdateUserAuths(string userName, UpdateAuthVM updateAuthVM)
         {
-            if (userName != updateUserVM.UserName)
+            if (userName != updateAuthVM.UserName)
             {
                 return BadRequest(new Result<int> { Success = false, Errors = new List<string> { "Kullanıcı adı uyuşmuyor." } });
             }
 
-            var result = await _accountService.UpdateUserRoles(updateUserVM.UserName, updateUserVM.Roles);
+            var result = await _accountService.UpdateUserAuths(updateAuthVM.UserName, updateAuthVM.Auths);
 
             if (result.Success)
             {
@@ -74,26 +74,6 @@ namespace SCM.API.Controllers
             }
         }
 
-        [HttpPut("update-user-company")]
-        [AllowAnonymous]
-        public async Task<ActionResult<Result<int>>> UpdateUserCompany(string userName, UpdateCompanyVM updateUserVM)
-        {
-            if (userName != updateUserVM.UserName)
-            {
-                return BadRequest(new Result<int> { Success = false, Errors = new List<string> { "Kullanıcı adı uyuşmuyor." } });
-            }
-
-            var result = await _accountService.UpdateUserCompany(updateUserVM.UserName, updateUserVM.Company);
-
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
-        }
     }
 }
 

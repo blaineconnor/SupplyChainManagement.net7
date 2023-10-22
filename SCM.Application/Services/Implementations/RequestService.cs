@@ -10,6 +10,7 @@ using SCM.Application.Validators.Requests;
 using SCM.Application.Wrapper;
 using SCM.Domain.Entities;
 using SCM.Domain.UnitofWork;
+using SCM.Utils;
 using System.Numerics;
 
 namespace SCM.Application.Services.Implementations
@@ -37,6 +38,13 @@ namespace SCM.Application.Services.Implementations
 
             _uWork.GetRepository<Request>().Add(requestEntity);
             await _uWork.CommitAsync();
+
+            var ok = await _uWork.SendMessage($"{requestEntity.Id} numaralı talebiniz oluşturulmuştur.");
+            if (ok == true)
+            {
+                MailUtil.SendMail(requestEntity.Employee.Email, "Talebiniz.", "Talep oluşturuldu.");
+
+            }
 
             result.Data = requestEntity.Id;
             return result;
@@ -72,6 +80,13 @@ namespace SCM.Application.Services.Implementations
             _uWork.GetRepository<Request>().Delete(requestEntity);
             await _uWork.CommitAsync();
 
+            var ok = await _uWork.SendMessage($"{requestEntity.Id}  numaralı talebiniz silinmiştir.");
+            if (ok == true)
+            {
+                MailUtil.SendMail(requestEntity.Employee.Email, "Talep işlemleri.", "Talebiniz silindi.");
+
+            }
+
             result.Data = requestEntity.Id;
             return result;
         }
@@ -100,6 +115,13 @@ namespace SCM.Application.Services.Implementations
             _uWork.GetRepository<Request>().Update(requestEntity);
             await _uWork.CommitAsync();
 
+            var ok = await _uWork.SendMessage($"{requestEntity.Id}  numaralı talebiniz güncellenmiştir.");
+            if (ok == true)
+            {
+                MailUtil.SendMail(requestEntity.Employee.Email, "Talep işlemleri.", "Talep güncellendi.");
+
+            }
+
             result.Data = requestEntity.Id;
             return result;
         }
@@ -112,7 +134,7 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<List<RequestDTO>>();
 
-            var requests = await _uWork.GetRepository<Request>().GetByFilterAsync(x => x.User.Id == getRequestsByUserVM.UserId);
+            var requests = await _uWork.GetRepository<Request>().GetByFilterAsync(x => x.Employee.Id == getRequestsByUserVM.UserId);
 
             var requestDtos = await requests.ProjectTo<RequestDTO>(_mapper.ConfigurationProvider).ToListAsync();
 

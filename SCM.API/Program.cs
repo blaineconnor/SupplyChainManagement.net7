@@ -90,6 +90,11 @@ builder.Services.AddScoped<IRequestService, RequestService>();
 builder.Services.AddScoped<IApproveService, ApproveService>();
 builder.Services.AddScoped<IOfferService, OfferService>();
 builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<ISupplierService, SupplierService>();
+
 
 
 //Automapper

@@ -74,7 +74,7 @@ namespace SCM.Application.Services.Implementations
                 var ok = await unitWork.SendMessage($"{invoiceEntity.RequestId} numaralı talebiniz için faturalandırma işlemi yapıldı.");
                 if (ok == true)
                 {
-                    MailUtil.SendMail(requestExists.User.Email, "Ürün Talebiniz", "Talebiniz tamamlanmıştır.");
+                    MailUtil.SendMail(requestExists.Employee.Email, "Ürün Talebiniz", "Talebiniz tamamlanmıştır.");
 
                 }
 

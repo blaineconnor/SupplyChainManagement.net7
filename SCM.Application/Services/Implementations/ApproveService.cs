@@ -5,6 +5,7 @@ using SCM.Application.Services.Abstractions;
 using SCM.Application.Wrapper;
 using SCM.Domain.Entities;
 using SCM.Domain.UnitofWork;
+using SCM.Utils;
 
 namespace SCM.Application.Services.Implementations
 {
@@ -55,6 +56,12 @@ namespace SCM.Application.Services.Implementations
             _uWork.GetRepository<Approves>().Add(approveEntity);
             await _uWork.CommitAsync();
 
+            var ok = await _uWork.SendMessage($"{approveEntity.Id}  numaralı talebiniz birim amiriniz tarafından onaylandı.");
+            if (ok == true)
+            {
+                MailUtil.SendMail(request.Employee.Email, "Talep işlemleri.", "Talebiniz aşaması güncellendi.");
+
+            }
             return new Result<bool> { Success = true, Data = true };
         }
 
@@ -95,6 +102,13 @@ namespace SCM.Application.Services.Implementations
 
             _uWork.GetRepository<Approves>().Add(approveEntity);
             await _uWork.CommitAsync();
+
+            var ok = await _uWork.SendMessage($"{approveEntity.Id}  numaralı talebiniz satın alma birimi tarafından onaylandı.");
+            if (ok == true)
+            {
+                MailUtil.SendMail(request.Employee.Email, "Talep işlemleri.", "Talebiniz aşaması güncellendi.");
+
+            }
 
             return new Result<bool>
             {
@@ -139,6 +153,13 @@ namespace SCM.Application.Services.Implementations
 
             _uWork.GetRepository<Approves>().Add(approveEntity);
             await _uWork.CommitAsync();
+
+            var ok = await _uWork.SendMessage($"{approveEntity.Id}  numaralı talebiniz yönetim tarafından onaylandı.");
+            if (ok == true)
+            {
+                MailUtil.SendMail(request.Employee.Email, "Talep işlemleri.", "Talebiniz aşaması güncellendi.");
+
+            }
 
             return new Result<bool>
             {
@@ -185,6 +206,13 @@ namespace SCM.Application.Services.Implementations
             _uWork.GetRepository<Approves>().Add(approveEntity);
             await _uWork.CommitAsync();
 
+            var ok = await _uWork.SendMessage($"{approveEntity.Id}  numaralı talebiniz yönetim kurulu başkanı tarafından onaylandı.");
+            if (ok == true)
+            {
+                MailUtil.SendMail(request.Employee.Email, "Talep işlemleri.", "Talebiniz aşaması güncellendi.");
+
+            }
+
             return new Result<bool>
             {
                 Success = true,
@@ -224,63 +252,17 @@ namespace SCM.Application.Services.Implementations
             _uWork.GetRepository<Approves>().Add(approveEntity);
             await _uWork.CommitAsync();
 
+            var ok = await _uWork.SendMessage($"{approveEntity.Id}  numaralı talebiniz reddedildi.");
+            if (ok == true)
+            {
+                MailUtil.SendMail(request.Employee.Email, "Talep işlemleri.", "Talebiniz aşaması güncellendi.");
+
+            }
+
             return new Result<bool> { Success = true, Data = true };
         }
 
-        #endregion
-
-        #region Accounting
-
-        public async Task<Result<bool>> AccountingFulfillment(CreateInvoiceVM accountingVM)
-        {
-            var approvedRequests = await _uWork.GetRepository<Request>().GetByFilterAsync(r => r.Status == RequestStatus.AdminApproved || r.Status == RequestStatus.SuperAdminApproved || r.Status == RequestStatus.PurchasingApproved);
-            var requestId = accountingVM.RequestId;
-
-            foreach (var request in approvedRequests)
-            {
-                var offer = await _uWork.GetRepository<Offer>().GetById(requestId);
-
-                if (offer == null)
-                {
-                    continue;
-                }
-
-                var supplier = await _uWork.GetRepository<Account>().GetById(offer.Id);
-
-                if (supplier == null)
-                {
-                    continue;
-                }
-
-                var invoice = new Invoice
-                {
-                    RequestId = request.Id,
-                    SupplierId = supplier.Id,
-                    Amount = request.Amount,
-                    InvoiceDate = DateTime.UtcNow,
-                };
-
-                _uWork.GetRepository<Invoice>().Add(invoice);
-                await _uWork.CommitAsync();
-
-
-                request.Status = RequestStatus.Completed;
-
-                _uWork.GetRepository<Request>().Update(request);
-
-                await _uWork.CommitAsync();
-            }
-
-            await _uWork.CommitAsync();
-
-            return new Result<bool>
-            {
-                Success = true,
-                Message = "Faturalandırma yapıldı."
-            };
-        }
-
-        #endregion
+        #endregion      
 
     }
 }

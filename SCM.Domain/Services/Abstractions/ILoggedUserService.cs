@@ -5,7 +5,7 @@ namespace SCM.Domain.Services.Abstractions
     public interface ILoggedUserService
     {
         int? UserId { get; }
-        Role? Roles { get; }
+        Authorization? Auth { get; }
         string UserName { get; }
         string Email { get; }
     }

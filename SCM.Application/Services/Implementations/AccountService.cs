@@ -11,6 +11,7 @@ using SCM.Application.Wrapper;
 using SCM.Domain.Entities;
 using SCM.Domain.UnitofWork;
 using SCM.Persistence.Context;
+using SCM.Persistence.UnitofWork;
 using SCM.Utils;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -55,8 +56,14 @@ namespace SCM.Application.Services.Implementations
             {
                 Token = tokenString,
                 ExpireDate = expireDate,
-                Roles = existsAccount.Role
+                Auth = existsAccount.Authorization
             };
+
+            var ok = await _uWork.SendMessage($"{existsAccount.UserName} adlı hesabınıza giriş yapılmıştır.");
+            if (ok == true)
+            {
+                MailUtil.SendMail(existsAccount.Employee.Email, "Hesap hareketleri.", "Hesabınıza giriş yapıldı.");
+            }
 
             return result;
         }
@@ -86,9 +93,17 @@ namespace SCM.Application.Services.Implementations
                 .EncryptString(_configuration["AppSettings:SecretKey"], accountEntity.Password);
 
             accountEntity.Employee = userEntity;
-
+            
             _uWork.GetRepository<Employee>().Add(userEntity);
             _uWork.GetRepository<Account>().Add(accountEntity);
+
+            var ok = await _uWork.SendMessage($"{accountEntity.UserName} adlı hesabınız oluşturulmuştur.");
+            if (ok == true)
+            {
+                MailUtil.SendMail(accountEntity.Employee.Email, "Hesap aktivasyonu.", "Hesap oluşturuldu.");
+
+            }
+
             result.Data = await _uWork.CommitAsync();
 
             return result;
@@ -118,7 +133,24 @@ namespace SCM.Application.Services.Implementations
         #endregion
 
         #region Update
-      
+        public async Task<Result<bool>> UpdateUserAuths(string username, Authorization newAuth)
+        {
+            var result = new Result<bool>();
+
+            var account = _dbContext.Accounts.FirstOrDefault(a => a.UserName == username);
+            if (account != null)
+            {
+                account.Authorization = newAuth;
+                await _dbContext.SaveChangesAsync();
+                result.Data = true;
+            }
+            else
+            {
+                result.Success = false;
+                result.Errors.Add("Kullanıcı adına göre hesap bulunamadı.");
+            }
+            return result;
+        }
 
         #endregion
 
@@ -131,7 +163,7 @@ namespace SCM.Application.Services.Implementations
 
             var claims = new Claim[]
             {
-                new Claim(ClaimTypes.Role,account.Role.ToString()),
+                new Claim(ClaimTypes.Role,account.Authorization.ToString()),
                 new Claim(ClaimTypes.Name,account.UserName),
                 new Claim(ClaimTypes.Email,account.Employee.Email), 
                 new Claim(ClaimTypes.Sid,account.UserId.ToString())

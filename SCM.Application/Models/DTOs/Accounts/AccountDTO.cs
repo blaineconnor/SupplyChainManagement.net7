@@ -20,6 +20,7 @@ namespace SCM.Application.Models.DTOs.Accounts
 
 
         //NavigationProperty
+        public Authorization Authorization { get; set; }
         public Role Roles { get; set; }
         public EmployeeDTO User { get; set; }
     }

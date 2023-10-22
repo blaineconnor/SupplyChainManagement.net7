@@ -19,21 +19,22 @@ namespace SCM.Domain.Entities
 
         //NavigationProperties
         public virtual Role Role { get; set; }
+        public Authorization Authorization { get; set; }
         public Employee Employee { get; set; }
         public virtual IEnumerable<Request> Requests { get; set; }        
     }
 
-    //public enum Role
-    //{
-    //    User = 1,
-    //    Supplier = 2,
-    //    Employee = 3,
-    //    Accounting = 4,
-    //    Manager = 5,
-    //    Purchasing = 6,
-    //    Admin = 50,
-    //    SuperAdmin = 100,
-    //}
+    public enum Authorization
+    {
+        User = 1,
+        Supplier = 2,
+        Employee = 3,
+        Accounting = 4,
+        Manager = 5,
+        Purchasing = 6,
+        Admin = 50,
+        SuperAdmin = 100,
+    }
 
     //public enum Company
     //{

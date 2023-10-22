@@ -23,16 +23,15 @@ namespace SCM.Persistence.Mappings
                 .HasColumnOrder(4)
                 .IsRequired();
 
-            builder.Property(x => x.AddedTime)
-                .HasColumnName("ADDED_DATE")
+            builder.Property(x => x.SupplierName)
+                .HasColumnName("SUPPLIER_NAME")
                 .HasColumnOrder(4)
                 .IsRequired();
 
-            builder.Property(x => x.AddedTime)
-                .HasColumnName("UPDATED_DATE")
+            builder.Property(x => x.Amount)
+                .HasColumnName("AMOUNT")
                 .HasColumnOrder(4)
                 .IsRequired();
-
 
             builder.Property(x => x.InvoiceDate)
                 .HasColumnName("INVOICE_DATE")
