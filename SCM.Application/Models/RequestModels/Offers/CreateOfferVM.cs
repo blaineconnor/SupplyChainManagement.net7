@@ -1,8 +1,10 @@
-﻿namespace SCM.Application.Models.RequestModels.Offers
+﻿using System.Numerics;
+
+namespace SCM.Application.Models.RequestModels.Offers
 {
     public class CreateOfferVM
     {
-        public int RequestId { get; set; }
+        public BigInteger RequestId { get; set; }
         public string SupplierName { get; set; }
 
         public decimal Amount { get; set; }

@@ -44,6 +44,11 @@ namespace SCM.Persistence.Mappings
                 .WithOne(x => x.Account)
                 .HasForeignKey<Account>(x => x.UserId);
 
+            builder.HasOne(e => e.Role)
+                .WithMany(e => e.Accounts)
+                .HasForeignKey(e => e.RoleId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             builder.ToTable("ACCOUNTS");
         }
     }

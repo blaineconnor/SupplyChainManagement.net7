@@ -7,7 +7,7 @@ namespace SCM.Domain.Entities
     {
         public Department()
         {
-            Account = new HashSet<Account>();
+            Employees = new HashSet<Employee>();
         }
         public string Name { get; set; }
         public string Phone { get; set; }
@@ -17,6 +17,6 @@ namespace SCM.Domain.Entities
 
         //NavigationProperty
         public virtual Company Company { get; set; }
-        public virtual IEnumerable<Account> Account { get; set; }
+        public virtual IEnumerable<Employee> Employees { get; set; }
     }
 }

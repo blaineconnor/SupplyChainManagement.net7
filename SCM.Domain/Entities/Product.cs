@@ -4,11 +4,7 @@ using System.Numerics;
 namespace SCM.Domain.Entities
 {
     public class Product : AuditableEntity
-    {
-        public Product()
-        {
-            Details = new HashSet<RequestDetail>();
-        }
+    {   
 
         public BigInteger CategoryId { get; set; }
         public string Name { get; set; }
@@ -17,6 +13,6 @@ namespace SCM.Domain.Entities
         public decimal UnitPrice { get; set; }
 
         public Category Categories { get; set; }
-        public virtual IEnumerable<RequestDetail> Details { get; set; }
+        public virtual IEnumerable<Request> Requests { get; set; }
     }
 }

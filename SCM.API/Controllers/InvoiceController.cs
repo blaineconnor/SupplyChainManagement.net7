@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SCM.Application.Models.DTOs.Invoice;
+using SCM.Application.Models.DTOs.Invoices;
 using SCM.Application.Models.RequestModels.Invoice;
 using SCM.Application.Services.Abstractions;
 using SCM.Application.Wrapper;

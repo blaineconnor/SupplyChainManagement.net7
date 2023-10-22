@@ -45,7 +45,7 @@ namespace SCM.Application.Services.Implementations
             }
 
             request.Status = RequestStatus.ManagerApproved;
-            request.DateTime = DateTime.UtcNow;
+            request.AddedTime = DateTime.UtcNow;
 
             _uWork.GetRepository<Request>().Update(request);
             await _uWork.CommitAsync();
@@ -85,7 +85,7 @@ namespace SCM.Application.Services.Implementations
                 };
             }
             request.Status = RequestStatus.PurchasingApproved;
-            request.DateTime = DateTime.Now;
+            request.AddedTime = DateTime.Now;
             request.IsApproved = true;
 
             _uWork.GetRepository<Request>().Update(request);
@@ -129,7 +129,7 @@ namespace SCM.Application.Services.Implementations
                 };
             }
             request.Status = RequestStatus.AdminApproved;
-            request.DateTime = DateTime.Now;
+            request.AddedTime    = DateTime.Now;
             request.IsApproved = true;
 
             _uWork.GetRepository<Request>().Update(request);
@@ -174,6 +174,7 @@ namespace SCM.Application.Services.Implementations
                 };
             }
             request.Status = RequestStatus.SuperAdminApproved;
+            request.AddedTime = DateTime.Now;
             request.IsApproved = true;
 
             _uWork.GetRepository<Request>().Update(request);
@@ -211,8 +212,7 @@ namespace SCM.Application.Services.Implementations
             }
 
             request.Status = RequestStatus.Rejected;
-            request.By = Role.Manager.ToString();
-            request.DateTime = DateTime.Now;
+            request.AddedTime = DateTime.Now;
             request.IsApproved = false;
             request.RejectionReason = rejectionReason;
 

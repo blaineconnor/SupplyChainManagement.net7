@@ -1,6 +1,7 @@
 ﻿using SCM.Application.Models.DTOs.Categories;
 using SCM.Application.Models.RequestModels.Categories;
 using SCM.Application.Wrapper;
+using System.Numerics;
 
 namespace SCM.Application.Services.Abstractions
 {
@@ -13,9 +14,9 @@ namespace SCM.Application.Services.Abstractions
         #endregion
 
         #region Insert, Update, Delete
-        Task<Result<int>> CreateCategory(CreateCategoryVM createCategoryVM);
-        Task<Result<int>> UpdateCategory(UpdateCategoryVM updateCategoryVM);
-        Task<Result<int>> DeleteCategory(DeleteCategoryVM deleteCategoryVM);
+        Task<Result<BigInteger>> CreateCategory(CreateCategoryVM createCategoryVM);
+        Task<Result<BigInteger>> UpdateCategory(UpdateCategoryVM updateCategoryVM);
+        Task<Result<BigInteger>> DeleteCategory(DeleteCategoryVM deleteCategoryVM);
         #endregion
     }
 }

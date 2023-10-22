@@ -3,10 +3,14 @@ using SCM.Application.Models.DTOs.Requests;
 using SCM.Application.Models.RequestModels.Accounts;
 using SCM.Application.Models.RequestModels.Approves;
 using SCM.Application.Models.RequestModels.Categories;
+using SCM.Application.Models.RequestModels.Companies;
+using SCM.Application.Models.RequestModels.Departments;
 using SCM.Application.Models.RequestModels.Invoice;
 using SCM.Application.Models.RequestModels.Offers;
 using SCM.Application.Models.RequestModels.Products;
 using SCM.Application.Models.RequestModels.Requests;
+using SCM.Application.Models.RequestModels.Roles;
+using SCM.Application.Models.RequestModels.Supplier;
 using SCM.Domain.Entities;
 using static SCM.Domain.Entities.Offer;
 
@@ -26,13 +30,7 @@ namespace SCM.Application.AutoMappings
 
             #region Account
             CreateMap<RegisterVM, Employee>();
-            CreateMap<RegisterVM, Account>()
-                .ForMember(x => x.Role, y =>y.MapFrom(e => Role.User));
-            CreateMap<RegisterVM, Account>()
-                .ForMember(x => x.Company, y =>y.MapFrom(e => Company.Undetermined));
-            CreateMap<UpdateRoleVM, Employee>();
-            CreateMap<UpdateCompanyVM, Employee>();
-
+            CreateMap<RegisterVM, Account>();
             #endregion
 
             #region Product
@@ -65,7 +63,29 @@ namespace SCM.Application.AutoMappings
 
             #region Invoice
             CreateMap<CreateInvoiceVM, Invoice>();
-            #endregion    
+            #endregion
+
+            #region Role
+            CreateMap<CreateRoleVM, Role>();
+            CreateMap<DeleteRoleVM, Role>();
+            #endregion
+
+            #region Supplier
+            CreateMap<CreateSupplierVM, Supplier>();
+            CreateMap<DeleteSupplierVM, Supplier>();
+            #endregion
+
+            #region Department
+            CreateMap<CreateDepartmentVM, Department>();
+            CreateMap<DeleteDepartmentVM, Department>();
+            CreateMap<UpdateDepartmentVM, Department>();
+            #endregion
+
+            #region Company
+            CreateMap<CreateCompanyVM, Company>();
+            CreateMap<DeleteCompanyVM, Company>();
+            CreateMap<UpdateCompanyVM, Company>();
+            #endregion
         }
     }
 }

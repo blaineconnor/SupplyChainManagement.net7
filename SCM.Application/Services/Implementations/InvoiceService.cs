@@ -2,14 +2,15 @@
 using AutoMapper.QueryableExtensions;
 using SCM.Application.Behaviors;
 using SCM.Application.Exceptions;
-using SCM.Application.Models.DTOs.Invoice;
+using SCM.Application.Models.DTOs.Invoices;
 using SCM.Application.Models.RequestModels.Invoice;
 using SCM.Application.Services.Abstractions;
-using SCM.Application.Validators.Invoice;
+using SCM.Application.Validators.Invoices;
 using SCM.Application.Wrapper;
 using SCM.Domain.Entities;
 using SCM.Domain.UnitofWork;
 using SCM.Utils;
+using System.Numerics;
 
 namespace SCM.Application.Services.Implementations
 {
@@ -25,7 +26,7 @@ namespace SCM.Application.Services.Implementations
         }
 
         [ValidationBehavior(typeof(CreateInvoiceValidator))]
-        public async Task<Result<int>> CreateInvoice(CreateInvoiceVM createInvoiceVM)
+        public async Task<Result<BigInteger>> CreateInvoice(CreateInvoiceVM createInvoiceVM)
         {
             var approvedRequests = await unitWork.GetRepository<Request>().GetByFilterAsync(r => r.Status == RequestStatus.AdminApproved || r.Status == RequestStatus.SuperAdminApproved || r.Status == RequestStatus.PurchasingApproved);
 
@@ -79,7 +80,7 @@ namespace SCM.Application.Services.Implementations
 
                 await unitWork.CommitAsync();
             }
-            return new Result<int>
+            return new Result<BigInteger>
             {
                 Success = true,
                 Message = "Faturalandırma yapıldı."

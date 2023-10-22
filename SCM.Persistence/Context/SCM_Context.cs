@@ -19,7 +19,7 @@ namespace SCM.Persistence.Context
         #region DbSet
 
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<Employee> Users { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Request> Requests { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -37,12 +37,17 @@ namespace SCM.Persistence.Context
             modelBuilder.ApplyConfiguration(new RequestMapping());
             modelBuilder.ApplyConfiguration(new ProductMapping());
             modelBuilder.ApplyConfiguration(new ApproveMapping());
-            modelBuilder.ApplyConfiguration(new UserMapping());
+            modelBuilder.ApplyConfiguration(new EmployeeMapping());
             modelBuilder.ApplyConfiguration(new InvoiceMapping());
             modelBuilder.ApplyConfiguration(new OfferMapping());
+            modelBuilder.ApplyConfiguration(new CompanyMapping());
+            modelBuilder.ApplyConfiguration(new DepartmentMapping());
+
 
 
             modelBuilder.Entity<Account>().HasQueryFilter(x => x.IsDeleted == null || !(!x.IsDeleted.HasValue || x.IsDeleted.Value));
+            modelBuilder.Entity<Company>().HasQueryFilter(x => x.IsDeleted == null || !(!x.IsDeleted.HasValue || x.IsDeleted.Value));
+            modelBuilder.Entity<Department>().HasQueryFilter(x => x.IsDeleted == null || !(!x.IsDeleted.HasValue || x.IsDeleted.Value));
             modelBuilder.Entity<Employee>().HasQueryFilter(x => x.IsDeleted == null || !(!x.IsDeleted.HasValue || x.IsDeleted.Value));
             modelBuilder.Entity<Category>().HasQueryFilter(x => x.IsDeleted == null || (x.IsDeleted.HasValue && !x.IsDeleted.Value));
             modelBuilder.Entity<Request>().HasQueryFilter(x => x.IsDeleted == null || (x.IsDeleted.HasValue && !x.IsDeleted.Value));
@@ -76,17 +81,17 @@ namespace SCM.Persistence.Context
                     {
                         //update
                         case EntityState.Modified:
-                            auditableEntity.DateTime = DateTime.Now;
+                            auditableEntity.UpdatedTime = DateTime.Now;
                             auditableEntity.By = _loggedUserService.UserName ?? "admin";
                             break;
                         //insert
                         case EntityState.Added:
-                            auditableEntity.DateTime = DateTime.Now;
+                            auditableEntity.AddedTime = DateTime.Now;
                             auditableEntity.By = _loggedUserService.UserName ?? "admin";
                             break;
                         //delete
                         case EntityState.Deleted:
-                            auditableEntity.DateTime = DateTime.Now;
+                            auditableEntity.UpdatedTime = DateTime.Now;
                             auditableEntity.By = _loggedUserService.UserName ?? "admin";
                             break;
                         default:

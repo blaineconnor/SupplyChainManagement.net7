@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using SCM.Application.Models.DTOs.Offer;
+using SCM.Application.Models.DTOs.Offers;
 using SCM.Application.Models.RequestModels.Offers;
 using SCM.Application.Services.Abstractions;
 using SCM.Application.Wrapper;

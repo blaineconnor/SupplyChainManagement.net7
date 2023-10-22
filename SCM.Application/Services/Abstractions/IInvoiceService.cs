@@ -1,12 +1,13 @@
-﻿using SCM.Application.Models.DTOs.Invoice;
+﻿using SCM.Application.Models.DTOs.Invoices;
 using SCM.Application.Models.RequestModels.Invoice;
 using SCM.Application.Wrapper;
+using System.Numerics;
 
 namespace SCM.Application.Services.Abstractions
 {
     public interface IInvoiceService
     {
-        Task<Result<int>> CreateInvoice(CreateInvoiceVM createInvoiceVM);
+        Task<Result<BigInteger>> CreateInvoice(CreateInvoiceVM createInvoiceVM);
         Task<Result<List<InvoiceDTO>>> GetAllInvoice();
     }
 }

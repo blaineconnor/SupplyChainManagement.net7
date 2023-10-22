@@ -23,8 +23,12 @@ namespace SCM.Persistence.Mappings
                 .HasColumnType("NVARCHAR(10)")
                 .IsRequired(false);
 
-            builder.Property(x => x.DateTime)
-                .HasColumnName("DATE_TIME")
+            builder.Property(x => x.AddedTime)
+                .HasColumnName("ADDED_TIME")
+                .HasColumnOrder(26);
+
+            builder.Property(x => x.UpdatedTime)
+                .HasColumnName("UPDATED_TIME")
                 .HasColumnOrder(26);
 
             builder.Property(x => x.IsDeleted)

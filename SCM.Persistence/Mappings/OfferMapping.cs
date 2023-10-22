@@ -22,13 +22,21 @@ namespace SCM.Persistence.Mappings
             builder.Property(x => x.SupplierName)
                 .HasColumnName("SUPPLIER_NAME")
                 .HasColumnOrder(5)
-                .HasMaxLength(255) 
+                .HasMaxLength(50) 
                 .IsRequired();
 
             builder.Property(x => x.SupplierId)
                 .HasColumnName("SUPPLIER_ID")
                 .HasColumnOrder(6)
                 .IsRequired();
+
+            builder.Property(x => x.Status)
+                .HasColumnName("OFFER_STATUS");
+
+            builder.HasOne(e => e.Request)
+                .WithMany(e => e.Offers)
+                .HasForeignKey(e => e.RequestId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.ToTable("OFFERS");
         }

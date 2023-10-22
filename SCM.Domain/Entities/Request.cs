@@ -9,13 +9,15 @@ namespace SCM.Domain.Entities
         {
             Invoices = new List<Invoice>();
             Offers = new List<Offer>();
-            Details = new HashSet<RequestDetail>();
+            Approves = new List<Approves>();
         }
 
         public BigInteger ApproverId { get; set; }
         public string ApproverName { get; set; }
         public BigInteger OfferId { get; set; }
-        public string SupplierName { get; set; }
+        public BigInteger ProductId { get; set; }
+        public BigInteger UserId { get; set; }
+        public string ProductName { get; set; }
         public string Description { get; set; }
         public RequestStatus Status { get; set; }
         public decimal Amount { get; set; }
@@ -25,10 +27,12 @@ namespace SCM.Domain.Entities
 
 
         //NavigationProperties
-        public virtual Employee User { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual Employee Employee { get; set; }
         public virtual ICollection<Invoice> Invoices { get; set; }
-        public virtual IEnumerable<RequestDetail> Details { get; set; }
         public virtual IEnumerable<Offer> Offers { get; set; }
+        public virtual IEnumerable<Approves> Approves { get; set; }
+        public Approves approves { get; set; }
         public Offer Offer { get; set; }
     }
 

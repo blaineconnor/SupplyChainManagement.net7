@@ -6,10 +6,11 @@ using SCM.Application.Exceptions;
 using SCM.Application.Models.DTOs.Categories;
 using SCM.Application.Models.RequestModels.Categories;
 using SCM.Application.Services.Abstractions;
-using SCM.Application.Validators.Categories;
+using SCM.Application.Validators.Companies;
 using SCM.Application.Wrapper;
 using SCM.Domain.Entities;
 using SCM.Domain.UnitofWork;
+using System.Numerics;
 
 namespace SCM.Application.Services.Implementations
 {
@@ -39,7 +40,7 @@ namespace SCM.Application.Services.Implementations
             return result;
         }
 
-        [ValidationBehavior(typeof(GetCategoryByIdValidator))]
+        [ValidationBehavior(typeof(GetCompanyByIdValidator))]
         public async Task<Result<CategoryDTO>> GetCategoryById(GetCategoryByIdVM getCategoryByIdVM)
         {
             var result = new Result<CategoryDTO>();
@@ -62,10 +63,10 @@ namespace SCM.Application.Services.Implementations
 
         #region Insert, Update, Delete
 
-        [ValidationBehavior(typeof(CreateCategoryValidator))]
-        public async Task<Result<int>> CreateCategory(CreateCategoryVM createCategoryVM)
+        [ValidationBehavior(typeof(CreateCompanyValidator))]
+        public async Task<Result<BigInteger>> CreateCategory(CreateCategoryVM createCategoryVM)
         {
-            var result = new Result<int>();
+            var result = new Result<BigInteger>();
 
             var categoryExistsSameName = await _db.GetRepository<Category>().AnyAsync(x => x.Name == createCategoryVM.CategoryName);
             if (categoryExistsSameName)
@@ -84,10 +85,10 @@ namespace SCM.Application.Services.Implementations
         }
 
 
-        [ValidationBehavior(typeof(DeleteCategoryValidator))]
-        public async Task<Result<int>> DeleteCategory(DeleteCategoryVM deleteCategoryVM)
+        [ValidationBehavior(typeof(DeleteCompanyValidator))]
+        public async Task<Result<BigInteger>> DeleteCategory(DeleteCategoryVM deleteCategoryVM)
         {
-            var result = new Result<int>();
+            var result = new Result<BigInteger>();
 
             var categoryExists = await _db.GetRepository<Category>().AnyAsync(x => x.Id == deleteCategoryVM.Id);
             if (!categoryExists)
@@ -104,10 +105,10 @@ namespace SCM.Application.Services.Implementations
         }
 
 
-        [ValidationBehavior(typeof(UpdateCategoryValidator))]
-        public async Task<Result<int>> UpdateCategory(UpdateCategoryVM updateCategoryVM)
+        [ValidationBehavior(typeof(UpdateCompanyValidator))]
+        public async Task<Result<BigInteger>> UpdateCategory(UpdateCategoryVM updateCategoryVM)
         {
-            var result = new Result<int>();
+            var result = new Result<BigInteger>();
 
             var existsCategory = await _db.GetRepository<Category>().GetById(updateCategoryVM.Id);
             if (existsCategory is null)

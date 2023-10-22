@@ -1,7 +1,9 @@
-﻿namespace SCM.Application.Models.RequestModels.Categories
+﻿using System.Numerics;
+
+namespace SCM.Application.Models.RequestModels.Categories
 {
     public class GetCategoryByIdVM
     {
-        public int Id { get; set; }
+        public BigInteger Id { get; set; }
     }
 }

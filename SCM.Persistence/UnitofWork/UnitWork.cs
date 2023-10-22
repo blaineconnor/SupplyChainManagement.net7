@@ -25,7 +25,7 @@ namespace SCM.Persistence.UnitofWork
         {
             var messageEntity = new Message
             {
-                DateTime = DateTime.Now,
+                AddedTime = DateTime.Now,
                 UserId = (int)_loggedUserService.UserId,
                 Description = message,
 

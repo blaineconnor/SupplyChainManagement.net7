@@ -1,7 +1,9 @@
-﻿namespace SCM.Application.Models.RequestModels.Products
+﻿using System.Numerics;
+
+namespace SCM.Application.Models.RequestModels.Products
 {
     public class DeleteProductVM
     {
-        public int? Id { get; set; }
+        public BigInteger? Id { get; set; }
     }
 }

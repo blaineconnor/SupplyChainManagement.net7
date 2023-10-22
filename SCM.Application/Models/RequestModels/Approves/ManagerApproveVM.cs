@@ -1,10 +1,11 @@
 ﻿using SCM.Domain.Entities;
+using System.Numerics;
 
 namespace SCM.Application.Models.RequestModels.Approves
 {
     public class ManagerApproveVM
     {
-        public int RequestId { get; set; }
+        public BigInteger RequestId { get; set; }
         public bool IsApproved { get; set; }
     }
 }

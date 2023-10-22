@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SCM.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SCM.Persistence.Mappings
 {
@@ -13,8 +8,28 @@ namespace SCM.Persistence.Mappings
     {
         public override void ConfigureDerivedEntityMapping(EntityTypeBuilder<Company> builder)
         {
-            builder.ToTable("Company");
-            builder.HasMany(e=>e.Departments).WithOne(e=>e.Company).HasForeignKey(e=>e.CompanyId).OnDelete(DeleteBehavior.NoAction);
+            builder.ToTable("COMPANY");
+
+            builder.HasMany(e=>e.Departments)
+                .WithOne(e=>e.Company)
+                .HasForeignKey(e=>e.CompanyId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Property(e => e.Name)
+                .HasMaxLength(100)
+                .HasColumnName("COMPANY_NAME");
+
+            builder.Property(e => e.Phone)
+                .HasColumnName("PHONE")
+                .HasMaxLength(20);
+
+            builder.Property(e => e.Address)
+                .HasColumnName("ADDRESS")
+                .HasMaxLength(400);
+
+            builder.Property(e => e.Email)
+                .HasColumnName("EMAIL")
+                .HasMaxLength(50);
         }
     }
 }

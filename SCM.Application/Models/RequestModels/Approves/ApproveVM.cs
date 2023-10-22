@@ -1,8 +1,10 @@
-﻿namespace SCM.Application.Models.RequestModels.Approves
+﻿using System.Numerics;
+
+namespace SCM.Application.Models.RequestModels.Approves
 {
     public class ApproveVM
     {
-        public int RequestId { get; set; }
+        public BigInteger RequestId { get; set; }
         public bool IsApproved { get; set; }
     }
 }

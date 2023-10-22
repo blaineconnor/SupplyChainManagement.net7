@@ -1,4 +1,4 @@
-﻿using SCM.Application.Models.DTOs.Users;
+﻿using SCM.Application.Models.DTOs.Employees;
 using SCM.Domain.Entities;
 using System.Numerics;
 
@@ -21,6 +21,6 @@ namespace SCM.Application.Models.DTOs.Accounts
 
         //NavigationProperty
         public Role Roles { get; set; }
-        public UserDTO User { get; set; }
+        public EmployeeDTO User { get; set; }
     }
 }

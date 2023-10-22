@@ -10,6 +10,7 @@ using SCM.Application.Validators.Products;
 using SCM.Application.Wrapper;
 using SCM.Domain.Entities;
 using SCM.Domain.UnitofWork;
+using System.Numerics;
 
 namespace SCM.Application.Services.Implementations
 {
@@ -51,9 +52,9 @@ namespace SCM.Application.Services.Implementations
 
         #region Insert, Update, Delete
         [ValidationBehavior(typeof(CreateProductValidator))]
-        public async Task<Result<int>> CreateProduct(CreateProductVM createProductVM)
+        public async Task<Result<BigInteger>> CreateProduct(CreateProductVM createProductVM)
         {
-            var result = new Result<int>();
+            var result = new Result<BigInteger>();
 
             var productExistsSameName = await _uWork.GetRepository<Product>().AnyAsync(x => x.Name == createProductVM.Name.Trim());
             if (productExistsSameName)
@@ -70,9 +71,9 @@ namespace SCM.Application.Services.Implementations
         }
 
         [ValidationBehavior(typeof(DeleteProductValidator))]
-        public async Task<Result<int>> DeleteProduct(DeleteProductVM deleteProductVM)
+        public async Task<Result<BigInteger>> DeleteProduct(DeleteProductVM deleteProductVM)
         {
-            var result = new Result<int>();
+            var result = new Result<BigInteger>();
 
             var productEntity = await _uWork.GetRepository<Product>().GetById(deleteProductVM.Id);
             if (productEntity is null)
@@ -88,9 +89,9 @@ namespace SCM.Application.Services.Implementations
         }
 
         [ValidationBehavior(typeof(UpdateProductValidator))]
-        public async Task<Result<int>> UpdateProduct(UpdateProductVM updateProductVM)
+        public async Task<Result<BigInteger>> UpdateProduct(UpdateProductVM updateProductVM)
         {
-            var result = new Result<int>();
+            var result = new Result<BigInteger>();
 
             var productEntity = await _uWork.GetRepository<Product>().GetById(updateProductVM.Id);
             if (productEntity is null)

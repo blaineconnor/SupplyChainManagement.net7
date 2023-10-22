@@ -1,7 +1,9 @@
-﻿namespace SCM.Application.Models.RequestModels.Offers
+﻿using System.Numerics;
+
+namespace SCM.Application.Models.RequestModels.Offers
 {
     public class GetAllOfferByRequestVM
     {
-        public int Id { get; set; }
+        public BigInteger Id { get; set; }
     }
 }

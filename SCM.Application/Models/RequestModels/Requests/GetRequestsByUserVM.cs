@@ -1,7 +1,9 @@
-﻿namespace SCM.Application.Models.RequestModels.Requests
+﻿using System.Numerics;
+
+namespace SCM.Application.Models.RequestModels.Requests
 {
     public class GetRequestsByUserVM
     {
-        public int UserId { get; set; }
+        public BigInteger UserId { get; set; }
     }
 }

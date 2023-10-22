@@ -118,53 +118,7 @@ namespace SCM.Application.Services.Implementations
         #endregion
 
         #region Update
-
-        [ValidationBehavior(typeof(UpdateRoleValidator))]
-        public async Task<Result<bool>> UpdateUserRoles(string username, Role newRoles)
-        {
-            var result = new Result<bool>();
-
-            var account = _dbContext.Accounts.FirstOrDefault(a => a.UserName == username);
-
-            if (account != null)
-            {
-                account.Role = newRoles;
-
-                await _dbContext.SaveChangesAsync();
-
-                result.Data = true;
-            }
-            else
-            {
-                result.Success = false;
-                result.Errors.Add("Kullanıcı adına göre hesap bulunamadı.");
-            }
-
-            return result;
-        }
-
-        public async Task<Result<bool>> UpdateUserCompany(string username, Company newCompany)
-        {
-            var result = new Result<bool>();
-
-            var account = _dbContext.Accounts.FirstOrDefault(a => a.UserName == username);
-
-            if (account != null)
-            {
-                account.Company = newCompany;
-
-                await _dbContext.SaveChangesAsync();
-
-                result.Data = true;
-            }
-            else
-            {
-                result.Success = false;
-                result.Errors.Add("Kullanıcı adına göre hesap bulunamadı.");
-            }
-
-            return result;
-        }
+      
 
         #endregion
 

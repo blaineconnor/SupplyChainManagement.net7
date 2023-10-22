@@ -15,14 +15,10 @@ namespace SCM.Domain.Entities
         public string Password { get; set; }
         public DateTime? LastUserLogin { get; set; }
         public string LastUserIP { get; set; }   
-        public BigInteger CompanyId { get; set; }
-        public BigInteger DepartmentId { get; set; }
         public BigInteger RoleId { get; set; }
 
         //NavigationProperties
         public virtual Role Role { get; set; }
-        public virtual Department Department { get; set; }
-        public Company Company { get; set; }
         public Employee Employee { get; set; }
         public virtual IEnumerable<Request> Requests { get; set; }        
     }

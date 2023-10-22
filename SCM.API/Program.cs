@@ -93,7 +93,7 @@ builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 
 
 //Automapper
-builder.Services.AddAutoMapper(typeof(DomaintoDTO), typeof(VMtoDomain));
+builder.Services.AddAutoMapper(typeof(DomainToDTO), typeof(VMtoDomain));
 
 
 

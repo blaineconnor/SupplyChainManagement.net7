@@ -35,6 +35,16 @@ namespace SCM.Persistence.Mappings
                 .HasForeignKey(x => x.CategoryId)
                 .HasConstraintName("PRODUCT_CATEGORY_CATEGORY_ID");
 
+            builder.HasMany(e => e.Requests)
+                .WithOne(e => e.Product)
+                .HasForeignKey(e => e.ProductId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasMany(e => e.Requests)
+                .WithOne(e => e.Product)
+                .HasForeignKey(e => e.ProductName)
+                .OnDelete(DeleteBehavior.NoAction);
+
             builder.ToTable("PRODUCTS");
         }
     }
