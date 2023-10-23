@@ -7,7 +7,7 @@ namespace SCM.Application.Validators.Requests
     {
         public DeleteRequestValidator()
         {
-            RuleFor(request => request.RequestId)
+            RuleFor(request => request.Id)
                 .NotEmpty().WithMessage("Talep kimliği boş olamaz.");
         }
     }

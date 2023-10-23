@@ -7,7 +7,7 @@ namespace SCM.Application.Validators.Requests
     {
         public GetRequestsByUserValidator()
         {
-            RuleFor(request => request.UserId)
+            RuleFor(request => request.EmployeeId)
                 .NotEmpty().WithMessage("Kullanıcı kimliği boş olamaz.");
         }
     }

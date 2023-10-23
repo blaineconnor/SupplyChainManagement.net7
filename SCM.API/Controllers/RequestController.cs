@@ -18,11 +18,11 @@ namespace SCM.API.Controllers
             _requestService = requestService;
         }
 
-        [HttpGet("user/{userId:int}")]
+        [HttpGet("get/{id}")]
         [Authorize(Policy = "MPPolicy")]
-        public async Task<ActionResult<Result<List<RequestDTO>>>> GetRequestsByUser(int userId)
+        public async Task<ActionResult<Result<List<RequestDTO>>>> GetRequestsByUser(int employeeId)
         {
-            var result = await _requestService.GetRequestsByUser(new GetRequestsByUserVM { UserId = userId });
+            var result = await _requestService.GetRequestsByUser(new GetRequestsByUserVM { EmployeeId = employeeId });
             return Ok(result);
         }
 
@@ -34,11 +34,11 @@ namespace SCM.API.Controllers
             return Ok(requestId);
         }
 
-        [HttpPut("update/{requestId:int}")]
+        [HttpPut("update/{Id:int}")]
         [Authorize(Policy = "EmployeePolicy")]
         public async Task<ActionResult<Result<int>>> UpdateRequest(int requestId, UpdateRequestVM updateRequestVM)
         {
-            if (requestId != updateRequestVM.RequestId)
+            if (requestId != updateRequestVM.Id)
             {
                 return BadRequest("Invalid request ID.");
             }
@@ -47,11 +47,11 @@ namespace SCM.API.Controllers
             return Ok(updatedRequestId);
         }
 
-        [HttpDelete("delete/{requestId:int}")]
+        [HttpDelete("delete/{Id:int}")]
         [Authorize(Policy = "EmployeePolicy")]
         public async Task<ActionResult<Result<int>>> DeleteRequest(int requestId)
         {
-            var deletedRequestId = await _requestService.DeleteRequest(new DeleteRequestVM { RequestId = requestId });
+            var deletedRequestId = await _requestService.DeleteRequest(new DeleteRequestVM { Id = requestId });
             return Ok(deletedRequestId);
         }
     }

@@ -88,13 +88,6 @@ namespace SCM.UI.Areas.Admin.Controllers
                 TempData["success"] = $"{updateOfferVM.Id} numaralı teklif başarıyla güncellendi.";
                 return RedirectToAction("List", "Offer", new { Area = "Admin" });
             }
-        }
-
-        [HttpDelete]
-        public async Task<IActionResult> DeleteRequest(int id)
-        {
-            var response = await _restService.DeleteAsync<Result<bool>>($"offer/delete/{id}");
-            return Json(response.Data);
-        }
+        }        
     }
 }

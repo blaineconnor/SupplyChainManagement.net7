@@ -85,7 +85,7 @@ namespace SCM.UI.Areas.SuperAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UpdateRequestVM updateRequestVM)
         {
-            var response = await restService.PutAsync<UpdateRequestVM, Result<int>>(updateRequestVM, $"request/update/{updateRequestVM.RequestId}");
+            var response = await restService.PutAsync<UpdateRequestVM, Result<int>>(updateRequestVM, $"request/update/{updateRequestVM.Id}");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {

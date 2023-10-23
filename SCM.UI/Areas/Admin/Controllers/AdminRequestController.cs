@@ -35,7 +35,7 @@ namespace SCM.UI.Areas.Admin.Controllers
             {
                 return View(createRequestVM);
             }
-            var response = await restService.PostAsync<Result<List<CreateRequestVM>>>("request/create");
+            var response = await restService.PostAsync<CreateRequestVM, Result<int>>(createRequestVM, "request/create");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -65,12 +65,11 @@ namespace SCM.UI.Areas.Admin.Controllers
             }
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(long id)
         {
-            ViewBag.Header = "Talep İşlemleri";
-            ViewBag.Title = "Talep Güncelle";
+   
 
-            var response = await restService.GetAsync<Result<RequestDTO>>($"requests/get/{id}");
+            var response = await restService.GetAsync<Result<RequestDTO>>($"request/get/{id}");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -86,7 +85,7 @@ namespace SCM.UI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UpdateRequestVM updateRequestVM)
         {
-            var response = await restService.PutAsync<UpdateRequestVM, Result<int>>(updateRequestVM, $"request/update/{updateRequestVM.RequestId}");
+            var response = await restService.PutAsync<UpdateRequestVM, Result<int>>(updateRequestVM, $"request/update/{updateRequestVM.Id}");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -101,7 +100,7 @@ namespace SCM.UI.Areas.Admin.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteRequest(int id)
+        public async Task<IActionResult> DeleteRequest(long id)
         {
             var response = await restService.DeleteAsync<Result<bool>>($"request/delete/{id}");
             return Json(response.Data);

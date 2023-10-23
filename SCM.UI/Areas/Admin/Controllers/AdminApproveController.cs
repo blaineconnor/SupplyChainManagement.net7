@@ -16,23 +16,21 @@ namespace SCM.UI.Areas.Admin.Controllers
     public class AdminApproveController : Controller
     {
         private readonly IRestService _restService;
-        private readonly IMapper _mapper;
-        private readonly RequestDTO _requestDTO;
-        public AdminApproveController(IRestService restService, IMapper mapper, RequestDTO requestDTO)
+
+        public AdminApproveController(IRestService restService)
         {
             _restService = restService;
-            _mapper = mapper;
-            _requestDTO = requestDTO;
+
         }
 
         [HttpGet("/admin/approve")]
-        public IActionResult AdminApprove()
+        public IActionResult Approve()
         {
             return View();
         }
 
         [HttpPut]
-        public async Task<IActionResult> AdminApprove(ApproveVM approveVM)
+        public async Task<IActionResult> Approve(ApproveVM approveVM)
         {
             if (!ModelState.IsValid)
             {

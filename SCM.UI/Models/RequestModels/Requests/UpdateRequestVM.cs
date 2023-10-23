@@ -2,8 +2,8 @@
 {
     public class UpdateRequestVM
     {
-        public long RequestId { get; set; }
-        public long UserId { get; set; }
+        public long Id { get; set; }
+        public long ProductId { get; set; }
         public int HowMany { get; set; }
     }
 }

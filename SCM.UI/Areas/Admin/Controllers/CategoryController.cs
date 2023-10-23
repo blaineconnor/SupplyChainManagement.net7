@@ -30,13 +30,12 @@ namespace SCM.UI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateCategoryVM categoryModel)
         {
-            //Fluent validation içerisinde tanımlanan kurallardan bir veya birkaçı ihlal edildiyse
+           
             if (!ModelState.IsValid)
             {
                 return View(categoryModel);
             }
 
-            //Model validasyonu başarılı. Kaydı gerçekleştir.
             var response = await _restService.PostAsync<CreateCategoryVM, Result<int>>(categoryModel, "category/create");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
@@ -44,7 +43,7 @@ namespace SCM.UI.Areas.Admin.Controllers
                 ModelState.AddModelError("", response.Data.Errors[0]);
                 return View();
             }
-            else // herşey yolunda
+            else 
             {
                 TempData["success"] = $"{response.Data.Data} numaralı kayıt başarıyla eklendi.";
                 return RedirectToAction("List", "Category", new { Area = "Admin" });

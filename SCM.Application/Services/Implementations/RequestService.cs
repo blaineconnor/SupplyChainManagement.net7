@@ -11,6 +11,7 @@ using SCM.Application.Wrapper;
 using SCM.Domain.Entities;
 using SCM.Domain.UnitofWork;
 using SCM.Utils;
+using System.Numerics;
 
 namespace SCM.Application.Services.Implementations
 {
@@ -28,15 +29,15 @@ namespace SCM.Application.Services.Implementations
         #region Create
 
         [ValidationBehavior(typeof(CreateRequestValidator))]
-        public async Task<Result<Int64>> CreateRequest(CreateRequestVM createRequestVM)
+        public async Task<Result<long>> CreateRequest(CreateRequestVM createRequestVM)
         {
-            var result = new Result<Int64>();            
+            var result = new Result<long>();            
 
             var requestEntity = _mapper.Map<Request>(createRequestVM);
             requestEntity.Status = RequestStatus.Pending;
 
             _uWork.GetRepository<Request>().Add(requestEntity);
-            await _uWork.CommitAsync();            
+            await _uWork.CommitAsync();           
 
             result.Data = requestEntity.Id;
             return result;
@@ -47,19 +48,19 @@ namespace SCM.Application.Services.Implementations
         #region Delete
 
         [ValidationBehavior(typeof(DeleteRequestValidator))]
-        public async Task<Result<Int64>> DeleteRequest(DeleteRequestVM deleteRequestVM)
+        public async Task<Result<long>> DeleteRequest(DeleteRequestVM deleteRequestVM)
         {
-            var result = new Result<Int64>();
+            var result = new Result<long>();
 
             // Talep var mı kontrol et
-            var requestEntity = await _uWork.GetRepository<Request>().GetById(deleteRequestVM.RequestId);
+            var requestEntity = await _uWork.GetRepository<Request>().GetById(deleteRequestVM.Id);
             if (requestEntity is null)
             {
-                throw new NotFoundException($"{deleteRequestVM.RequestId} numaralı talep bulunamadı.");
+                throw new NotFoundException($"{deleteRequestVM.Id} numaralı talep bulunamadı.");
             }
 
             // Talep detaylarını al ve sil
-            var requestDetailByOrder = await _uWork.GetRepository<Request>().GetByFilterAsync(x => x.Id == deleteRequestVM.RequestId);
+            var requestDetailByOrder = await _uWork.GetRepository<Request>().GetByFilterAsync(x => x.Id == deleteRequestVM.Id);
             if (requestDetailByOrder.Any())
             {
                 await requestDetailByOrder.ForEachAsync(requestDetail =>
@@ -70,7 +71,7 @@ namespace SCM.Application.Services.Implementations
 
             // Talebi sil
             _uWork.GetRepository<Request>().Delete(requestEntity);
-            await _uWork.CommitAsync();
+            await _uWork.CommitAsync();          
 
             result.Data = requestEntity.Id;
             return result;
@@ -81,25 +82,25 @@ namespace SCM.Application.Services.Implementations
         #region Update
 
         [ValidationBehavior(typeof(UpdateRequestValidator))]
-        public async Task<Result<Int64>> UpdateRequest(UpdateRequestVM updateRequestVM)
+        public async Task<Result<long>> UpdateRequest(UpdateRequestVM updateRequestVM)
         {
-            var result = new Result<Int64>();
+            var result = new Result<long>();
 
             // Talep var mı kontrol et
-            var requestExists = await _uWork.GetRepository<Request>().AnyAsync(x => x.Id == updateRequestVM.RequestId);
+            var requestExists = await _uWork.GetRepository<Request>().AnyAsync(x => x.Id == updateRequestVM.Id);
             if (!requestExists)
             {
-                throw new NotFoundException($"{updateRequestVM.RequestId} numaralı talep bulunamadı.");
+                throw new NotFoundException($"{updateRequestVM.Id} numaralı talep bulunamadı.");
             }
 
             // Talebi al ve güncelle
-            var requestEntity = await _uWork.GetRepository<Request>().GetById(updateRequestVM.RequestId);
+            var requestEntity = await _uWork.GetRepository<Request>().GetById(updateRequestVM.Id);
             _mapper.Map(updateRequestVM, requestEntity);
             requestEntity.Status = RequestStatus.Pending;
 
             _uWork.GetRepository<Request>().Update(requestEntity);
-            await _uWork.CommitAsync();         
-
+            await _uWork.CommitAsync();
+            
             result.Data = requestEntity.Id;
             return result;
         }
@@ -112,7 +113,7 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<List<RequestDTO>>();
 
-            var requests = await _uWork.GetRepository<Request>().GetByFilterAsync(x => x.Employee.Id == getRequestsByUserVM.UserId);
+            var requests = await _uWork.GetRepository<Request>().GetByFilterAsync(x => x.Employee.Id == getRequestsByUserVM.EmployeeId);
 
             var requestDtos = await requests.ProjectTo<RequestDTO>(_mapper.ConfigurationProvider).ToListAsync();
 
