@@ -56,7 +56,6 @@ namespace SCM.Application.AutoMappings
             #endregion
 
             #region Approve
-            CreateMap<ManagerApproveVM, Approves>();
             CreateMap<ApproveVM,Approves>();
             CreateMap<RejectVM, Approves>();
 

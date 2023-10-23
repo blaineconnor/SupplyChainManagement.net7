@@ -1,4 +1,4 @@
-﻿namespace SCM.Application.Models.RequestModels.Accounts
+﻿namespace SCM.UI.Models.RequestModels.Accounts
 {
     public class RegSuppVM
     {

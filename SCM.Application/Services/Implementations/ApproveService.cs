@@ -20,7 +20,7 @@ namespace SCM.Application.Services.Implementations
 
         #region Manager
 
-        public async Task<Result<bool>> ManagerApprove(ManagerApproveVM approveVM)
+        public async Task<Result<bool>> ManagerApprove(ApproveVM approveVM)
         {
             var requestId = approveVM.RequestId;
 

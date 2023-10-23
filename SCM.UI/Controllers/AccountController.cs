@@ -100,6 +100,66 @@ namespace SCM.UI.Controllers
             var response = await _restService.PostAsync<RegisterVM, Result<bool>>(registerVM, "account/register", false);
             return View(registerVM);
         }
+        [HttpGet("/account/suppsignin")]
+        public IActionResult SuppSignIn()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SuppSignIn(LoginVM loginModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(loginModel);
+            }
+
+            var response = await _restService.PostAsync<LoginVM, Result<TokenDTO>>(loginModel, "account/supplogin", false);
+
+            if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                ModelState.AddModelError("", response.Data.Errors[0]);
+            }
+            else
+            {
+                var sessionKey = _configuration["Application:SessionKey"];
+                _contextAccessor.HttpContext.Session.SetString(sessionKey, JsonConvert.SerializeObject(response.Data.Data));
+
+                var role = response.Data.Data.Auth;
+
+
+                switch (role)
+                {
+                    case Models.Enumarations.Authorizations.Supplier:
+                        return RedirectToAction("Index", "Home", new { Area = "Supplier" });
+
+                    default:
+                        return RedirectToAction("Index", "Home");
+                }
+            }
+
+            return View(loginModel);
+        }
+
+        [Authorize(Policy = "AdminPolicy")]
+        public IActionResult SuppRegister()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Policy = "AdminPolicy")]
+        public async Task<IActionResult> SuppRegister(RegSuppVM registerVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(registerVM);
+            }
+
+            var response = await _restService.PostAsync<RegSuppVM, Result<bool>>(registerVM, "account/suppregister", false);
+            return View(registerVM);
+        }
+
     }
 }
 

@@ -20,7 +20,7 @@ namespace SCM.API.Controllers
 
         [HttpPost("manager")]
         [Authorize(Policy = "ManagerPolicy")]
-        public async Task<ActionResult<Result<bool>>> ManagerApprove(ManagerApproveVM approveVM)
+        public async Task<ActionResult<Result<bool>>> ManagerApprove(ApproveVM approveVM)
         {
             var result = await _approveService.ManagerApprove(approveVM);
             return Ok(result);

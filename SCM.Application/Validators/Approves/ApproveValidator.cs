@@ -3,7 +3,7 @@ using SCM.Application.Models.RequestModels.Approves;
 
 namespace SCM.Application.Validators.Approves
 {
-    public class ApproveValidator : AbstractValidator<ManagerApproveVM>
+    public class ApproveValidator : AbstractValidator<ApproveVM>
     {
         public ApproveValidator()
         {

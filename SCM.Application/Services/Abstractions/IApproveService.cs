@@ -6,7 +6,7 @@ namespace SCM.Application.Services.Abstractions
 {
     public interface IApproveService
     {
-        Task<Result<bool>> ManagerApprove(ManagerApproveVM approveVM);
+        Task<Result<bool>> ManagerApprove(ApproveVM approveVM);
         Task<Result<bool>> PurchasingApprove(ApproveVM approveVM);
         Task<Result<bool>> AdminApprove(ApproveVM approveVM);
         Task<Result<bool>> SuperAdminApprove(ApproveVM approveVM);
