@@ -9,9 +9,11 @@ namespace SCM.Domain.Entities
         {
             Offers = new HashSet<Offer>();
         }
-        public string Name { get; set; }
+        public string SupplierName { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+
+        public virtual Account Account { get; set; }
         public virtual IEnumerable<Offer> Offers { get; set; }
         public virtual Authorization Auth { get; set; }
     }

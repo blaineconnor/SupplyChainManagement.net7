@@ -3,27 +3,18 @@ using SCM.Application.Models.RequestModels.Accounts;
 
 namespace SCM.Application.Validators.Accounts
 {
-    public class RegisterValidator : AbstractValidator<RegisterVM>
+    public class RegSuppValidator : AbstractValidator<RegSuppVM>
     {
-        public RegisterValidator()
+        public RegSuppValidator()
         {
-            RuleFor(x => x.IdentityNumber)
-                .MaximumLength(11).MinimumLength(11).WithMessage("Kimlik bilgisi 11 karakterden oluşmalıdır.")                
-                .NotEmpty().WithMessage("Kimlik bilgisi boş olamaz.")
-                .MaximumLength(30).WithMessage("Kimlik bilgisi 30 karakterden büyük olamaz.");
-
-            RuleFor(x => x.Name)
-                .NotEmpty().WithMessage("Ad bilgisi boş olamaz.")
-                .MaximumLength(30).WithMessage("Ad bilgisi 30 karakterden büyük olamaz.");
-
-            RuleFor(x => x.Surname)
-                .NotEmpty().WithMessage("Soyad bilgisi boş olamaz.")
-                .MaximumLength(30).WithMessage("Soyad bilgisi 30 karakterden büyük olamaz.");
+            RuleFor(x=>x.SupplierName)
+                .NotEmpty()
+                .WithMessage("Tedarikçi ismi boş bırakılamaz.");
 
             RuleFor(x => x.Email)
-                .EmailAddress()
-                .NotEmpty().WithMessage("Eposta bilgisi boş olamaz.");
-                
+               .EmailAddress()
+               .NotEmpty().WithMessage("Eposta bilgisi boş olamaz.");
+
             RuleFor(x => x.UserName)
                .NotEmpty().WithMessage("Kullanıcı adı boş olamaz.")
                .MaximumLength(20).WithMessage("Kullanıcı adı en fazla 20 karakter olabilir.");

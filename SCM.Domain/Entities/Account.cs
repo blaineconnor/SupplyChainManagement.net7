@@ -1,16 +1,12 @@
 ﻿using SCM.Domain.Common;
-using System.Numerics;
 
 namespace SCM.Domain.Entities
 {
     public class Account : BaseEntity
-    {
-        public Account()
-        {
-           Requests = new HashSet<Request>();
-        }
+    {      
 
         public Int64 UserId { get; set; }
+        public Int64 SupplierId { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public DateTime? LastUserLogin { get; set; }
@@ -19,7 +15,7 @@ namespace SCM.Domain.Entities
         //NavigationProperties
         public Authorization Authorization { get; set; }
         public Employee Employee { get; set; }
-        public virtual IEnumerable<Request> Requests { get; set; }        
+        public Supplier Supplier { get; set; }
     }
 
     public enum Authorization
@@ -30,6 +26,7 @@ namespace SCM.Domain.Entities
         Accounting = 4,
         Manager = 5,
         Purchasing = 6,
+        HumanResources = 7,
         Admin = 50,
         SuperAdmin = 100,
     }

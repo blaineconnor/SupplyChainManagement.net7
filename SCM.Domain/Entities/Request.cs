@@ -12,12 +12,10 @@ namespace SCM.Domain.Entities
             Approves = new List<Approves>();
         }
 
-        public Int64 ApproverId { get; set; }
-        public string ApproverName { get; set; }
-        public Int64 OfferId { get; set; }
+        public Int64? ApproverId { get; set; }
+        public Int64? OfferId { get; set; }
         public Int64 ProductId { get; set; }
-        public Int64 UserId { get; set; }
-        public string ProductName { get; set; }
+        public Int64? UserId { get; set; }
         public string Description { get; set; }
         public RequestStatus Status { get; set; }
         public decimal Amount { get; set; }

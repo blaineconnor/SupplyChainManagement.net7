@@ -92,7 +92,6 @@ builder.Services.AddScoped<IOfferService, OfferService>();
 builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
-builder.Services.AddScoped<ISupplierService, SupplierService>();
 
 
 
@@ -163,7 +162,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("SupplierPolicy", policy =>
     {
         policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
-        policy.RequireRole("Supplier", "Admin", "SuperAdmin", "Purchasing");
+        policy.RequireRole("Supplier", "Admin", "SuperAdmin");
     });
 
     options.AddPolicy("MPPolicy", policy =>

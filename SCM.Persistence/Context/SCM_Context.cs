@@ -28,7 +28,6 @@ namespace SCM.Persistence.Context
         public DbSet<Company> Companies { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
-        public DbSet<Message> Messages { get; set; }
 
 
 
@@ -48,7 +47,6 @@ namespace SCM.Persistence.Context
             modelBuilder.ApplyConfiguration(new OfferMapping());
             modelBuilder.ApplyConfiguration(new CompanyMapping());
             modelBuilder.ApplyConfiguration(new DepartmentMapping());
-            modelBuilder.ApplyConfiguration(new MessageMapping());
 
 
 
@@ -64,7 +62,6 @@ namespace SCM.Persistence.Context
             modelBuilder.Entity<Offer>().HasQueryFilter(x => x.IsDeleted == null || !(!x.IsDeleted.HasValue || x.IsDeleted.Value));
             modelBuilder.Entity<Invoice>().HasQueryFilter(x => x.IsDeleted == null || !(!x.IsDeleted.HasValue || x.IsDeleted.Value));
             modelBuilder.Entity<Supplier>().HasQueryFilter(x => x.IsDeleted == null || !(!x.IsDeleted.HasValue || x.IsDeleted.Value));
-            modelBuilder.Entity<Message>().HasQueryFilter(x => x.IsDeleted == null || !(!x.IsDeleted.HasValue || x.IsDeleted.Value));
         }
 
         #endregion

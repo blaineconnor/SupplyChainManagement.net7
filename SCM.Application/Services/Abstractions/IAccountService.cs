@@ -9,7 +9,11 @@ namespace SCM.Application.Services.Abstractions
     {
         Task<Result<bool>> Register(RegisterVM registerVM);
 
+        Task<Result<bool>> RegisterSupplier(RegSuppVM regSuppVM);
+
         Task<Result<TokenDTO>> Login(LoginVM loginVM);
+
+        Task<Result<TokenDTO>> SupplierLogin(LoginVM loginVM);
 
         Task<Result<Account>> GetByIdAsync(Int64 id);
 

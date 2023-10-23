@@ -9,7 +9,6 @@ using SCM.Application.Models.RequestModels.Invoice;
 using SCM.Application.Models.RequestModels.Offers;
 using SCM.Application.Models.RequestModels.Products;
 using SCM.Application.Models.RequestModels.Requests;
-using SCM.Application.Models.RequestModels.Supplier;
 using SCM.Domain.Entities;
 using static SCM.Domain.Entities.Offer;
 
@@ -28,8 +27,11 @@ namespace SCM.Application.AutoMappings
             #endregion
 
             #region Account
+            CreateMap<RegSuppVM, Supplier>();
+            CreateMap<RegSuppVM, Account>();
             CreateMap<RegisterVM, Employee>();
             CreateMap<RegisterVM, Account>();
+            CreateMap<LoginVM, Account>();
             #endregion
 
             #region Product
@@ -63,11 +65,6 @@ namespace SCM.Application.AutoMappings
             #region Invoice
             CreateMap<CreateInvoiceVM, Invoice>();
             #endregion  
-
-            #region Supplier
-            CreateMap<CreateSupplierVM, Supplier>();
-            CreateMap<DeleteSupplierVM, Supplier>();
-            #endregion
 
             #region Department
             CreateMap<CreateDepartmentVM, Department>();

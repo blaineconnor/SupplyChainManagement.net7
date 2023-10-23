@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SCM.Domain.Entities;
-using System.Numerics;
 
 namespace SCM.Persistence.Mappings
 {
@@ -9,9 +8,12 @@ namespace SCM.Persistence.Mappings
     {
         public override void ConfigureDerivedEntityMapping(EntityTypeBuilder<Account> builder)
         {
-            builder.Property(x => x.UserId)
-               
+            builder.Property(x => x.UserId)               
                 .HasColumnName("USER_ID")
+                .HasColumnOrder(2);
+
+            builder.Property(x => x.SupplierId)
+                .HasColumnName("SUPPLIER_ID")
                 .HasColumnOrder(2);
 
             builder.Property(x => x.UserName)
@@ -44,7 +46,11 @@ namespace SCM.Persistence.Mappings
 
             builder.HasOne(x => x.Employee)
                 .WithOne(x => x.Account)
-                .HasForeignKey<Account>(x => x.UserId);           
+                .HasForeignKey<Employee>(x => x.Id);
+
+            builder.HasOne(x => x.Supplier)
+                .WithOne(x => x.Account)
+                .HasForeignKey<Supplier>(x => x.Id);
 
             builder.ToTable("ACCOUNTS");
         }

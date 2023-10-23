@@ -14,9 +14,10 @@ namespace SCM.Domain.Entities
         public string Address { get; set; }
         public string Email { get; set; }
 
+
+
         //NavigationProperty
         public virtual IEnumerable<Department> Departments { get; set; }
         public virtual IEnumerable<Employee> Employees { get; set; }
-        public virtual Message Messages { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace SCM.Persistence.Mappings
         public override void ConfigureDerivedEntityMapping(EntityTypeBuilder<Company> builder)
         {
             builder.ToTable("COMPANY");
-
+            builder.Property(x=>x.Id).IsRequired().HasColumnName("ID");
             builder.HasMany(e=>e.Departments)
                 .WithOne(e=>e.Company)
                 .HasForeignKey(e=>e.CompanyId)
@@ -17,7 +17,7 @@ namespace SCM.Persistence.Mappings
 
             builder.Property(e => e.Name)
                 .HasMaxLength(100)
-                .HasColumnName("COMPANY_NAME");
+                .HasColumnName("COMPANY_NAME");            
 
             builder.Property(e => e.Phone)
                 .HasColumnName("PHONE")

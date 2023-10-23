@@ -18,10 +18,8 @@ namespace SCM.Domain.Entities
         public virtual Account Account { get; set; }
         public virtual ICollection<Request> Requests { get; set; }
         public virtual ICollection<Approves> Approves { get; set; }
-        public IEnumerable<Message> messages { get; set; }
 
         public virtual Department Department { get; set; }
         public virtual Company Company { get; set; }
-        public virtual Message Message { get; set; }
     }
 }

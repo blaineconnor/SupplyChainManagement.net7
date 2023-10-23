@@ -69,14 +69,7 @@ namespace SCM.Application.Services.Implementations
 
                 var invoiceEntity = mapper.Map<Invoice>(createInvoiceVM);
 
-                unitWork.GetRepository<Invoice>().Add(invoiceEntity);
-
-                var ok = await unitWork.SendMessage($"{invoiceEntity.RequestId} numaralı talebiniz için faturalandırma işlemi yapıldı.");
-                if (ok == true)
-                {
-                    MailUtil.SendMail(requestExists.Employee.Email, "Ürün Talebiniz", "Talebiniz tamamlanmıştır.");
-
-                }
+                unitWork.GetRepository<Invoice>().Add(invoiceEntity);               
 
                 await unitWork.CommitAsync();
             }

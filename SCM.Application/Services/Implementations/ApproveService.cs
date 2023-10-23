@@ -54,13 +54,7 @@ namespace SCM.Application.Services.Implementations
 
             _uWork.GetRepository<Approves>().Add(approveEntity);
             await _uWork.CommitAsync();
-
-            var ok = await _uWork.SendMessage($"{approveEntity.Id}  numaralı talebiniz birim amiriniz tarafından onaylandı.");
-            if (ok == true)
-            {
-                MailUtil.SendMail(request.Employee.Email, "Talep işlemleri.", "Talebiniz aşaması güncellendi.");
-
-            }
+           
             return new Result<bool> { Success = true, Data = true };
         }
 
@@ -100,14 +94,7 @@ namespace SCM.Application.Services.Implementations
             var approveEntity = _mapper.Map<Approves>(approveVM);
 
             _uWork.GetRepository<Approves>().Add(approveEntity);
-            await _uWork.CommitAsync();
-
-            var ok = await _uWork.SendMessage($"{approveEntity.Id}  numaralı talebiniz satın alma birimi tarafından onaylandı.");
-            if (ok == true)
-            {
-                MailUtil.SendMail(request.Employee.Email, "Talep işlemleri.", "Talebiniz aşaması güncellendi.");
-
-            }
+            await _uWork.CommitAsync();            
 
             return new Result<bool>
             {
@@ -151,14 +138,7 @@ namespace SCM.Application.Services.Implementations
             var approveEntity = _mapper.Map<Approves>(approveVM);
 
             _uWork.GetRepository<Approves>().Add(approveEntity);
-            await _uWork.CommitAsync();
-
-            var ok = await _uWork.SendMessage($"{approveEntity.Id}  numaralı talebiniz yönetim tarafından onaylandı.");
-            if (ok == true)
-            {
-                MailUtil.SendMail(request.Employee.Email, "Talep işlemleri.", "Talebiniz aşaması güncellendi.");
-
-            }
+            await _uWork.CommitAsync();           
 
             return new Result<bool>
             {
@@ -205,13 +185,6 @@ namespace SCM.Application.Services.Implementations
             _uWork.GetRepository<Approves>().Add(approveEntity);
             await _uWork.CommitAsync();
 
-            var ok = await _uWork.SendMessage($"{approveEntity.Id}  numaralı talebiniz yönetim kurulu başkanı tarafından onaylandı.");
-            if (ok == true)
-            {
-                MailUtil.SendMail(request.Employee.Email, "Talep işlemleri.", "Talebiniz aşaması güncellendi.");
-
-            }
-
             return new Result<bool>
             {
                 Success = true,
@@ -250,13 +223,6 @@ namespace SCM.Application.Services.Implementations
 
             _uWork.GetRepository<Approves>().Add(approveEntity);
             await _uWork.CommitAsync();
-
-            var ok = await _uWork.SendMessage($"{approveEntity.Id}  numaralı talebiniz reddedildi.");
-            if (ok == true)
-            {
-                MailUtil.SendMail(request.Employee.Email, "Talep işlemleri.", "Talebiniz aşaması güncellendi.");
-
-            }
 
             return new Result<bool> { Success = true, Data = true };
         }

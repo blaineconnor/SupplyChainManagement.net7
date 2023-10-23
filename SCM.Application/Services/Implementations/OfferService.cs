@@ -37,6 +37,23 @@ namespace SCM.Application.Services.Implementations
             };
         }
 
+        public async Task<Result<OfferDTO>> GetOfferBySupplierId(Int64 supplierId)
+        {
+            var offer = await _unitOfWork.GetRepository<Supplier>().GetById(supplierId);
+            if (offer == null)
+            {
+                return new Result<OfferDTO>
+                {
+                    Success = false,
+                    Message = $"Teklif bulunamadı (ID: {supplierId})."
+                };
+            }
+            return new Result<OfferDTO>
+            {
+                Data = _mapper.Map<OfferDTO>(offer)
+            };
+        }
+
         public async Task<Result<List<OfferDTO>>> GetOffersByRequest(GetAllOfferByRequestVM getAllOfferByRequestVM)
         {
             var result = new Result<List<OfferDTO>>();

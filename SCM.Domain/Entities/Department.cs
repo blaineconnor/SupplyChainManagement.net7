@@ -17,7 +17,6 @@ namespace SCM.Domain.Entities
 
         //NavigationProperty
         public virtual Company Company { get; set; }
-        public virtual Message Messages { get; set; }
 
         public virtual IEnumerable<Employee> Employees { get; set; }
     }

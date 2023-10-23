@@ -28,6 +28,15 @@ namespace SCM.API.Controllers
 
         }
 
+        [HttpGet("getByOfferBySupplierId")]
+        [Authorize(Policy = "PurchasingPolicy")]
+        public async Task<ActionResult<Result<OfferDTO>>> GetOfferBySupplierId(int supplierId)
+        {
+            var result = await _offerService.GetOfferBySupplierId(supplierId);
+
+            return Ok(result);
+        }
+
         [HttpGet("GetOffersByRequestID")]
         [Authorize(Policy = "PurchasingPolicy")]
         public async Task<ActionResult<Result<List<OfferDTO>>>> GetOffersByRequestId(GetAllOfferByRequestVM getAllOfferByRequestVM)

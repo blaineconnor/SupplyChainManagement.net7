@@ -12,6 +12,26 @@ namespace SCM.Persistence.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "ACCOUNTS",
+                columns: table => new
+                {
+                    USER_ID = table.Column<long>(type: "bigint", nullable: false),
+                    SUPPLIER_ID = table.Column<long>(type: "bigint", nullable: false),
+                    USER_NAME = table.Column<string>(type: "nvarchar(10)", nullable: false),
+                    PASSWORD = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    LAST_USER_LOGIN = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LAST_LOGIN_IP = table.Column<string>(type: "nvarchar(50)", nullable: true),
+                    IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0"),
+                    ID = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Authorization = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ACCOUNTS", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CATEGORIES",
                 columns: table => new
                 {
@@ -29,11 +49,30 @@ namespace SCM.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "COMPANY",
+                columns: table => new
+                {
+                    IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0"),
+                    ID = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    COMPANY_NAME = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    PHONE = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    ADDRESS = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: false),
+                    EMAIL = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    By = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AddedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_COMPANY", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Suppliers",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<long>(type: "bigint", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -46,6 +85,12 @@ namespace SCM.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Suppliers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Suppliers_ACCOUNTS_Id",
+                        column: x => x.Id,
+                        principalTable: "ACCOUNTS",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -76,71 +121,12 @@ namespace SCM.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ACCOUNTS",
-                columns: table => new
-                {
-                    USER_ID = table.Column<long>(type: "bigint", nullable: false),
-                    USER_NAME = table.Column<string>(type: "nvarchar(10)", nullable: false),
-                    PASSWORD = table.Column<string>(type: "nvarchar(100)", nullable: false),
-                    LAST_USER_LOGIN = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LAST_LOGIN_IP = table.Column<string>(type: "nvarchar(50)", nullable: true),
-                    IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0"),
-                    ID = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Authorization = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ACCOUNTS", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "APPROVES",
-                columns: table => new
-                {
-                    STATUS = table.Column<int>(type: "int", nullable: false),
-                    ID = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ADDED_TIME = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UPDATED_TIME = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BY = table.Column<string>(type: "NVARCHAR(10)", nullable: true),
-                    IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0"),
-                    REQUEST_ID = table.Column<long>(type: "bigint", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    APPROVED_ID = table.Column<long>(type: "bigint", nullable: false),
-                    EmployeeId = table.Column<long>(type: "bigint", nullable: true),
-                    OfferId = table.Column<long>(type: "bigint", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_APPROVES", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "COMPANY",
-                columns: table => new
-                {
-                    IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0"),
-                    ID = table.Column<long>(type: "bigint", nullable: false),
-                    COMPANY_NAME = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    PHONE = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    ADDRESS = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: false),
-                    EMAIL = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    By = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AddedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_COMPANY", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DEPARTMENT",
                 columns: table => new
                 {
                     IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0"),
-                    ID = table.Column<long>(type: "bigint", nullable: false),
+                    ID = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     DEPARTMENT_NAME = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -163,8 +149,7 @@ namespace SCM.Persistence.Migrations
                 name: "EMPLOYEES",
                 columns: table => new
                 {
-                    ID = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ID = table.Column<long>(type: "bigint", nullable: false),
                     IDENTITY_NUMBER = table.Column<string>(type: "nchar(11)", nullable: false),
                     NAME = table.Column<string>(type: "nvarchar(30)", nullable: false),
                     SURNAME = table.Column<string>(type: "nvarchar(30)", nullable: false),
@@ -176,12 +161,17 @@ namespace SCM.Persistence.Migrations
                     BY = table.Column<string>(type: "NVARCHAR(10)", nullable: true),
                     IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0"),
                     CompanyId = table.Column<long>(type: "bigint", nullable: false),
-                    DepartmentId = table.Column<long>(type: "bigint", nullable: false),
-                    MessageId = table.Column<long>(type: "bigint", nullable: false)
+                    DepartmentId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EMPLOYEES", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_EMPLOYEES_ACCOUNTS_ID",
+                        column: x => x.ID,
+                        principalTable: "ACCOUNTS",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_EMPLOYEES_COMPANY_CompanyId",
                         column: x => x.CompanyId,
@@ -195,24 +185,28 @@ namespace SCM.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Messages",
+                name: "APPROVES",
                 columns: table => new
                 {
-                    MESSAGE_ID = table.Column<long>(type: "bigint", nullable: false)
+                    STATUS = table.Column<int>(type: "int", nullable: false),
+                    ID = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ADDED_TIME = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UPDATED_TIME = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BY = table.Column<string>(type: "NVARCHAR(10)", nullable: true),
                     IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0"),
-                    UserId = table.Column<long>(type: "bigint", nullable: false),
-                    DESCRIPTION = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    REQUEST_ID = table.Column<long>(type: "bigint", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    APPROVED_ID = table.Column<long>(type: "bigint", nullable: false),
+                    EmployeeId = table.Column<long>(type: "bigint", nullable: true),
+                    OfferId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Messages", x => x.MESSAGE_ID);
+                    table.PrimaryKey("PK_APPROVES", x => x.ID);
                     table.ForeignKey(
-                        name: "USER_ID",
-                        column: x => x.UserId,
+                        name: "FK_APPROVES_EMPLOYEES_EmployeeId",
+                        column: x => x.EmployeeId,
                         principalTable: "EMPLOYEES",
                         principalColumn: "ID");
                 });
@@ -291,28 +285,20 @@ namespace SCM.Persistence.Migrations
                     UPDATED_TIME = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BY = table.Column<string>(type: "NVARCHAR(50)", maxLength: 50, nullable: true),
                     IS_DELETED = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "0"),
-                    ApproverId = table.Column<long>(type: "bigint", nullable: false),
-                    ApproverName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OfferId = table.Column<long>(type: "bigint", nullable: false),
+                    ApproverId = table.Column<long>(type: "bigint", nullable: true),
+                    OfferId = table.Column<long>(type: "bigint", nullable: true),
                     ProductId = table.Column<long>(type: "bigint", nullable: false),
-                    UserId = table.Column<long>(type: "bigint", nullable: false),
-                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<long>(type: "bigint", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     REQUEST_STATUS = table.Column<int>(type: "int", nullable: false),
                     AMOUNT = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     HowMany = table.Column<short>(type: "smallint", nullable: false),
                     IS_APPROVED = table.Column<bool>(type: "bit", nullable: false),
-                    RejectionReason = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AccountId = table.Column<long>(type: "bigint", nullable: true)
+                    RejectionReason = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_REQUESTS", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_REQUESTS_ACCOUNTS_AccountId",
-                        column: x => x.AccountId,
-                        principalTable: "ACCOUNTS",
-                        principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_REQUESTS_APPROVES_ApproverId",
                         column: x => x.ApproverId,
@@ -322,8 +308,7 @@ namespace SCM.Persistence.Migrations
                         name: "FK_REQUESTS_EMPLOYEES_UserId",
                         column: x => x.UserId,
                         principalTable: "EMPLOYEES",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_REQUESTS_OFFERS_OfferId",
                         column: x => x.OfferId,
@@ -335,12 +320,6 @@ namespace SCM.Persistence.Migrations
                         principalTable: "PRODUCTS",
                         principalColumn: "ID");
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ACCOUNTS_USER_ID",
-                table: "ACCOUNTS",
-                column: "USER_ID",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_APPROVES_EmployeeId",
@@ -373,11 +352,6 @@ namespace SCM.Persistence.Migrations
                 column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EMPLOYEES_MessageId",
-                table: "EMPLOYEES",
-                column: "MessageId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_INVOICES_CompanyId",
                 table: "INVOICES",
                 column: "CompanyId");
@@ -393,11 +367,6 @@ namespace SCM.Persistence.Migrations
                 column: "RequestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Messages_UserId",
-                table: "Messages",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_OFFERS_REQUEST_ID",
                 table: "OFFERS",
                 column: "REQUEST_ID");
@@ -411,11 +380,6 @@ namespace SCM.Persistence.Migrations
                 name: "IX_PRODUCTS_CATEGORY_ID",
                 table: "PRODUCTS",
                 column: "CATEGORY_ID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_REQUESTS_AccountId",
-                table: "REQUESTS",
-                column: "AccountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_REQUESTS_ApproverId",
@@ -438,21 +402,6 @@ namespace SCM.Persistence.Migrations
                 column: "UserId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_ACCOUNTS_EMPLOYEES_USER_ID",
-                table: "ACCOUNTS",
-                column: "USER_ID",
-                principalTable: "EMPLOYEES",
-                principalColumn: "ID",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_APPROVES_EMPLOYEES_EmployeeId",
-                table: "APPROVES",
-                column: "EmployeeId",
-                principalTable: "EMPLOYEES",
-                principalColumn: "ID");
-
-            migrationBuilder.AddForeignKey(
                 name: "FK_APPROVES_OFFERS_OfferId",
                 table: "APPROVES",
                 column: "OfferId",
@@ -465,28 +414,6 @@ namespace SCM.Persistence.Migrations
                 column: "REQUEST_ID",
                 principalTable: "REQUESTS",
                 principalColumn: "ID",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "COMPANY_ID",
-                table: "COMPANY",
-                column: "ID",
-                principalTable: "Messages",
-                principalColumn: "MESSAGE_ID");
-
-            migrationBuilder.AddForeignKey(
-                name: "DEPARTMENT_ID",
-                table: "DEPARTMENT",
-                column: "ID",
-                principalTable: "Messages",
-                principalColumn: "MESSAGE_ID");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_EMPLOYEES_Messages_MessageId",
-                table: "EMPLOYEES",
-                column: "MessageId",
-                principalTable: "Messages",
-                principalColumn: "MESSAGE_ID",
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
@@ -508,16 +435,8 @@ namespace SCM.Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_ACCOUNTS_EMPLOYEES_USER_ID",
-                table: "ACCOUNTS");
-
-            migrationBuilder.DropForeignKey(
                 name: "FK_APPROVES_EMPLOYEES_EmployeeId",
                 table: "APPROVES");
-
-            migrationBuilder.DropForeignKey(
-                name: "USER_ID",
-                table: "Messages");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_REQUESTS_EMPLOYEES_UserId",
@@ -548,19 +467,16 @@ namespace SCM.Persistence.Migrations
                 name: "COMPANY");
 
             migrationBuilder.DropTable(
-                name: "Messages");
-
-            migrationBuilder.DropTable(
                 name: "OFFERS");
 
             migrationBuilder.DropTable(
                 name: "Suppliers");
 
             migrationBuilder.DropTable(
-                name: "REQUESTS");
+                name: "ACCOUNTS");
 
             migrationBuilder.DropTable(
-                name: "ACCOUNTS");
+                name: "REQUESTS");
 
             migrationBuilder.DropTable(
                 name: "APPROVES");

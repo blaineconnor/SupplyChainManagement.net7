@@ -36,14 +36,7 @@ namespace SCM.Application.Services.Implementations
             requestEntity.Status = RequestStatus.Pending;
 
             _uWork.GetRepository<Request>().Add(requestEntity);
-            await _uWork.CommitAsync();
-
-            var ok = await _uWork.SendMessage($"{requestEntity.Id} numaralı talebiniz oluşturulmuştur.");
-            if (ok == true)
-            {
-                MailUtil.SendMail(requestEntity.Employee.Email, "Talebiniz.", "Talep oluşturuldu.");
-
-            }
+            await _uWork.CommitAsync();            
 
             result.Data = requestEntity.Id;
             return result;
@@ -79,13 +72,6 @@ namespace SCM.Application.Services.Implementations
             _uWork.GetRepository<Request>().Delete(requestEntity);
             await _uWork.CommitAsync();
 
-            var ok = await _uWork.SendMessage($"{requestEntity.Id}  numaralı talebiniz silinmiştir.");
-            if (ok == true)
-            {
-                MailUtil.SendMail(requestEntity.Employee.Email, "Talep işlemleri.", "Talebiniz silindi.");
-
-            }
-
             result.Data = requestEntity.Id;
             return result;
         }
@@ -112,14 +98,7 @@ namespace SCM.Application.Services.Implementations
             requestEntity.Status = RequestStatus.Pending;
 
             _uWork.GetRepository<Request>().Update(requestEntity);
-            await _uWork.CommitAsync();
-
-            var ok = await _uWork.SendMessage($"{requestEntity.Id}  numaralı talebiniz güncellenmiştir.");
-            if (ok == true)
-            {
-                MailUtil.SendMail(requestEntity.Employee.Email, "Talep işlemleri.", "Talep güncellendi.");
-
-            }
+            await _uWork.CommitAsync();         
 
             result.Data = requestEntity.Id;
             return result;

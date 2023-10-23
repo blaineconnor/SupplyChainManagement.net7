@@ -19,41 +19,7 @@ namespace SCM.Persistence.UnitofWork
             _repositories = new Dictionary<Type, object>();
             _context = context;
             _loggedUserService = loggedUserService;
-        }
-
-        public async Task<bool> SendMessage(string message)
-        {
-            var messageEntity = new Message
-            {
-                AddedTime = DateTime.Now,
-                UserId = (long)_loggedUserService.UserId,
-                Description = message,
-
-            };
-
-            GetRepository<Message>().Add(messageEntity);
-
-            var result = false;
-            using (var transaction = _context.Database.BeginTransaction())
-            {
-
-
-                try
-                {
-                    await _context.SaveChangesAsync();
-                    await transaction.CommitAsync();
-                    result = true;
-                }
-                catch
-                {
-                    await transaction.RollbackAsync();
-
-                    throw;
-                }
-
-            }
-            return result;
-        }
+        }      
 
         public async Task<bool> CommitAsync()
         {

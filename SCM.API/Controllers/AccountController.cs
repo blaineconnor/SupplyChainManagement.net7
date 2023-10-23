@@ -21,7 +21,6 @@ namespace SCM.API.Controllers
             _accountService = accountService;
         }
 
-
         [HttpPost("register")]
         [AllowAnonymous]
         public async Task<ActionResult<Result<int>>> Register(RegisterVM registerVM)
@@ -35,6 +34,22 @@ namespace SCM.API.Controllers
         public async Task<ActionResult<Result<TokenDTO>>> Login(LoginVM loginVM)
         {
             var result = await _accountService.Login(loginVM);
+            return Ok(result);
+        }
+
+        [HttpPost("suppregister")]
+        [AllowAnonymous]
+        public async Task<ActionResult<Result<int>>> RegisterSupplier(RegSuppVM regSuppVM)
+        {
+            var result = await _accountService.RegisterSupplier(regSuppVM);
+            return Ok(result);
+        }
+
+        [HttpPost("supplogin")]
+        [AllowAnonymous]
+        public async Task<ActionResult<Result<TokenDTO>>> SupplierLogin(LoginVM loginVM)
+        {
+            var result = await _accountService.SupplierLogin(loginVM);
             return Ok(result);
         }
 
@@ -53,7 +68,7 @@ namespace SCM.API.Controllers
             }
         }        
 
-        [HttpPut("update-user-auths")]
+        [HttpPut("updateAuths")]
         [AllowAnonymous]
         public async Task<ActionResult<Result<int>>> UpdateUserAuths(string userName, UpdateAuthVM updateAuthVM)
         {
@@ -73,7 +88,6 @@ namespace SCM.API.Controllers
                 return BadRequest(result);
             }
         }
-
     }
 }
 

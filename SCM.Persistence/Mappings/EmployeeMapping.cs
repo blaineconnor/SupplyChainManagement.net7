@@ -45,7 +45,8 @@ namespace SCM.Persistence.Mappings
 
             builder.HasMany(e => e.Requests)
                 .WithOne(e => e.Employee)
-                .HasForeignKey(e => e.UserId);
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.NoAction);            
 
             builder.HasOne(e => e.Company)
                 .WithMany(e => e.Employees)

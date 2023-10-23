@@ -6,7 +6,11 @@ namespace SCM.Application.Models.DTOs.Requests
     public class RequestDTO
     {
         public Int64 Id { get; set; }
-        public Int64 UserId { get; set; }
+        public Int64? ApproverId { get; set; }
+        public Int64 ProductId { get; set; }
+        public Int64? OfferId { get; set; }
+
+        public Int64? UserId { get; set; }
         public string UserName { get; set; }
         public DateTime RequestDate { get; set; }
         public RequestStatus Status { get; set; }
