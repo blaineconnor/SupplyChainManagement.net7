@@ -37,7 +37,7 @@ namespace SCM.API.Controllers
         }
 
         [HttpPost("create")]
-        [Authorize(Policy = "AdminPolicy")]
+        //[Authorize(Policy = "AdminPolicy")]
         public async Task<ActionResult<Result<int>>> CreateDepartment(CreateDepartmentVM createDepartmentVM)
         {
             var departmentId = await _departmentService.CreateDepartment(createDepartmentVM);

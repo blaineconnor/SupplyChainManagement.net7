@@ -17,5 +17,6 @@ namespace SCM.Domain.Entities
         //NavigationProperty
         public virtual IEnumerable<Department> Departments { get; set; }
         public virtual IEnumerable<Employee> Employees { get; set; }
+        public virtual Message Messages { get; set; }
     }
 }

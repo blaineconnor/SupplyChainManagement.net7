@@ -14,31 +14,31 @@ namespace SCM.UI.Configurations
             {
                 opt.AddPolicy("SuperAdminPolicy", policy =>
                 {
-                    policy.AddRequirements(new RoleAccessRequirement(Role.SuperAdmin));
+                    policy.AddRequirements(new RoleAccessRequirement(Authorizations.SuperAdmin));
                 });
                 opt.AddPolicy("AdminPolicy", policy =>
                 {
-                    policy.AddRequirements(new RoleAccessRequirement(Role.Admin, Role.SuperAdmin));
+                    policy.AddRequirements(new RoleAccessRequirement(Authorizations.Admin, Authorizations.SuperAdmin));
                 });
                 opt.AddPolicy("PurchasingPolicy", policy =>
                 {
-                    policy.AddRequirements(new RoleAccessRequirement(Role.Admin, Role.Purchasing, Role.SuperAdmin));
+                    policy.AddRequirements(new RoleAccessRequirement(Authorizations.Admin, Authorizations.Purchasing, Authorizations.SuperAdmin));
                 });
                 opt.AddPolicy("AccountingPolicy", policy =>
                 {
-                    policy.AddRequirements(new RoleAccessRequirement(Role.Admin, Role.Accounting, Role.SuperAdmin));
+                    policy.AddRequirements(new RoleAccessRequirement(Authorizations.Admin, Authorizations.Accounting, Authorizations.SuperAdmin));
                 });
                 opt.AddPolicy("SupplierPolicy", policy =>
                 {
-                    policy.AddRequirements(new RoleAccessRequirement(Role.Admin, Role.Supplier, Role.SuperAdmin, Role.Purchasing));
+                    policy.AddRequirements(new RoleAccessRequirement(Authorizations.Admin, Authorizations.Supplier, Authorizations.SuperAdmin, Authorizations.Purchasing));
                 });
                 opt.AddPolicy("ManagerPolicy", policy =>
                 {
-                    policy.AddRequirements(new RoleAccessRequirement(Role.Admin, Role.Manager, Role.SuperAdmin));
+                    policy.AddRequirements(new RoleAccessRequirement(Authorizations.Admin, Authorizations.Manager, Authorizations.SuperAdmin));
                 });
                 opt.AddPolicy("EmployeePolicy", policy =>
                 {
-                    policy.AddRequirements(new RoleAccessRequirement(Role.Admin, Role.Purchasing, Role.Manager, Role.SuperAdmin, Role.Accounting, Role.Employee));
+                    policy.AddRequirements(new RoleAccessRequirement(Authorizations.Admin, Authorizations.Purchasing, Authorizations.Manager, Authorizations.SuperAdmin, Authorizations.Accounting, Authorizations.Employee));
                 });
 
             });

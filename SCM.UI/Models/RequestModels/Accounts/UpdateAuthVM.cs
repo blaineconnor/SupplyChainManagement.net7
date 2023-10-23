@@ -2,9 +2,9 @@
 
 namespace SCM.UI.Models.RequestModels.Accounts
 {
-    public class UpdateCompanyVM
+    public class UpdateAuthVM
     {
         public string UserName { get; set; }
-        public Company Company { get; set; }
+        public Authorizations Auths { get; set; }
     }
 }

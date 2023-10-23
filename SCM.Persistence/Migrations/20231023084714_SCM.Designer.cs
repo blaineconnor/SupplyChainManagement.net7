@@ -12,7 +12,7 @@ using SCM.Persistence.Context;
 namespace SCM.Persistence.Migrations
 {
     [DbContext(typeof(SCM_Context))]
-    [Migration("20231023062201_SCM")]
+    [Migration("20231023084714_SCM")]
     partial class SCM
     {
         /// <inheritdoc />
@@ -190,11 +190,8 @@ namespace SCM.Persistence.Migrations
             modelBuilder.Entity("SCM.Domain.Entities.Company", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasColumnName("ID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("AddedTime")
                         .HasColumnType("datetime2");
@@ -245,11 +242,8 @@ namespace SCM.Persistence.Migrations
             modelBuilder.Entity("SCM.Domain.Entities.Department", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasColumnName("ID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("AddedTime")
                         .HasColumnType("datetime2");
@@ -342,6 +336,9 @@ namespace SCM.Persistence.Migrations
                         .HasColumnOrder(30)
                         .HasDefaultValueSql("0");
 
+                    b.Property<long>("MessageId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(30)")
@@ -370,6 +367,8 @@ namespace SCM.Persistence.Migrations
                     b.HasIndex("CompanyId");
 
                     b.HasIndex("DepartmentId");
+
+                    b.HasIndex("MessageId");
 
                     b.ToTable("EMPLOYEES", (string)null);
                 });
@@ -448,6 +447,53 @@ namespace SCM.Persistence.Migrations
                     b.HasIndex("RequestId");
 
                     b.ToTable("INVOICES", (string)null);
+                });
+
+            modelBuilder.Entity("SCM.Domain.Entities.Message", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("MESSAGE_ID")
+                        .HasColumnOrder(1);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("AddedTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("ADDED_TIME")
+                        .HasColumnOrder(26);
+
+                    b.Property<string>("By")
+                        .HasColumnType("NVARCHAR(10)")
+                        .HasColumnName("BY")
+                        .HasColumnOrder(27);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("DESCRIPTION");
+
+                    b.Property<bool?>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasColumnName("IS_DELETED")
+                        .HasColumnOrder(30)
+                        .HasDefaultValueSql("0");
+
+                    b.Property<DateTime>("UpdatedTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("UPDATED_TIME")
+                        .HasColumnOrder(26);
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("SCM.Domain.Entities.Offer", b =>
@@ -745,6 +791,18 @@ namespace SCM.Persistence.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("SCM.Domain.Entities.Company", b =>
+                {
+                    b.HasOne("SCM.Domain.Entities.Message", "Messages")
+                        .WithMany("Companies")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("COMPANY_ID");
+
+                    b.Navigation("Messages");
+                });
+
             modelBuilder.Entity("SCM.Domain.Entities.Department", b =>
                 {
                     b.HasOne("SCM.Domain.Entities.Company", "Company")
@@ -753,7 +811,16 @@ namespace SCM.Persistence.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("SCM.Domain.Entities.Message", "Messages")
+                        .WithMany("Departments")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("DEPARTMENT_ID");
+
                     b.Navigation("Company");
+
+                    b.Navigation("Messages");
                 });
 
             modelBuilder.Entity("SCM.Domain.Entities.Employee", b =>
@@ -770,9 +837,17 @@ namespace SCM.Persistence.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("SCM.Domain.Entities.Message", "Message")
+                        .WithMany()
+                        .HasForeignKey("MessageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Company");
 
                     b.Navigation("Department");
+
+                    b.Navigation("Message");
                 });
 
             modelBuilder.Entity("SCM.Domain.Entities.Invoice", b =>
@@ -801,6 +876,18 @@ namespace SCM.Persistence.Migrations
                     b.Navigation("Employee");
 
                     b.Navigation("Request");
+                });
+
+            modelBuilder.Entity("SCM.Domain.Entities.Message", b =>
+                {
+                    b.HasOne("SCM.Domain.Entities.Employee", "Employee")
+                        .WithMany("messages")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("USER_ID");
+
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("SCM.Domain.Entities.Offer", b =>
@@ -908,6 +995,15 @@ namespace SCM.Persistence.Migrations
                     b.Navigation("Approves");
 
                     b.Navigation("Requests");
+
+                    b.Navigation("messages");
+                });
+
+            modelBuilder.Entity("SCM.Domain.Entities.Message", b =>
+                {
+                    b.Navigation("Companies");
+
+                    b.Navigation("Departments");
                 });
 
             modelBuilder.Entity("SCM.Domain.Entities.Offer", b =>

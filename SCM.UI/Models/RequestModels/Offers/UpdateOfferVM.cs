@@ -2,7 +2,7 @@
 {
     public class UpdateOfferVM
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public decimal Amount { get; set; }
     }
 }

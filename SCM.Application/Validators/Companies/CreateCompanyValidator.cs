@@ -7,7 +7,7 @@ namespace SCM.Application.Validators.Companies
     {
         public CreateCompanyValidator()
         {
-            RuleFor(x => x.CompanyName)
+            RuleFor(x => x.Name)
                 .NotEmpty()
                 .WithMessage("Şirket adı boş olamaz.")
                 .MaximumLength(100)

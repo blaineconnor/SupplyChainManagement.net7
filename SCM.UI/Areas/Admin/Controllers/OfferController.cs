@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SCM.UI.Models;
-using SCM.UI.Models.DTOs.Offer;
+using SCM.UI.Models.DTOs.Offers;
 using SCM.UI.Models.DTOs.Requests;
 using SCM.UI.Models.RequestModels.Offers;
 using SCM.UI.Models.Wrapper;

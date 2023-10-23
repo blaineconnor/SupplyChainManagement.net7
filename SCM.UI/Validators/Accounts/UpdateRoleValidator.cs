@@ -3,13 +3,13 @@ using SCM.UI.Models.RequestModels.Accounts;
 
 namespace SCM.UI.Validators.Accounts
 {
-    public class UpdateRoleValidator : AbstractValidator<UpdateRoleVM>
+    public class UpdateRoleValidator : AbstractValidator<UpdateAuthVM>
     {
         public UpdateRoleValidator()
         {
-            RuleFor(x => x.Roles)
+            RuleFor(x => x.Auths)
                 .NotEmpty()
-                .WithMessage("Rol bilgisini seçmeden giriş yapamazsınız.");
+                .WithMessage("Yetki bilgisini seçmeden giriş yapamazsınız.");
         }
     }
 }

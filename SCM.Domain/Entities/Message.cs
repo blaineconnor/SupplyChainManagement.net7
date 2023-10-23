@@ -7,8 +7,8 @@ namespace SCM.Domain.Entities
     {
         public Int64 UserId { get; set; }
         public string Description { get; set; }
-        public Company Company { get; set; }
-        public Department Department { get; set; }
-        public Employee User { get; set; }
+        public IEnumerable<Company> Companies { get; set; }
+        public IEnumerable<Department> Departments { get; set; }
+        public Employee Employee { get; set; }
     }
 }

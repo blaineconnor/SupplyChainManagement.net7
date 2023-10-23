@@ -11,5 +11,8 @@
         public string Email { get; set; }
         public string Phone { get; set; }
         public DateTime BirthDate { get; set; }
+        public long CompanyId { get; set; }
+        public long DepartmentId { get; set; }
+
     }
 }

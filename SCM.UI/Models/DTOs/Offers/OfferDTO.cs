@@ -1,14 +1,14 @@
 ﻿using static SCM.UI.Models.Enumarations;
 
-namespace SCM.UI.Models.DTOs.Offer
+namespace SCM.UI.Models.DTOs.Offers
 {
     public class OfferDTO
     {
-        public int Id { get; set; }
-        public int RequestId { get; set; }
+        public long Id { get; set; }
+        public long RequestId { get; set; }
         public decimal Amount { get; set; }
         public string SupplierName { get; set; }
-        public int SupplierId { get; set; }
+        public long SupplierId { get; set; }
         public DateTime OfferDate { get; set; }
         public OfferStatus Status { get; set; }
     }

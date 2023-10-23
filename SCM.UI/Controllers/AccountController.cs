@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SCM.UI.Models.DTOs.Accounts;
@@ -49,30 +48,30 @@ namespace SCM.UI.Controllers
                 var sessionKey = _configuration["Application:SessionKey"];
                 _contextAccessor.HttpContext.Session.SetString(sessionKey, JsonConvert.SerializeObject(response.Data.Data));
 
-                var role = response.Data.Data.Roles;
+                var role = response.Data.Data.Auth;
 
 
                 switch (role)
                 {
-                    case Models.Enumarations.Role.SuperAdmin:
+                    case Models.Enumarations.Authorizations.SuperAdmin:
                         return RedirectToAction("Index", "Home", new { Area = "SuperAdmin" });
 
-                    case Models.Enumarations.Role.Admin:
+                    case Models.Enumarations.Authorizations.Admin:
                         return RedirectToAction("Index", "Home", new { Area = "Admin" });
 
-                    case Models.Enumarations.Role.Purchasing:
+                    case Models.Enumarations.Authorizations.Purchasing:
                         return RedirectToAction("Index", "Home", new { Area = "Purchasing" });
 
-                    case Models.Enumarations.Role.Accounting:
+                    case Models.Enumarations.Authorizations.Accounting:
                         return RedirectToAction("Index", "Home", new { Area = "Accounting" });
 
-                    case Models.Enumarations.Role.Supplier:
+                    case Models.Enumarations.Authorizations.Supplier:
                         return RedirectToAction("Index", "Home  ", new { Area = "Supplier" });
 
-                    case Models.Enumarations.Role.Employee:
+                    case Models.Enumarations.Authorizations.Employee:
                         return RedirectToAction("Index", "Home", new { Area = "Employee" });
 
-                    case Models.Enumarations.Role.Manager:
+                    case Models.Enumarations.Authorizations.Manager:
                         return RedirectToAction("Index", "Home", new { Area = "Manager" });
 
                     default:

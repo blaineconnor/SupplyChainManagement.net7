@@ -2,6 +2,6 @@
 {
     public class RejectVM
     {
-        public int RequestId { get; set; }
+        public long RequestId { get; set; }
     }
 }

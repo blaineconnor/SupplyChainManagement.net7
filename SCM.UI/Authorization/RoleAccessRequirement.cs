@@ -5,11 +5,11 @@ namespace SCM.UI.Authorization
 {
     public class RoleAccessRequirement : IAuthorizationRequirement
     {
-        public Role[] Roles { get; set; }
+        public Authorizations[] Auths { get; set; }
 
-        public RoleAccessRequirement(params Role[] roles)
+        public RoleAccessRequirement(params Authorizations[] auths)
         {
-            Roles = roles;
+            Auths = auths;
         }
     }
 }

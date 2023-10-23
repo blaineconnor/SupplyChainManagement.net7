@@ -14,7 +14,7 @@ namespace SCM.Domain.Entities
         public string UserName { get; set; }
         public string Password { get; set; }
         public DateTime? LastUserLogin { get; set; }
-        public string LastUserIP { get; set; }   
+        public string? LastUserIP { get; set; }   
 
         //NavigationProperties
         public Authorization Authorization { get; set; }

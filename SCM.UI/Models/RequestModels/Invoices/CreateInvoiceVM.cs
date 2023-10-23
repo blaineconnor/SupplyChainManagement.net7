@@ -1,4 +1,4 @@
-﻿using static SCM.UI.Models.Enumarations;
+﻿using SCM.UI.Models.DTOs.Companies;
 
 namespace SCM.UI.Models.RequestModels.Invoices
 {
@@ -6,6 +6,6 @@ namespace SCM.UI.Models.RequestModels.Invoices
     {
         public int RequestId { get; set; }
         public DateTime InvoiceDate { get; set; }
-        public Company Company { get; set; }
+        public CompanyDTO Company { get; set; }
     }
 }

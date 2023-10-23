@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SCM.UI.Models.RequestModels.Accounts
+﻿namespace SCM.UI.Models.RequestModels.Accounts
 {
     public class LoginVM
     {

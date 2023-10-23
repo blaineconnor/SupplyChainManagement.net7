@@ -11,5 +11,8 @@
         public string Email { get; set; }
         public string Phone { get; set; }
         public DateTime BirthDate { get; set; }
+        public Int64 CompanyId { get; set; }
+        public Int64 DepartmentId { get; set; }
+
     }
 }

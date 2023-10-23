@@ -33,7 +33,7 @@ namespace SCM.API.Controllers
         }
 
         [HttpPost("create")]
-        [Authorize(Policy = "AdminPolicy")]
+        //[Authorize(Policy = "AdminPolicy")]
         public async Task<ActionResult<Result<int>>> CreateCompany(CreateCompanyVM createCompanyVM)
         {
             var companyId = await _companyService.CreateCompany(createCompanyVM);

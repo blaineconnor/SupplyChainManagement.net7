@@ -7,7 +7,7 @@ namespace SCM.Application.Validators.Departments
     {
         public CreateDepartmentValidator()
         {
-            RuleFor(x => x.DepartmentName)
+            RuleFor(x => x.Name)
                 .NotEmpty()
                 .WithMessage("Departman adı boş olamaz.")
                 .MaximumLength(100)

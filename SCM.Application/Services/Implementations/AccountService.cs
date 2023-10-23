@@ -40,7 +40,7 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<TokenDTO>();
             var hashedPassword = CipherUtil.EncryptString(_configuration["AppSettings:SecretKey"], loginVM.Password);
-            var existsAccount = await _uWork.GetRepository<Account>().GetSingleByFilterAsync(x => x.UserName == loginVM.UserName && x.Password == hashedPassword, "User");
+            var existsAccount = await _uWork.GetRepository<Account>().GetSingleByFilterAsync(x => x.UserName == loginVM.UserName && x.Password == hashedPassword, "Employee");
 
             if (existsAccount is null)
             {
@@ -96,12 +96,12 @@ namespace SCM.Application.Services.Implementations
             _uWork.GetRepository<Employee>().Add(userEntity);
             _uWork.GetRepository<Account>().Add(accountEntity);
 
-            var ok = await _uWork.SendMessage($"{accountEntity.UserName} adlı hesabınız oluşturulmuştur.");
-            if (ok == true)
-            {
-                MailUtil.SendMail(accountEntity.Employee.Email, "Hesap aktivasyonu.", "Hesap oluşturuldu.");
+            //var ok = await _uWork.SendMessage($"{accountEntity.UserName} adlı hesabınız oluşturulmuştur.");
+            //if (ok == true)
+            //{
+            //    MailUtil.SendMail(accountEntity.Employee.Email, "Hesap aktivasyonu.", "Hesap oluşturuldu.");
 
-            }
+            //}
 
             result.Data = await _uWork.CommitAsync();
 

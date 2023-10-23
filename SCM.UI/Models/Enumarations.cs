@@ -2,7 +2,7 @@
 {
     public class Enumarations
     {
-        public enum Role
+        public enum Authorizations
         {
             User = 1,
             Supplier = 2,
@@ -24,19 +24,19 @@
             Rejected = 7,             // Herhangi bir aşamada reddedildi
             OfferReceived = 8
         }
-        public enum Company
-        {
-            Technology = 1,
-            Energy = 2,
-            Finance = 3,
-            Jewellery = 4,
-            Investment = 5,
-            Automotive = 6,
-            Health = 7,
-            RealEstate = 8,
-            Refinery = 9,
-            Undetermined = 10,
-        }
+        //public enum Company
+        //{
+        //    Technology = 1,
+        //    Energy = 2,
+        //    Finance = 3,
+        //    Jewellery = 4,
+        //    Investment = 5,
+        //    Automotive = 6,
+        //    Health = 7,
+        //    RealEstate = 8,
+        //    Refinery = 9,
+        //    Undetermined = 10,
+        //}
 
         public enum OfferStatus
         {

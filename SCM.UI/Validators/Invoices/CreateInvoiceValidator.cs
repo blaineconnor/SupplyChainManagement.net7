@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using SCM.UI.Models.RequestModels.Invoices;
 
-namespace SCM.UI.Validators.Invoice
+namespace SCM.UI.Validators.Invoices
 {
     public class CreateInvoiceValidator : AbstractValidator<CreateInvoiceVM>
     {

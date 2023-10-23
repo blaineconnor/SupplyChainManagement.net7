@@ -2,7 +2,7 @@
 {
     public class CreateProductVM
     {
-        public int? CategoryId { get; set; }
+        public long? CategoryId { get; set; }
         public string Name { get; set; }
         public string Detail { get; set; }
         public int? UnitInStock { get; set; }

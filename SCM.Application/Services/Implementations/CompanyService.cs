@@ -30,10 +30,10 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<Int64>();
 
-            var companyExistsSameName = await _uWork.GetRepository<Company>().AnyAsync(x => x.Name == createCompanyVM.CompanyName);
+            var companyExistsSameName = await _uWork.GetRepository<Company>().AnyAsync(x => x.Name == createCompanyVM.Name);
             if (companyExistsSameName)
             {
-                throw new AlreadyExistsException($"{createCompanyVM.CompanyName} isminde bir şirket zaten mevcut.");
+                throw new AlreadyExistsException($"{createCompanyVM.Name} isminde bir şirket zaten mevcut.");
             }
 
             var companyEntity = _mapper.Map<CreateCompanyVM, Company>(createCompanyVM);

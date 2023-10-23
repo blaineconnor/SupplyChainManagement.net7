@@ -2,6 +2,6 @@
 {
     public class DeleteRequestVM
     {
-        public int RequestId { get; set; }
+        public long RequestId { get; set; }
     }
 }

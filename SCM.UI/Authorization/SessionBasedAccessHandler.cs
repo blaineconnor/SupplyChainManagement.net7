@@ -26,7 +26,7 @@ namespace SCM.UI.Authorization
             }
 
             var userInfo = JsonConvert.DeserializeObject<TokenDTO>(_contextAccessor.HttpContext.Session?.GetString(sessionKey));
-            if (requirement.Roles.Contains(userInfo.Roles))
+            if (requirement.Auths.Contains(userInfo.Auth))
             {
                 context.Succeed(requirement);
             }

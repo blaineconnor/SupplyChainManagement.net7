@@ -33,10 +33,10 @@ namespace SCM.Application.Services.Implementations
         {
             var result = new Result<Int64>();
 
-            var departmentExistsSameName = await _uWork.GetRepository<Department>().AnyAsync(x => x.Name == createDepartmentVM.DepartmentName);
+            var departmentExistsSameName = await _uWork.GetRepository<Department>().AnyAsync(x => x.Name == createDepartmentVM.Name);
             if (departmentExistsSameName)
             {
-                throw new AlreadyExistsException($"{createDepartmentVM.DepartmentName} isminde bir departman zaten mevcut.");
+                throw new AlreadyExistsException($"{createDepartmentVM.Name} isminde bir departman zaten mevcut.");
             }
 
             var departmentEntity = _mapper.Map<CreateDepartmentVM, Department>(createDepartmentVM);
