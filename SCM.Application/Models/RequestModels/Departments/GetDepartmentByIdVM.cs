@@ -4,7 +4,7 @@ namespace SCM.Application.Models.RequestModels.Departments
 {
     public class GetDepartmentByIdVM
     {
-        public BigInteger Id { get; set; }
+        public Int64 Id { get; set; }
 
     }
 }

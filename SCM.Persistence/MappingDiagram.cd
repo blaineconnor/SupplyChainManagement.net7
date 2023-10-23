@@ -1,17 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="SCM.Persistence.Mappings.SupplierMapping" Collapsed="true">
-    <Position X="15.25" Y="5.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Mappings\SupplierMapping.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="SCM.Persistence.Mappings.RoleMapping" Collapsed="true">
     <Position X="14.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Mappings\RoleMapping.cs</FileName>
+      <FileName>Mappings\SupplierMapping.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SCM.Persistence.Mappings.RequestMapping" Collapsed="true">

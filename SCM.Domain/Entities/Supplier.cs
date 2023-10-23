@@ -13,7 +13,6 @@ namespace SCM.Domain.Entities
         public string Email { get; set; }
         public string Phone { get; set; }
         public virtual IEnumerable<Offer> Offers { get; set; }
-        public virtual Role Role { get; set; }
-        public BigInteger RoleId { get; set; }
+        public virtual Authorization Auth { get; set; }
     }
 }

@@ -4,6 +4,6 @@ namespace SCM.Application.Models.RequestModels.Requests
 {
     public class GetRequestsByUserVM
     {
-        public BigInteger UserId { get; set; }
+        public Int64 UserId { get; set; }
     }
 }

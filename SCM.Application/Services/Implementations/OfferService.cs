@@ -20,7 +20,7 @@ namespace SCM.Application.Services.Implementations
         }
 
         #region Get Methods
-        public async Task<Result<OfferDTO>> GetOfferByIdAsync(int offerId)
+        public async Task<Result<OfferDTO>> GetOfferByIdAsync(Int64 offerId)
         {
             var offer = await _unitOfWork.GetRepository<Offer>().GetById(offerId);
             if (offer == null)
@@ -111,7 +111,7 @@ namespace SCM.Application.Services.Implementations
 
         #region Delete
 
-        public async Task<Result<bool>> DeleteOfferAsync(int offerId)
+        public async Task<Result<bool>> DeleteOfferAsync(Int64 offerId)
         {
             var offer = await _unitOfWork.GetRepository<Offer>().GetById(offerId);
             if (offer == null)

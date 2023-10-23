@@ -7,8 +7,8 @@ namespace SCM.Application.Services.Abstractions
 {
     public interface ISupplierService
     {
-        Task<Result<BigInteger>> CreateSupplier(CreateSupplierVM createSupplierVM);
-        Task<Result<BigInteger>> DeleteSupplier(DeleteSupplierVM deleteSupplierVM);
+        Task<Result<Int64>> CreateSupplier(CreateSupplierVM createSupplierVM);
+        Task<Result<Int64>> DeleteSupplier(DeleteSupplierVM deleteSupplierVM);
         Task<Result<List<SupplierDTO>>> GetAllSuppliers();
     }
 }

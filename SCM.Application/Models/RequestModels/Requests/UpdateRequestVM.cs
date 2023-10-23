@@ -4,8 +4,8 @@ namespace SCM.Application.Models.RequestModels.Requests
 {
     public class UpdateRequestVM
     {
-        public BigInteger RequestId { get; set; }
-        public BigInteger UserId { get; set; }
+        public Int64 RequestId { get; set; }
+        public Int64 UserId { get; set; }
         public int HowMany { get; set; }
     }
 }

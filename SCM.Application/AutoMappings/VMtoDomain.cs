@@ -9,7 +9,6 @@ using SCM.Application.Models.RequestModels.Invoice;
 using SCM.Application.Models.RequestModels.Offers;
 using SCM.Application.Models.RequestModels.Products;
 using SCM.Application.Models.RequestModels.Requests;
-using SCM.Application.Models.RequestModels.Roles;
 using SCM.Application.Models.RequestModels.Supplier;
 using SCM.Domain.Entities;
 using static SCM.Domain.Entities.Offer;
@@ -63,12 +62,7 @@ namespace SCM.Application.AutoMappings
 
             #region Invoice
             CreateMap<CreateInvoiceVM, Invoice>();
-            #endregion
-
-            #region Role
-            CreateMap<CreateRoleVM, Role>();
-            CreateMap<DeleteRoleVM, Role>();
-            #endregion
+            #endregion  
 
             #region Supplier
             CreateMap<CreateSupplierVM, Supplier>();

@@ -4,6 +4,6 @@ namespace SCM.Application.Models.RequestModels.Requests
 {
     public class DeleteRequestVM
     {
-        public BigInteger RequestId { get; set; }
+        public Int64 RequestId { get; set; }
     }
 }

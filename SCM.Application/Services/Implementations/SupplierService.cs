@@ -28,9 +28,9 @@ namespace SCM.Application.Services.Implementations
 
         [ValidationBehavior(typeof(CreateSupplierValidator))]
 
-        public async Task<Result<BigInteger>> CreateSupplier(CreateSupplierVM createSupplierVM)
+        public async Task<Result<Int64>> CreateSupplier(CreateSupplierVM createSupplierVM)
         {
-            var result = new Result<BigInteger>();
+            var result = new Result<Int64>();
 
             var supplierExistsSameName = await _uWork.GetRepository<Supplier>().AnyAsync(x => x.Name == createSupplierVM.Name);
             if (supplierExistsSameName)
@@ -53,9 +53,9 @@ namespace SCM.Application.Services.Implementations
 
         [ValidationBehavior(typeof(DeleteSupplierValidator))]
 
-        public async Task<Result<BigInteger>> DeleteSupplier(DeleteSupplierVM deleteSupplierVM)
+        public async Task<Result<Int64>> DeleteSupplier(DeleteSupplierVM deleteSupplierVM)
         {
-            var result = new Result<BigInteger>();
+            var result = new Result<Int64>();
 
             var supplierExists = await _uWork.GetRepository<Supplier>().AnyAsync(x => x.Id == deleteSupplierVM.Id);
             if (!supplierExists)

@@ -10,15 +10,13 @@ namespace SCM.Domain.Entities
            Requests = new HashSet<Request>();
         }
 
-        public BigInteger UserId { get; set; }
+        public Int64 UserId { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public DateTime? LastUserLogin { get; set; }
         public string LastUserIP { get; set; }   
-        public BigInteger RoleId { get; set; }
 
         //NavigationProperties
-        public virtual Role Role { get; set; }
         public Authorization Authorization { get; set; }
         public Employee Employee { get; set; }
         public virtual IEnumerable<Request> Requests { get; set; }        

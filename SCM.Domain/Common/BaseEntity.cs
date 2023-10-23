@@ -1,10 +1,8 @@
-﻿using System.Numerics;
-
-namespace SCM.Domain.Common
+﻿namespace SCM.Domain.Common
 {
     public class BaseEntity
     {
-        public BigInteger Id { get; set; }
+        public Int64 Id { get; set; }
         public bool? IsDeleted { get; set; }
 
     }

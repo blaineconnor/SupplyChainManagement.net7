@@ -26,7 +26,7 @@ namespace SCM.Application.Services.Implementations
         }
 
         [ValidationBehavior(typeof(CreateInvoiceValidator))]
-        public async Task<Result<BigInteger>> CreateInvoice(CreateInvoiceVM createInvoiceVM)
+        public async Task<Result<Int64>> CreateInvoice(CreateInvoiceVM createInvoiceVM)
         {
             var approvedRequests = await unitWork.GetRepository<Request>().GetByFilterAsync(r => r.Status == RequestStatus.AdminApproved || r.Status == RequestStatus.SuperAdminApproved || r.Status == RequestStatus.PurchasingApproved);
 
@@ -80,7 +80,7 @@ namespace SCM.Application.Services.Implementations
 
                 await unitWork.CommitAsync();
             }
-            return new Result<BigInteger>
+            return new Result<Int64>
             {
                 Success = true,
                 Message = "Faturalandırma yapıldı."

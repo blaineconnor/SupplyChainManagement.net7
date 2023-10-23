@@ -7,7 +7,7 @@ namespace SCM.Application.Services.Abstractions
 {
     public interface IInvoiceService
     {
-        Task<Result<BigInteger>> CreateInvoice(CreateInvoiceVM createInvoiceVM);
+        Task<Result<Int64>> CreateInvoice(CreateInvoiceVM createInvoiceVM);
         Task<Result<List<InvoiceDTO>>> GetAllInvoice();
     }
 }

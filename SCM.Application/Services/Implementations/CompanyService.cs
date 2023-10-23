@@ -10,7 +10,6 @@ using SCM.Application.Validators.Companies;
 using SCM.Application.Wrapper;
 using SCM.Domain.Entities;
 using SCM.Domain.UnitofWork;
-using System.Numerics;
 
 namespace SCM.Application.Services.Implementations
 {
@@ -27,9 +26,9 @@ namespace SCM.Application.Services.Implementations
         #region Create, Update, Delete
 
         [ValidationBehavior(typeof(CreateCompanyValidator))]
-        public async Task<Result<BigInteger>> CreateCompany(CreateCompanyVM createCompanyVM)
+        public async Task<Result<Int64>> CreateCompany(CreateCompanyVM createCompanyVM)
         {
-            var result = new Result<BigInteger>();
+            var result = new Result<Int64>();
 
             var companyExistsSameName = await _uWork.GetRepository<Company>().AnyAsync(x => x.Name == createCompanyVM.CompanyName);
             if (companyExistsSameName)
@@ -49,9 +48,9 @@ namespace SCM.Application.Services.Implementations
 
         [ValidationBehavior(typeof(DeleteCompanyValidator))]
 
-        public async Task<Result<BigInteger>> DeleteCompany(DeleteCompanyVM deleteCompanyVM)
+        public async Task<Result<Int64>> DeleteCompany(DeleteCompanyVM deleteCompanyVM)
         {
-            var result = new Result<BigInteger>();
+            var result = new Result<Int64>();
 
             var companyExists = await _uWork.GetRepository<Company>().AnyAsync(x => x.Id == deleteCompanyVM.Id);
             if (!companyExists)
@@ -69,9 +68,9 @@ namespace SCM.Application.Services.Implementations
 
         [ValidationBehavior(typeof(UpdateCompanyValidator))]
 
-        public async Task<Result<BigInteger>> UpdateCompany(UpdateCompanyVM updateCompanyVM)
+        public async Task<Result<Int64>> UpdateCompany(UpdateCompanyVM updateCompanyVM)
         {
-            var result = new Result<BigInteger>();
+            var result = new Result<Int64>();
 
             var existsCompany = await _uWork.GetRepository<Company>().GetById(updateCompanyVM.Id);
             if (existsCompany is null)

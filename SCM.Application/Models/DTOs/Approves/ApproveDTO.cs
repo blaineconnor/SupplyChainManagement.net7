@@ -5,8 +5,8 @@ namespace SCM.Application.Models.DTOs.Approves
 {
     public class ApproveDTO
     {
-        public BigInteger Id { get; set; }
-        public BigInteger RequestId { get; set; }
+        public Int64 Id { get; set; }
+        public Int64 RequestId { get; set; }
         public bool IsApproved { get; set; }
         public decimal ApprovedAmount { get; set; }
         public RequestStatus Status { get; set; }

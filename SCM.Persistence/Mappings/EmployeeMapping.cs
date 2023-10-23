@@ -57,7 +57,7 @@ namespace SCM.Persistence.Mappings
                 .HasForeignKey(e => e.DepartmentId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.ToTable("DEPARTMENTS");
+            builder.ToTable("EMPLOYEES");
         }
     }
 }

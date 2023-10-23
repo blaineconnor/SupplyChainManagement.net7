@@ -12,7 +12,7 @@ namespace SCM.Domain.Entities
         public string Name { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
-        public BigInteger CompanyId { get; set; }
+        public Int64 CompanyId { get; set; }
 
 
         //NavigationProperty

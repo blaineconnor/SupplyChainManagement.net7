@@ -4,6 +4,6 @@ namespace SCM.Application.Models.RequestModels.Products
 {
     public class GetProductByIdVM
     {
-        public BigInteger Id { get; set; }
+        public Int64 Id { get; set; }
     }
 }

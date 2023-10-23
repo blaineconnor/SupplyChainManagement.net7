@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SCM.Application.Models.DTOs.Suppliers;
-using SCM.Application.Models.RequestModels.Roles;
 using SCM.Application.Models.RequestModels.Supplier;
 using SCM.Application.Services.Abstractions;
-using SCM.Application.Services.Implementations;
 using SCM.Application.Wrapper;
 
 namespace SCM.API.Controllers

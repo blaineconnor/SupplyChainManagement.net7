@@ -4,6 +4,6 @@ namespace SCM.Application.Models.RequestModels.Offers
 {
     public class GetAllOfferByRequestVM
     {
-        public BigInteger Id { get; set; }
+        public Int64 Id { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SCM.Domain.Common;
+using System.Numerics;
 
 namespace SCM.Persistence.Mappings
 {
@@ -11,9 +12,8 @@ namespace SCM.Persistence.Mappings
         public void Configure(EntityTypeBuilder<T> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id)
-                 .HasColumnName("ID")
-                .HasColumnOrder(1);
+            builder.Property(x => x.Id)                
+                 .HasColumnName("ID");
 
             ConfigureDerivedEntityMapping(builder);
 

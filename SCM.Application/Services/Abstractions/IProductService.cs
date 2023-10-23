@@ -16,9 +16,9 @@ namespace SCM.Application.Services.Abstractions
 
         #region Insert, Update, Delete
 
-        Task<Result<BigInteger>> CreateProduct(CreateProductVM createProductVM);
-        Task<Result<BigInteger>> UpdateProduct(UpdateProductVM updateProductVM);
-        Task<Result<BigInteger>> DeleteProduct(DeleteProductVM deleteProductVM);
+        Task<Result<Int64>> CreateProduct(CreateProductVM createProductVM);
+        Task<Result<Int64>> UpdateProduct(UpdateProductVM updateProductVM);
+        Task<Result<Int64>> DeleteProduct(DeleteProductVM deleteProductVM);
 
         #endregion
     }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SCM.Domain.Entities;
+using System.Numerics;
 
 namespace SCM.Persistence.Mappings
 {
@@ -8,7 +9,7 @@ namespace SCM.Persistence.Mappings
     {
         public override void ConfigureDerivedEntityMapping(EntityTypeBuilder<Product> builder)
         {
-            builder.Property(x => x.CategoryId)
+            builder.Property(x => x.CategoryId)                
                 .HasColumnName("CATEGORY_ID")
                 .HasColumnOrder(2);
 
@@ -38,11 +39,6 @@ namespace SCM.Persistence.Mappings
             builder.HasMany(e => e.Requests)
                 .WithOne(e => e.Product)
                 .HasForeignKey(e => e.ProductId)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder.HasMany(e => e.Requests)
-                .WithOne(e => e.Product)
-                .HasForeignKey(e => e.ProductName)
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.ToTable("PRODUCTS");

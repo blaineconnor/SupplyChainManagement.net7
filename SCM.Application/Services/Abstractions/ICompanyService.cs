@@ -14,9 +14,9 @@ namespace SCM.Application.Services.Abstractions
         #endregion
 
         #region Insert, Update, Delete
-        Task<Result<BigInteger>> CreateCompany(CreateCompanyVM createCompanyVM);
-        Task<Result<BigInteger>> UpdateCompany(UpdateCompanyVM updateCompanyVM);
-        Task<Result<BigInteger>> DeleteCompany(DeleteCompanyVM deleteCompanyVM);
+        Task<Result<Int64>> CreateCompany(CreateCompanyVM createCompanyVM);
+        Task<Result<Int64>> UpdateCompany(UpdateCompanyVM updateCompanyVM);
+        Task<Result<Int64>> DeleteCompany(DeleteCompanyVM deleteCompanyVM);
         #endregion
     }
 }

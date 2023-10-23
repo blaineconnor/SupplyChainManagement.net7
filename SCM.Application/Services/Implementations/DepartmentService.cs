@@ -29,9 +29,9 @@ namespace SCM.Application.Services.Implementations
 
         [ValidationBehavior(typeof(CreateDepartmentValidator))]
 
-        public async Task<Result<BigInteger>> CreateDepartment(CreateDepartmentVM createDepartmentVM)
+        public async Task<Result<Int64>> CreateDepartment(CreateDepartmentVM createDepartmentVM)
         {
-            var result = new Result<BigInteger>();
+            var result = new Result<Int64>();
 
             var departmentExistsSameName = await _uWork.GetRepository<Department>().AnyAsync(x => x.Name == createDepartmentVM.DepartmentName);
             if (departmentExistsSameName)
@@ -51,9 +51,9 @@ namespace SCM.Application.Services.Implementations
 
         [ValidationBehavior(typeof(DeleteDepartmentValidator))]
 
-        public async Task<Result<BigInteger>> DeleteDepartment(DeleteDepartmentVM deleteDepartmentVM)
+        public async Task<Result<Int64>> DeleteDepartment(DeleteDepartmentVM deleteDepartmentVM)
         {
-            var result = new Result<BigInteger>();
+            var result = new Result<Int64>();
 
             var companyExists = await _uWork.GetRepository<Department>().AnyAsync(x => x.Id == deleteDepartmentVM.Id);
             if (!companyExists)
@@ -71,9 +71,9 @@ namespace SCM.Application.Services.Implementations
 
         [ValidationBehavior(typeof(UpdateDepartmentValidator))]
 
-        public async Task<Result<BigInteger>> UpdateDepartment(UpdateDepartmentVM updateDepartmentVM)
+        public async Task<Result<Int64>> UpdateDepartment(UpdateDepartmentVM updateDepartmentVM)
         {
-            var result = new Result<BigInteger>();
+            var result = new Result<Int64>();
 
             var existsDepartment = await _uWork.GetRepository<Department>().GetById(updateDepartmentVM.Id);
             if (existsDepartment is null)

@@ -25,6 +25,10 @@ namespace SCM.Persistence.Context
         public DbSet<Product> Products { get; set; }
         public DbSet<Approves> Approves { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+
 
 
         #endregion
@@ -55,6 +59,7 @@ namespace SCM.Persistence.Context
             modelBuilder.Entity<Product>().HasQueryFilter(x => x.IsDeleted == null || (x.IsDeleted.HasValue && !x.IsDeleted.Value));
             modelBuilder.Entity<Offer>().HasQueryFilter(x => x.IsDeleted == null || !(!x.IsDeleted.HasValue || x.IsDeleted.Value));
             modelBuilder.Entity<Invoice>().HasQueryFilter(x => x.IsDeleted == null || !(!x.IsDeleted.HasValue || x.IsDeleted.Value));
+            modelBuilder.Entity<Supplier>().HasQueryFilter(x => x.IsDeleted == null || !(!x.IsDeleted.HasValue || x.IsDeleted.Value));
 
 
         }

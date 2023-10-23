@@ -5,10 +5,10 @@ namespace SCM.Domain.Entities
 {
     public class Invoice : AuditableEntity
     {
-        public BigInteger RequestId { get; set; }
-        public BigInteger SupplierId { get; set; }
+        public Int64 RequestId { get; set; }
+        public Int64 SupplierId { get; set; }
         public string SupplierName { get; set; }
-        public BigInteger ApproverId { get; set; }
+        public Int64 ApproverId { get; set; }
         public decimal Amount { get; set; }
         public string Description { get; set; }
         public DateTime InvoiceDate { get; set; }

@@ -11,7 +11,7 @@ namespace SCM.Application.Services.Abstractions
 
         Task<Result<TokenDTO>> Login(LoginVM loginVM);
 
-        Task<Result<Account>> GetByIdAsync(int id);
+        Task<Result<Account>> GetByIdAsync(Int64 id);
 
         Task<Result<bool>> UpdateUserAuths(string username, Authorization newAuths);
     }

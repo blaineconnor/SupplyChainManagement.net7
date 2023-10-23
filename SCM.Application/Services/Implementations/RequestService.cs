@@ -11,7 +11,6 @@ using SCM.Application.Wrapper;
 using SCM.Domain.Entities;
 using SCM.Domain.UnitofWork;
 using SCM.Utils;
-using System.Numerics;
 
 namespace SCM.Application.Services.Implementations
 {
@@ -29,9 +28,9 @@ namespace SCM.Application.Services.Implementations
         #region Create
 
         [ValidationBehavior(typeof(CreateRequestValidator))]
-        public async Task<Result<BigInteger>> CreateRequest(CreateRequestVM createRequestVM)
+        public async Task<Result<Int64>> CreateRequest(CreateRequestVM createRequestVM)
         {
-            var result = new Result<BigInteger>();            
+            var result = new Result<Int64>();            
 
             var requestEntity = _mapper.Map<Request>(createRequestVM);
             requestEntity.Status = RequestStatus.Pending;
@@ -55,9 +54,9 @@ namespace SCM.Application.Services.Implementations
         #region Delete
 
         [ValidationBehavior(typeof(DeleteRequestValidator))]
-        public async Task<Result<BigInteger>> DeleteRequest(DeleteRequestVM deleteRequestVM)
+        public async Task<Result<Int64>> DeleteRequest(DeleteRequestVM deleteRequestVM)
         {
-            var result = new Result<BigInteger>();
+            var result = new Result<Int64>();
 
             // Talep var mı kontrol et
             var requestEntity = await _uWork.GetRepository<Request>().GetById(deleteRequestVM.RequestId);
@@ -96,9 +95,9 @@ namespace SCM.Application.Services.Implementations
         #region Update
 
         [ValidationBehavior(typeof(UpdateRequestValidator))]
-        public async Task<Result<BigInteger>> UpdateRequest(UpdateRequestVM updateRequestVM)
+        public async Task<Result<Int64>> UpdateRequest(UpdateRequestVM updateRequestVM)
         {
-            var result = new Result<BigInteger>();
+            var result = new Result<Int64>();
 
             // Talep var mı kontrol et
             var requestExists = await _uWork.GetRepository<Request>().AnyAsync(x => x.Id == updateRequestVM.RequestId);

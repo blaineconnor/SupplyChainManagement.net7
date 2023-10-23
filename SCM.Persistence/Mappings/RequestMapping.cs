@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SCM.Domain.Entities;
+using System.Numerics;
 
 namespace SCM.Persistence.Mappings
 {
@@ -8,7 +9,7 @@ namespace SCM.Persistence.Mappings
     {
         public override void ConfigureDerivedEntityMapping(EntityTypeBuilder<Request> builder)
         {
-            builder.Property(x => x.Id)
+            builder.Property(x => x.Id)                
                 .IsRequired()
                 .HasColumnName("ID");
 
@@ -33,16 +34,11 @@ namespace SCM.Persistence.Mappings
 
             builder.Property(x => x.IsApproved)
                 .HasColumnName("IS_APPROVED")
-                .IsRequired();
+                .IsRequired();          
 
             builder.HasOne(e => e.approves)
                 .WithMany(e => e.Requests)
                 .HasForeignKey(e => e.ApproverId)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder.HasOne(e => e.approves)
-                .WithMany(e => e.Requests)
-                .HasForeignKey(e => e.ApproverName)
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(e => e.Offer)

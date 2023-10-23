@@ -11,7 +11,6 @@ using SCM.Application.Wrapper;
 using SCM.Domain.Entities;
 using SCM.Domain.UnitofWork;
 using SCM.Persistence.Context;
-using SCM.Persistence.UnitofWork;
 using SCM.Utils;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -112,7 +111,7 @@ namespace SCM.Application.Services.Implementations
 
         #region Get
 
-        public async Task<Result<Account>> GetByIdAsync(int id)
+        public async Task<Result<Account>> GetByIdAsync(Int64 id)
         {
             var result = new Result<Account>();
             var account = await _dbContext.Accounts.FindAsync(id);

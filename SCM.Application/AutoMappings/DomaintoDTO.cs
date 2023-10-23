@@ -9,7 +9,6 @@ using SCM.Application.Models.DTOs.Invoices;
 using SCM.Application.Models.DTOs.Offers;
 using SCM.Application.Models.DTOs.Products;
 using SCM.Application.Models.DTOs.Requests;
-using SCM.Application.Models.DTOs.Roles;
 using SCM.Application.Models.DTOs.Suppliers;
 using SCM.Domain.Entities;
 
@@ -30,8 +29,6 @@ namespace SCM.Application.AutoMappings
             CreateMap<Company, CompanyDTO>();
 
             CreateMap<Supplier, SupplierDTO>();
-
-            CreateMap<Role, RoleDTO>();
 
             CreateMap<Product, ProductDTO>();
 

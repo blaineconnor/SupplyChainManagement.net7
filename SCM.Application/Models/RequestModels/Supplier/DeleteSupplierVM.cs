@@ -4,6 +4,6 @@ namespace SCM.Application.Models.RequestModels.Supplier
 {
     public class DeleteSupplierVM
     {
-        public BigInteger Id { get; set; }
+        public Int64 Id { get; set; }
     }
 }

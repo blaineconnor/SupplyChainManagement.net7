@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SCM.Domain.Entities;
+using System.Numerics;
 
 namespace SCM.Persistence.Mappings
 {
@@ -8,7 +9,7 @@ namespace SCM.Persistence.Mappings
     {
         public override void ConfigureDerivedEntityMapping(EntityTypeBuilder<Offer> builder)
         {
-            builder.Property(x => x.RequestId)
+            builder.Property(x => x.RequestId)                
                .HasColumnName("REQUEST_ID")
                .HasColumnOrder(3)
                .IsRequired(); 
@@ -25,7 +26,7 @@ namespace SCM.Persistence.Mappings
                 .HasMaxLength(50) 
                 .IsRequired();
 
-            builder.Property(x => x.SupplierId)
+            builder.Property(x => x.SupplierId)                
                 .HasColumnName("SUPPLIER_ID")
                 .HasColumnOrder(6)
                 .IsRequired();

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SCM.Domain.Entities;
+using System.Numerics;
 
 namespace SCM.Persistence.Mappings
 {
@@ -13,6 +14,10 @@ namespace SCM.Persistence.Mappings
                 .WithOne(e => e.Supplier)
                 .HasForeignKey(e => e.SupplierId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasKey(x => x.Id);
+            builder.Property(e => e.Id)                
+                .HasMaxLength(50);
 
             builder.Property(e => e.Name)
                 .HasMaxLength(50);

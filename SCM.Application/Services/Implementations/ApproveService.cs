@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using SCM.Application.Models.RequestModels.Approves;
-using SCM.Application.Models.RequestModels.Invoice;
 using SCM.Application.Services.Abstractions;
 using SCM.Application.Wrapper;
 using SCM.Domain.Entities;

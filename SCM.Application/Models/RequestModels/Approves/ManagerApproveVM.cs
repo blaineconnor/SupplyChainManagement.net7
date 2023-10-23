@@ -5,7 +5,7 @@ namespace SCM.Application.Models.RequestModels.Approves
 {
     public class ManagerApproveVM
     {
-        public BigInteger RequestId { get; set; }
+        public Int64 RequestId { get; set; }
         public bool IsApproved { get; set; }
     }
 }

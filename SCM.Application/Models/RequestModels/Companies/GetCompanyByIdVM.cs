@@ -4,6 +4,6 @@ namespace SCM.Application.Models.RequestModels.Companies
 {
     public class GetCompanyByIdVM
     {
-        public BigInteger Id { get; set; }
+        public Int64 Id { get; set; }
     }
 }

@@ -4,6 +4,6 @@ namespace SCM.Application.Models.RequestModels.Products
 {
     public class DeleteProductVM
     {
-        public BigInteger? Id { get; set; }
+        public Int64? Id { get; set; }
     }
 }

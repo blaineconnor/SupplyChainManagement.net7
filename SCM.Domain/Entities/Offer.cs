@@ -11,10 +11,10 @@ namespace SCM.Domain.Entities
             Requests = new HashSet<Request>();
         }
 
-        public BigInteger RequestId { get; set; }
+        public Int64 RequestId { get; set; }
         public decimal Amount { get; set; }
         public string SupplierName { get; set; }
-        public BigInteger SupplierId { get; set; }
+        public Int64 SupplierId { get; set; }
         public OfferStatus Status { get; set; }
 
         //NavigationProperty

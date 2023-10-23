@@ -8,8 +8,8 @@ namespace SCM.Application.Services.Abstractions
     public interface IRequestService
     {
         Task<Result<List<RequestDTO>>> GetRequestsByUser(GetRequestsByUserVM getRequestsByUserVM);
-        Task<Result<BigInteger>> CreateRequest(CreateRequestVM createRequestVM);
-        Task<Result<BigInteger>> UpdateRequest(UpdateRequestVM updateRequestVM);
-        Task<Result<BigInteger>> DeleteRequest(DeleteRequestVM deleteRequestVM);
+        Task<Result<Int64>> CreateRequest(CreateRequestVM createRequestVM);
+        Task<Result<Int64>> UpdateRequest(UpdateRequestVM updateRequestVM);
+        Task<Result<Int64>> DeleteRequest(DeleteRequestVM deleteRequestVM);
     }
 }

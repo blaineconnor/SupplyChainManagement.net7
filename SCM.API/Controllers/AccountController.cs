@@ -39,7 +39,7 @@ namespace SCM.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Result<AccountDTO>>> GetByIdAsync(int id)
+        public async Task<ActionResult<Result<AccountDTO>>> GetByIdAsync(Int64 id)
         {
             var result = await _accountService.GetByIdAsync(id);
 

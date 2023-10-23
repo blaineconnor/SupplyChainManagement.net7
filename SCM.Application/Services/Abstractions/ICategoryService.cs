@@ -14,9 +14,9 @@ namespace SCM.Application.Services.Abstractions
         #endregion
 
         #region Insert, Update, Delete
-        Task<Result<BigInteger>> CreateCategory(CreateCategoryVM createCategoryVM);
-        Task<Result<BigInteger>> UpdateCategory(UpdateCategoryVM updateCategoryVM);
-        Task<Result<BigInteger>> DeleteCategory(DeleteCategoryVM deleteCategoryVM);
+        Task<Result<Int64>> CreateCategory(CreateCategoryVM createCategoryVM);
+        Task<Result<Int64>> UpdateCategory(UpdateCategoryVM updateCategoryVM);
+        Task<Result<Int64>> DeleteCategory(DeleteCategoryVM deleteCategoryVM);
         #endregion
     }
 }

@@ -14,9 +14,9 @@ namespace SCM.Application.Services.Abstractions
         #endregion
 
         #region Insert, Update, Delete
-        Task<Result<BigInteger>> CreateDepartment(CreateDepartmentVM createDepartmenVM);
-        Task<Result<BigInteger>> UpdateDepartment(UpdateDepartmentVM updateDepartmentVM);
-        Task<Result<BigInteger>> DeleteDepartment(DeleteDepartmentVM deleteDepartmentVM);
+        Task<Result<Int64>> CreateDepartment(CreateDepartmentVM createDepartmenVM);
+        Task<Result<Int64>> UpdateDepartment(UpdateDepartmentVM updateDepartmentVM);
+        Task<Result<Int64>> DeleteDepartment(DeleteDepartmentVM deleteDepartmentVM);
         #endregion
     }
 }
