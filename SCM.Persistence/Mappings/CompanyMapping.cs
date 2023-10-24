@@ -17,19 +17,23 @@ namespace SCM.Persistence.Mappings
 
             builder.Property(e => e.Name)
                 .HasMaxLength(100)
-                .HasColumnName("COMPANY_NAME");            
+                .HasColumnName("COMPANY_NAME")
+                .HasColumnType("nvarchar(50)");            
 
             builder.Property(e => e.Phone)
                 .HasColumnName("PHONE")
-                .HasMaxLength(20);
+                .HasMaxLength(20)
+                .HasColumnType("nvarchar(20)");
 
             builder.Property(e => e.Address)
                 .HasColumnName("ADDRESS")
-                .HasMaxLength(400);
+                .HasMaxLength(100)
+                .HasColumnType("nvarchar(100)");
 
             builder.Property(e => e.Email)
                 .HasColumnName("EMAIL")
-                .HasMaxLength(50);
+                .HasMaxLength(50)
+                .HasColumnType("nvarchar(50)");
         }
     }
 }

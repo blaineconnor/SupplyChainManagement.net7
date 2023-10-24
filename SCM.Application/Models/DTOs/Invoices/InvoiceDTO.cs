@@ -8,7 +8,7 @@ namespace SCM.Application.Models.DTOs.Invoices
         public Int64 RequestId { get; set; }
         public Int64 SupplierId { get; set; }
         public decimal Amount { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public DateTime InvoiceDate { get; set; }
 
 

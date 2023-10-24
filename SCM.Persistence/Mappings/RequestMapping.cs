@@ -24,7 +24,11 @@ namespace SCM.Persistence.Mappings
 
             builder.Property(x => x.By)
                 .HasColumnName("REQUEST_BY")
+                .HasColumnType("nvarchar(20)")
                 .HasMaxLength(50);
+            builder.Property(x => x.Description)
+                .HasColumnType("nvarchar(100)")
+                .HasColumnName("DESCRIPTION");
 
             builder.Property(x => x.Amount)
                 .HasColumnName("AMOUNT")
@@ -41,9 +45,9 @@ namespace SCM.Persistence.Mappings
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(e => e.Offer)
-                .WithMany(e => e.Requests)
-                .HasForeignKey(e => e.OfferId)
-                .OnDelete(DeleteBehavior.NoAction);
+               .WithMany(e => e.Requests)
+               .HasForeignKey(e => e.OfferId)
+               .OnDelete(DeleteBehavior.NoAction);            
 
             builder.ToTable("REQUESTS");
         }

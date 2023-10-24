@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SCM.Persistence.Context;
 
@@ -11,9 +12,11 @@ using SCM.Persistence.Context;
 namespace SCM.Persistence.Migrations
 {
     [DbContext(typeof(SCM_Context))]
-    partial class SCM_ContextModelSnapshot : ModelSnapshot
+    [Migration("20231024073840_SCM09")]
+    partial class SCM09
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -200,8 +203,8 @@ namespace SCM.Persistence.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)")
                         .HasColumnName("ADDRESS");
 
                     b.Property<string>("By")
@@ -224,7 +227,7 @@ namespace SCM.Persistence.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(50)")
+                        .HasColumnType("nvarchar(100)")
                         .HasColumnName("COMPANY_NAME");
 
                     b.Property<string>("Phone")
@@ -255,9 +258,7 @@ namespace SCM.Persistence.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)")
-                        .HasColumnName("ADDRESS");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("By")
                         .IsRequired()
@@ -281,9 +282,7 @@ namespace SCM.Persistence.Migrations
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnName("PHONE");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedTime")
                         .HasColumnType("datetime2");
@@ -484,7 +483,7 @@ namespace SCM.Persistence.Migrations
 
                     b.Property<string>("SupplierName")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(20)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnName("SUPPLIER_NAME")
                         .HasColumnOrder(5);
 
@@ -529,7 +528,7 @@ namespace SCM.Persistence.Migrations
 
                     b.Property<string>("Detail")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("DETAIL")
                         .HasColumnOrder(4);
 
@@ -542,7 +541,7 @@ namespace SCM.Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
+                        .HasColumnType("nvarchar(255)")
                         .HasColumnName("NAME")
                         .HasColumnOrder(3);
 
@@ -598,8 +597,7 @@ namespace SCM.Persistence.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("DESCRIPTION");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<short>("HowMany")
                         .HasColumnType("smallint");

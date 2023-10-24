@@ -85,7 +85,10 @@ namespace SCM.Application.Services.Implementations
             _unitOfWork.GetRepository<Offer>().Add(offer);
             await _unitOfWork.CommitAsync();
 
+
+            offer.Status = Offer.OfferStatus.Pending;
             request.Status = RequestStatus.OfferReceived;
+            request.Amount = createOfferVM.Amount;
             _unitOfWork.GetRepository<Request>().Update(request);
             await _unitOfWork.CommitAsync();
 

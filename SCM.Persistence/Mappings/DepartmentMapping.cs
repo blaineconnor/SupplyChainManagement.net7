@@ -16,7 +16,17 @@ namespace SCM.Persistence.Mappings
 
             builder.Property(e => e.Name)
                 .HasColumnName("DEPARTMENT_NAME")
+                .HasColumnType("nvarchar(70)")
                 .HasMaxLength(70);
+
+            builder.Property(e => e.Address)
+                .HasColumnName("ADDRESS")
+                .HasColumnType("nvarchar(70)")
+                .HasMaxLength(70);
+            builder.Property(e => e.Phone)
+                .HasColumnName("PHONE")
+                .HasColumnType("nvarchar(20)")
+                .HasMaxLength(20);
         }
     }
 }

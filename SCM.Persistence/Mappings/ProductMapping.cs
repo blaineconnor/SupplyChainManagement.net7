@@ -15,12 +15,12 @@ namespace SCM.Persistence.Mappings
 
             builder.Property(x => x.Name)
                 .HasColumnName("NAME")
-                .HasColumnType("nvarchar(255)")
+                .HasColumnType("nvarchar(50)")
                 .HasColumnOrder(3);
 
             builder.Property(x => x.Detail)
                .HasColumnName("DETAIL")
-               .HasColumnType("nvarchar(max)")
+               .HasColumnType("nvarchar(100)")
                .HasColumnOrder(4);
 
             builder.Property(x => x.UnitInStock)

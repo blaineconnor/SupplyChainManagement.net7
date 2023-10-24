@@ -13,13 +13,7 @@ namespace SCM.Persistence.Mappings
     public class InvoiceMapping : AuditableEntityMapping<Invoice>
     {
         public override void ConfigureDerivedEntityMapping(EntityTypeBuilder<Invoice> builder)
-        {                  
-
-            builder.Property(x => x.ApproverId)
-                
-                .HasColumnName("APPROVER_ID")
-                .HasColumnOrder(4)
-                .IsRequired();
+        { 
 
             builder.Property(x => x.InvoiceDate)
                 .HasColumnName("INVOICE_DATE")

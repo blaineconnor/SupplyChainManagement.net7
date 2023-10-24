@@ -51,7 +51,7 @@ namespace SCM.Application.AutoMappings
 
             #region Offer
             CreateMap<CreateOfferVM, Offer>()
-                .ForMember(x => x.Status, y => y.MapFrom(x => OfferStatus.pending));
+                .ForMember(x => x.Status, y => y.MapFrom(x => OfferStatus.Pending));
             CreateMap<UpdateOfferVM, Offer>();
             #endregion
 

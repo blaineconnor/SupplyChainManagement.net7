@@ -13,8 +13,8 @@ namespace SCM.Domain.Entities
 
         public Int64 RequestId { get; set; }
         public decimal Amount { get; set; }
-        public string SupplierName { get; set; }
-        public Int64 SupplierId { get; set; }
+        public string? SupplierName { get; set; }
+        public Int64? SupplierId { get; set; }
         public OfferStatus Status { get; set; }
 
         //NavigationProperty
@@ -26,8 +26,8 @@ namespace SCM.Domain.Entities
 
         public enum OfferStatus
         {
-            pending = 1,
-            approved = 2,
+            Pending = 1,
+            Approved = 2,
             rejected = 3
         }
     }

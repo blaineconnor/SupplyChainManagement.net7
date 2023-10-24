@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SCM.Persistence.Context;
 
@@ -11,9 +12,11 @@ using SCM.Persistence.Context;
 namespace SCM.Persistence.Migrations
 {
     [DbContext(typeof(SCM_Context))]
-    partial class SCM_ContextModelSnapshot : ModelSnapshot
+    [Migration("20231024062558_SCM04")]
+    partial class SCM04
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -200,8 +203,8 @@ namespace SCM.Persistence.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)")
                         .HasColumnName("ADDRESS");
 
                     b.Property<string>("By")
@@ -224,7 +227,7 @@ namespace SCM.Persistence.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(50)")
+                        .HasColumnType("nvarchar(100)")
                         .HasColumnName("COMPANY_NAME");
 
                     b.Property<string>("Phone")
@@ -255,9 +258,7 @@ namespace SCM.Persistence.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)")
-                        .HasColumnName("ADDRESS");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("By")
                         .IsRequired()
@@ -281,9 +282,7 @@ namespace SCM.Persistence.Migrations
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnName("PHONE");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedTime")
                         .HasColumnType("datetime2");
@@ -392,16 +391,25 @@ namespace SCM.Persistence.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<long?>("ApproverId")
-                        .HasColumnType("bigint");
+                    b.Property<long>("ApproverId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("APPROVER_ID")
+                        .HasColumnOrder(4);
 
                     b.Property<string>("By")
                         .HasColumnType("NVARCHAR(10)")
                         .HasColumnName("BY")
                         .HasColumnOrder(27);
 
+                    b.Property<long>("CompanyId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("EmployeeId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("InvoiceDate")
                         .HasColumnType("datetime")
@@ -415,13 +423,14 @@ namespace SCM.Persistence.Migrations
                         .HasColumnOrder(30)
                         .HasDefaultValueSql("0");
 
-                    b.Property<long?>("OfferId")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("RequestId")
                         .HasColumnType("bigint");
 
+                    b.Property<long>("SupplierId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("SupplierName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedTime")
@@ -430,6 +439,10 @@ namespace SCM.Persistence.Migrations
                         .HasColumnOrder(26);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("EmployeeId");
 
                     b.HasIndex("RequestId");
 
@@ -473,7 +486,7 @@ namespace SCM.Persistence.Migrations
                         .HasColumnName("REQUEST_ID")
                         .HasColumnOrder(3);
 
-                    b.Property<int>("Status")
+                    b.Property<int>("Statuss")
                         .HasColumnType("int")
                         .HasColumnName("OFFER_STATUS");
 
@@ -484,7 +497,7 @@ namespace SCM.Persistence.Migrations
 
                     b.Property<string>("SupplierName")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(20)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnName("SUPPLIER_NAME")
                         .HasColumnOrder(5);
 
@@ -529,7 +542,7 @@ namespace SCM.Persistence.Migrations
 
                     b.Property<string>("Detail")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("DETAIL")
                         .HasColumnOrder(4);
 
@@ -542,7 +555,7 @@ namespace SCM.Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
+                        .HasColumnType("nvarchar(255)")
                         .HasColumnName("NAME")
                         .HasColumnOrder(3);
 
@@ -598,8 +611,7 @@ namespace SCM.Persistence.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("DESCRIPTION");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<short>("HowMany")
                         .HasColumnType("smallint");
@@ -744,12 +756,28 @@ namespace SCM.Persistence.Migrations
 
             modelBuilder.Entity("SCM.Domain.Entities.Invoice", b =>
                 {
+                    b.HasOne("SCM.Domain.Entities.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SCM.Domain.Entities.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SCM.Domain.Entities.Request", "Request")
                         .WithMany("Invoices")
                         .HasForeignKey("RequestId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("REQUEST_INVOICES_REQUESTID");
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Employee");
 
                     b.Navigation("Request");
                 });

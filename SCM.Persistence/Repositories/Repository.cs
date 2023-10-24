@@ -64,6 +64,12 @@ namespace SCM.Persistence.Repositories
             return entity;
         }
 
+        public async Task<T> GetByName(object name)
+        {
+            var entity = await _dbSet.FindAsync(name);
+            return entity;
+        }
+
         public async Task<bool> AnyAsync(Expression<Func<T, bool>> filter)
         {
             return await _dbSet.AnyAsync(filter);

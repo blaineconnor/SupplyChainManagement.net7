@@ -84,6 +84,10 @@ namespace SCM.Application.Services.Implementations
                     Errors = new List<string> { "Sadece tekliflendirilmiş ve ₺50000 altındaki talepleri onaylayabilirsiniz." }
                 };
             }
+
+            //var offer = await _uWork.GetRepository<Offer>().
+
+            
             request.Status = RequestStatus.PurchasingApproved;
             request.AddedTime = DateTime.Now;
             request.IsApproved = true;
@@ -128,6 +132,8 @@ namespace SCM.Application.Services.Implementations
                     Errors = new List<string> { "Sadece tekliflendirilmiş ve ₺500.000 altındaki talepleri onaylayabilirsiniz." }
                 };
             }
+
+            request.Offer.Status = Offer.OfferStatus.Approved;
             request.Status = RequestStatus.AdminApproved;
             request.AddedTime    = DateTime.Now;
             request.IsApproved = true;
@@ -173,6 +179,9 @@ namespace SCM.Application.Services.Implementations
                     Errors = new List<string> { "Sadece tekliflendirilmiş talepleri onaylayabilirsiniz." }
                 };
             }
+
+            
+            request.Offer.Status = Offer.OfferStatus.Approved;
             request.Status = RequestStatus.SuperAdminApproved;
             request.AddedTime = DateTime.Now;
             request.IsApproved = true;

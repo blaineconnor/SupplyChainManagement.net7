@@ -10,6 +10,7 @@ namespace SCM.Domain.Repositories
         Task<T> GetSingleByFilterAsync(Expression<Func<T, bool>> filter, params string[] includeColumns);
         Task<bool> AnyAsync(Expression<Func<T, bool>> filter);
         Task<T> GetById(object id);
+        Task<T> GetByName(object name);
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);

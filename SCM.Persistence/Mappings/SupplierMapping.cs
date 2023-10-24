@@ -15,12 +15,15 @@ namespace SCM.Persistence.Mappings
 
             builder.Property(e => e.SupplierName)
                 .HasColumnName("SUPPLIER_NAME")
+                .HasColumnType("nvarchar(20)")
                 .HasMaxLength(50);
 
             builder.Property(e => e.Email)
+                .HasColumnType("nvarchar(100)")
                 .HasMaxLength(100);
 
             builder.Property(e => e.Phone)
+                .HasColumnType("nvarchar(20)")
                 .HasMaxLength(20);
 
             builder.ToTable("SUPPLIER");

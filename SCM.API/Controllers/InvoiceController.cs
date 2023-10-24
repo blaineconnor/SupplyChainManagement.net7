@@ -21,7 +21,7 @@ namespace SCM.API.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<ActionResult<Result<int>>> Fulfillment(CreateInvoiceVM accountingVM)
+        public async Task<ActionResult<Result<Int64>>> Fulfillment(CreateInvoiceVM accountingVM)
         {
             var result = await _invoiceService.CreateInvoice(accountingVM);
             return Ok(result);

@@ -28,57 +28,39 @@ namespace SCM.Application.Services.Implementations
         [ValidationBehavior(typeof(CreateInvoiceValidator))]
         public async Task<Result<Int64>> CreateInvoice(CreateInvoiceVM createInvoiceVM)
         {
-            var approvedRequests = await unitWork.GetRepository<Request>().GetByFilterAsync(r => r.Status == RequestStatus.AdminApproved || r.Status == RequestStatus.SuperAdminApproved || r.Status == RequestStatus.PurchasingApproved);
-
             var requestId = createInvoiceVM.RequestId;
-            foreach (var request in approvedRequests)
+
+            // İlgili talebi al
+            var request = await unitWork.GetRepository<Request>().GetSingleByFilterAsync(r => r.Id == requestId);
+
+            if (request is null)
             {
-                var offer = await unitWork.GetRepository<Request>().GetById(requestId);
-                if (offer == null)
-                {
-                    continue;
-                }
-                var supplier = await unitWork.GetRepository<Offer>().GetById(offer.By);
-
-                if (supplier == null)
-                {
-                    continue;
-                }
-
-                var invoice = new Invoice
-                {
-                    RequestId = request.Id,
-                    SupplierId = supplier.Id,
-                    Amount = request.Amount,
-                    InvoiceDate = DateTime.UtcNow,
-                };
-
-
-                var requestExists = await unitWork.GetRepository<Request>().GetSingleByFilterAsync(x => x.Id == createInvoiceVM.RequestId, "User");
-
-                if (requestExists is null)
-                {
-                    throw new NotFoundException($"{createInvoiceVM.RequestId} numaralı talep bulunamdı");
-
-                }
-                else
-                {
-                    request.Status = RequestStatus.Completed;
-                    unitWork.GetRepository<Request>().Update(requestExists);
-                }
-
-                var invoiceEntity = mapper.Map<Invoice>(createInvoiceVM);
-
-                unitWork.GetRepository<Invoice>().Add(invoiceEntity);               
-
-                await unitWork.CommitAsync();
+                throw new NotFoundException($"{requestId} numaralı talep bulunamadı");
             }
+
+            // Talebi tamamlandı olarak işaretle
+            request.Status = RequestStatus.Completed;
+            unitWork.GetRepository<Request>().Update(request);
+
+            // Yeni fatura oluştur
+            var invoice = new Invoice
+            {
+                RequestId = request.Id,
+                Amount = request.Amount,  // Eğer Amount bilgisine ihtiyaç varsa
+                InvoiceDate = createInvoiceVM.InvoiceDate
+            };
+
+            unitWork.GetRepository<Invoice>().Add(invoice);
+
+            await unitWork.CommitAsync();
+
             return new Result<Int64>
             {
                 Success = true,
                 Message = "Faturalandırma yapıldı."
             };
         }
+
 
         public async Task<Result<List<InvoiceDTO>>> GetAllInvoice()
         {
